@@ -6,7 +6,7 @@
   <link href="https://whoiszkuan.github.io/atom.xml" rel="self"/>
   
   <link href="https://whoiszkuan.github.io/"/>
-  <updated>2021-08-14T07:17:55.345Z</updated>
+  <updated>2021-08-18T09:06:06.503Z</updated>
   <id>https://whoiszkuan.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gTile-Linux应用分屏工具</title>
+    <link href="https://whoiszkuan.github.io/2021/08/14/gTile-Linux%E5%BA%94%E7%94%A8%E5%88%86%E5%B1%8F%E5%B7%A5%E5%85%B7/"/>
+    <id>https://whoiszkuan.github.io/2021/08/14/gTile-Linux%E5%BA%94%E7%94%A8%E5%88%86%E5%B1%8F%E5%B7%A5%E5%85%B7/</id>
+    <published>2021-08-14T07:26:29.000Z</published>
+    <updated>2021-08-18T09:06:06.503Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><strong>这是Gnome-Shell的一个扩展插件，由于Gnome桌面的平铺方案最多只能两个窗口，对于大屏幕显示器来说是不够用的，而gTile可以解决这个问题。</strong></p><p><strong>gTile拥有多个内置平铺方案，可平铺多个窗口，增加工作效率。可自行配置快捷键唤醒gTile进行平铺</strong></p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="Gnome-Extensions-Install"><a href="#Gnome-Extensions-Install" class="headerlink" title="Gnome Extensions Install"></a>Gnome Extensions Install</h2><p><strong>先安装Gnome-Shell再安装扩展</strong> <a href="https://extensions.gnome.org/extension/28/gtile/">gTile-Gnome-Shell</a><br><img src="/images/gtile-1.png"></p><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>打开扩展方式：Gnome Tweak Tools(优化) –&gt; Extensions(扩展) –&gt; Gtile(点击开启按钮)</p><p>点击设置按钮进入配置界面，点击(Accelerators)选项可配置快捷键，唤醒gTile的快捷键为<code>Super+Enter</code>。更多快捷键请自行探索。<br><img src="/images/gtile-2.png"></p><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ol><li><code>Super+Enter</code>唤醒gTile <img src="/images/gtile-3.png"></li><li>按下键盘数字键0～9使用预设方案<code>Super+Enter+3</code> <img src="/images/gtile-4.png"></li></ol><p>还有更多预设方案可多个窗口平铺<br><img src="/images/gtile-5.png"><br><img src="/images/gtile-6.png"><br><img src="/images/gtile-7.png"></p><p>GitHub gTile:<a href="https://github.com/gtile/gtile">Gtile项目地址</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;这是Gnome-Shell的一个扩展插件，由于Gnome桌面的平铺方案最多只能两个窗口，对于大屏幕显示器来说是不够用的，而g</summary>
+      
+    
+    
+    
+    <category term="Linux" scheme="https://whoiszkuan.github.io/categories/Linux/"/>
+    
+    <category term="配置" scheme="https://whoiszkuan.github.io/categories/Linux/%E9%85%8D%E7%BD%AE/"/>
+    
+    
+    <category term="Linux" scheme="https://whoiszkuan.github.io/tags/Linux/"/>
+    
+    <category term="Tools" scheme="https://whoiszkuan.github.io/tags/Tools/"/>
+    
+  </entry>
   
   <entry>
     <title>Javascript-百度换肤案例</title>
