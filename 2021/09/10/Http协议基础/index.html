@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="gTile-Linux应用分屏工具, 4CH4N ZKUAN">
+    <meta name="keywords" content="Http协议基础, 4CH4N ZKUAN">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>gTile-Linux应用分屏工具 | 4CH4N ZKUAN</title>
+    <title>Http协议基础 | 4CH4N ZKUAN</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -206,12 +206,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/images/gtile-0.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/web.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">gTile-Linux应用分屏工具</h1>
+                    <h1 class="description center-align post-title">Http协议基础</h1>
                 </div>
             </div>
         </div>
@@ -327,12 +327,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Linux/">
-                                <span class="chip bg-color">Linux</span>
+                            <a href="/tags/HTTP/">
+                                <span class="chip bg-color">HTTP</span>
                             </a>
                         
-                            <a href="/tags/Tools/">
-                                <span class="chip bg-color">Tools</span>
+                            <a href="/tags/Web/">
+                                <span class="chip bg-color">Web</span>
                             </a>
                         
                     </div>
@@ -343,12 +343,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Linux/" class="post-category">
-                                Linux
-                            </a>
-                        
-                            <a href="/categories/Linux/%E9%85%8D%E7%BD%AE/" class="post-category">
-                                配置
+                            <a href="/categories/Web%E5%AE%89%E5%85%A8/" class="post-category">
+                                Web安全
                             </a>
                         
                     </div>
@@ -360,7 +356,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-08-14
+                    2021-09-10
                 </div>
                 
 
@@ -384,17 +380,46 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><strong>这是Gnome-Shell的一个扩展插件，由于Gnome桌面的平铺方案最多只能两个窗口，对于大屏幕显示器来说是不够用的，而gTile可以解决这个问题。</strong></p>
-<p><strong>gTile拥有多个内置平铺方案，可平铺多个窗口，增加工作效率。可自行配置快捷键唤醒gTile进行平铺</strong></p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="Gnome-Extensions-Install"><a href="#Gnome-Extensions-Install" class="headerlink" title="Gnome Extensions Install"></a>Gnome Extensions Install</h2><p><strong>先安装Gnome-Shell再安装扩展</strong> <a target="_blank" rel="noopener" href="https://extensions.gnome.org/extension/28/gtile/">gTile-Gnome-Shell</a><br><img src="/images/gtile-1.png"></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>打开扩展方式：Gnome Tweak Tools(优化) –&gt; Extensions(扩展) –&gt; Gtile(点击开启按钮)</p>
-<p>点击设置按钮进入配置界面，点击(Accelerators)选项可配置快捷键，唤醒gTile的快捷键为<code>Super+Enter</code>。更多快捷键请自行探索。<br><img src="/images/gtile-2.png"></p>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ol>
-<li><code>Super+Enter</code>唤醒gTile <img src="/images/gtile-3.png"></li>
-<li>按下键盘数字键0～9使用预设方案<code>Super+Enter+3</code> <img src="/images/gtile-4.png"></li>
-</ol>
-<p>还有更多预设方案可多个窗口平铺<br><img src="/images/gtile-5.png"><br><img src="/images/gtile-6.png"><br><img src="/images/gtile-7.png"></p>
-<p>GitHub gTile:<a target="_blank" rel="noopener" href="https://github.com/gtile/gtile">Gtile项目地址</a></p>
+                <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>服务器和客户端进行数据交互的一种形式。</p>
+<h2 id="常用请求头信息"><a href="#常用请求头信息" class="headerlink" title="常用请求头信息"></a>常用请求头信息</h2><ul>
+<li>User-Agent：请求载体的身份标识。</li>
+<li>Connection：请求完毕后，是断开连接还是保持连接。</li>
+</ul>
+<h2 id="常用响应头信息"><a href="#常用响应头信息" class="headerlink" title="常用响应头信息"></a>常用响应头信息</h2><ul>
+<li>Content-Type：服务器响应回客户端的数据类型。</li>
+</ul>
+<h2 id="https协议-Hyper-Text-Transfer-Protocol"><a href="#https协议-Hyper-Text-Transfer-Protocol" class="headerlink" title="https协议(Hyper Text Transfer Protocol)"></a>https协议(Hyper Text Transfer Protocol)</h2><ul>
+<li>安全的超文本传输协议</li>
+</ul>
+<h2 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h2><ul>
+<li>对称密钥加密</li>
+<li>非对称密钥加密</li>
+<li>证书密钥加密(https)</li>
+</ul>
+<h3 id="对称密钥加密"><a href="#对称密钥加密" class="headerlink" title="对称密钥加密"></a>对称密钥加密</h3><ul>
+<li><p>客户端向服务器发送一条信息，首先客户端会采用已知的算法对信息进行加密，比如MD5或者Base64加密，接收端对加密的信息进行解密的时候需要用到密钥，中间会传递密钥，（加密和解密的密钥是同一个），密钥在传输中间是被加密。</p>
+<p><strong>有潜在的危险，一旦被窃听，或者信息被挟持，就有可能破解密钥，而破解其中的信息。因此“共享密钥加密”这种方式存在安全隐患。</strong></p>
+</li>
+</ul>
+<p><img src="/images/https-key1.png"></p>
+<h3 id="非对称密钥加密"><a href="#非对称密钥加密" class="headerlink" title="非对称密钥加密"></a>非对称密钥加密</h3><ul>
+<li><p>“非对称加密”使用的时候有两把锁，一把叫做“私有密钥”，一把是“公开密钥”，使用非对象加密的加密方式的时候，服务器首先告诉客户端按照自己给定的公开密钥进行加密处理，客户端按照公开密钥加密以后，服务器接受到信息再通过自己的私有密钥进行解密。</p>
+<p><strong>这样做的好处就是解密的钥匙根本就不会进行传输，因此也就避免了被挟持的风险。就算公开密钥被窃听者拿到了，它也很难进行解密，因为解密过程是对离散对数求值，这可不是轻而易举就能做到的事。</strong></p>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>如何保证接收端向发送端发出公开秘钥的时候，发送端确保收到的是预先要发送的，而不会被挟持。只要是发送密钥，就有可能有被挟持的风险。</li>
+<li>非对称加密的方式效率比较低，它处理起来更为复杂，通信过程中使用就有一定的效率问题而影响通信速度</li>
+</ul>
+<p><img src="/images/https-key2.png"></p>
+</li>
+</ul>
+<h3 id="证书密钥加密"><a href="#证书密钥加密" class="headerlink" title="证书密钥加密"></a>证书密钥加密</h3><p>数字证书认证机构是客户端与服务器都可信赖的第三方机构。</p>
+<p>传播过程：</p>
+<ul>
+<li>服务器的开发者携带公开密钥，向数字证书认证机构提出公开密钥的申请，数字证书认证机构在认清申请者的身份，审核通过以后，会对开发者申请的公开密钥做数字签名，然后分配这个已签名的公开密钥，并将密钥放在证书里面，绑定在一起</li>
+<li>服务器将这份数字证书发送给客户端，因为客户端也认可证书机构，客户端可以通过数字证书中的数字签名来验证公钥的真伪，来确保服务器传过来的公开密钥是真实的。一般情况下，证书的数字签名是很难被伪造的，这取决于认证机构的公信力。一旦确认信息无误之后，客户端就会通过公钥对报文进行加密发送，服务器接收到以后用自己的私钥进行解密。</li>
+</ul>
+<p><img src="/images/https-key3.png"></p>
 
                 
             </div>
@@ -421,7 +446,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://whoiszkuan.github.io/2021/08/14/gTile-Linux%E5%BA%94%E7%94%A8%E5%88%86%E5%B1%8F%E5%B7%A5%E5%85%B7/">https://whoiszkuan.github.io/2021/08/14/gTile-Linux%E5%BA%94%E7%94%A8%E5%88%86%E5%B1%8F%E5%B7%A5%E5%85%B7/</a>
+                    <a href="https://whoiszkuan.github.io/2021/09/10/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/">https://whoiszkuan.github.io/2021/09/10/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -459,12 +484,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Linux/">
-                                    <span class="chip bg-color">Linux</span>
+                                <a href="/tags/HTTP/">
+                                    <span class="chip bg-color">HTTP</span>
                                 </a>
                             
-                                <a href="/tags/Tools/">
-                                    <span class="chip bg-color">Tools</span>
+                                <a href="/tags/Web/">
+                                    <span class="chip bg-color">Web</span>
                                 </a>
                             
                         </div>
@@ -510,9 +535,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/09/10/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/">
                     <div class="card-image">
@@ -529,9 +555,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-09-10
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-09-10
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -544,6 +570,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -566,12 +593,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/08/12/%E5%85%B3%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84Linux%E7%9A%84%E4%B8%80%E4%BA%9B%E9%85%8D%E7%BD%AE/">
+                <a href="/2021/08/14/gTile-Linux%E5%BA%94%E7%94%A8%E5%88%86%E5%B1%8F%E5%B7%A5%E5%85%B7/">
                     <div class="card-image">
                         
-                        <img src="/images/kali.png" class="responsive-img" alt="关于自己的Linux的一些配置">
+                        <img src="/images/gtile-0.png" class="responsive-img" alt="gTile-Linux应用分屏工具">
                         
-                        <span class="card-title">关于自己的Linux的一些配置</span>
+                        <span class="card-title">gTile-Linux应用分屏工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -582,7 +609,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-14
                             </span>
                         <span class="publish-author">
                             
@@ -605,6 +632,10 @@
                     
                     <a href="/tags/Linux/">
                         <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/Tools/">
+                        <span class="chip bg-color">Tools</span>
                     </a>
                     
                 </div>

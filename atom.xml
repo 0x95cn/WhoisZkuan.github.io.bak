@@ -6,7 +6,7 @@
   <link href="https://whoiszkuan.github.io/atom.xml" rel="self"/>
   
   <link href="https://whoiszkuan.github.io/"/>
-  <updated>2021-08-18T09:06:06.503Z</updated>
+  <updated>2021-09-10T12:17:38.278Z</updated>
   <id>https://whoiszkuan.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Http协议基础</title>
+    <link href="https://whoiszkuan.github.io/2021/09/10/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/"/>
+    <id>https://whoiszkuan.github.io/2021/09/10/Http%E5%8D%8F%E8%AE%AE%E5%9F%BA%E7%A1%80/</id>
+    <published>2021-09-10T11:39:28.000Z</published>
+    <updated>2021-09-10T12:17:38.278Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>服务器和客户端进行数据交互的一种形式。</p><h2 id="常用请求头信息"><a href="#常用请求头信息" class="headerlink" title="常用请求头信息"></a>常用请求头信息</h2><ul><li>User-Agent：请求载体的身份标识。</li><li>Connection：请求完毕后，是断开连接还是保持连接。</li></ul><h2 id="常用响应头信息"><a href="#常用响应头信息" class="headerlink" title="常用响应头信息"></a>常用响应头信息</h2><ul><li>Content-Type：服务器响应回客户端的数据类型。</li></ul><h2 id="https协议-Hyper-Text-Transfer-Protocol"><a href="#https协议-Hyper-Text-Transfer-Protocol" class="headerlink" title="https协议(Hyper Text Transfer Protocol)"></a>https协议(Hyper Text Transfer Protocol)</h2><ul><li>安全的超文本传输协议</li></ul><h2 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h2><ul><li>对称密钥加密</li><li>非对称密钥加密</li><li>证书密钥加密(https)</li></ul><h3 id="对称密钥加密"><a href="#对称密钥加密" class="headerlink" title="对称密钥加密"></a>对称密钥加密</h3><ul><li><p>客户端向服务器发送一条信息，首先客户端会采用已知的算法对信息进行加密，比如MD5或者Base64加密，接收端对加密的信息进行解密的时候需要用到密钥，中间会传递密钥，（加密和解密的密钥是同一个），密钥在传输中间是被加密。</p><p><strong>有潜在的危险，一旦被窃听，或者信息被挟持，就有可能破解密钥，而破解其中的信息。因此“共享密钥加密”这种方式存在安全隐患。</strong></p></li></ul><p><img src="/images/https-key1.png"></p><h3 id="非对称密钥加密"><a href="#非对称密钥加密" class="headerlink" title="非对称密钥加密"></a>非对称密钥加密</h3><ul><li><p>“非对称加密”使用的时候有两把锁，一把叫做“私有密钥”，一把是“公开密钥”，使用非对象加密的加密方式的时候，服务器首先告诉客户端按照自己给定的公开密钥进行加密处理，客户端按照公开密钥加密以后，服务器接受到信息再通过自己的私有密钥进行解密。</p><p><strong>这样做的好处就是解密的钥匙根本就不会进行传输，因此也就避免了被挟持的风险。就算公开密钥被窃听者拿到了，它也很难进行解密，因为解密过程是对离散对数求值，这可不是轻而易举就能做到的事。</strong></p><p><strong>缺点：</strong></p><ul><li>如何保证接收端向发送端发出公开秘钥的时候，发送端确保收到的是预先要发送的，而不会被挟持。只要是发送密钥，就有可能有被挟持的风险。</li><li>非对称加密的方式效率比较低，它处理起来更为复杂，通信过程中使用就有一定的效率问题而影响通信速度</li></ul><p><img src="/images/https-key2.png"></p></li></ul><h3 id="证书密钥加密"><a href="#证书密钥加密" class="headerlink" title="证书密钥加密"></a>证书密钥加密</h3><p>数字证书认证机构是客户端与服务器都可信赖的第三方机构。</p><p>传播过程：</p><ul><li>服务器的开发者携带公开密钥，向数字证书认证机构提出公开密钥的申请，数字证书认证机构在认清申请者的身份，审核通过以后，会对开发者申请的公开密钥做数字签名，然后分配这个已签名的公开密钥，并将密钥放在证书里面，绑定在一起</li><li>服务器将这份数字证书发送给客户端，因为客户端也认可证书机构，客户端可以通过数字证书中的数字签名来验证公钥的真伪，来确保服务器传过来的公开密钥是真实的。一般情况下，证书的数字签名是很难被伪造的，这取决于认证机构的公信力。一旦确认信息无误之后，客户端就会通过公钥对报文进行加密发送，服务器接收到以后用自己的私钥进行解密。</li></ul><p><img src="/images/https-key3.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot; title=&quot;概念&quot;&gt;&lt;/a&gt;概念&lt;/h2&gt;&lt;p&gt;服务器和客户端进行数据交互的一种形式。&lt;/p&gt;
+&lt;h2 id=&quot;常用请求头信息&quot;&gt;&lt;a href=&quot;#常用请求头信息&quot; class=&quot;hea</summary>
+      
+    
+    
+    
+    <category term="Web安全" scheme="https://whoiszkuan.github.io/categories/Web%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="HTTP" scheme="https://whoiszkuan.github.io/tags/HTTP/"/>
+    
+    <category term="Web" scheme="https://whoiszkuan.github.io/tags/Web/"/>
+    
+  </entry>
   
   <entry>
     <title>gTile-Linux应用分屏工具</title>
