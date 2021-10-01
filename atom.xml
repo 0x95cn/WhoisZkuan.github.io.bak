@@ -6,7 +6,7 @@
   <link href="https://whoiszkuan.github.io/atom.xml" rel="self"/>
   
   <link href="https://whoiszkuan.github.io/"/>
-  <updated>2021-09-10T12:17:38.278Z</updated>
+  <updated>2021-10-01T07:11:07.452Z</updated>
   <id>https://whoiszkuan.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vulnhub Me And My Girlfriend</title>
+    <link href="https://whoiszkuan.github.io/2021/10/01/Vulnhub-Me-And-My-Girlfriend/"/>
+    <id>https://whoiszkuan.github.io/2021/10/01/Vulnhub-Me-And-My-Girlfriend/</id>
+    <published>2021-10-01T06:07:54.000Z</published>
+    <updated>2021-10-01T07:11:07.452Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Me-And-My-Girlfriend-1"><a href="#Me-And-My-Girlfriend-1" class="headerlink" title="Me And My Girlfriend:1"></a>Me And My Girlfriend:1</h1><p>渗透准备：</p><ol><li>主机：Kali 2021.2</li><li>靶机：Vmware </li><li>靶机IP段：192.168.158.*</li><li>Http信息头知识</li><li>Linux操作基础</li></ol><h2 id="开启靶机，扫描目标主机IP段"><a href="#开启靶机，扫描目标主机IP段" class="headerlink" title="开启靶机，扫描目标主机IP段"></a>开启靶机，扫描目标主机IP段</h2><p><code>nmap -sP 192.168.158.0/24</code></p><p>检测出靶机IP为<code>192.168.158.128</code></p><p><img src="/images/mamg1.png"></p><h2 id="扫描靶机信息"><a href="#扫描靶机信息" class="headerlink" title="扫描靶机信息"></a>扫描靶机信息</h2><p>nmap基础用法：<code>-A 版本检测 -O 检测OS版本 -sV 服务探测/版本信息</code></p><p><code>nmap -A -O -sV 192.168.158.128</code></p><p><img src="/images/mamg2.png"></p><p>得出靶机开放了<code>ssh:22</code>和<code>http:80</code>服务</p><h2 id="访问80端口"><a href="#访问80端口" class="headerlink" title="访问80端口"></a>访问80端口</h2><p>访问80端口发现无法正常进入网页</p><p><img src="/images/mamg3.png"></p><p>翻译过来意思是：只能通过本地IP访问</p><p>打开网页源代码看看有没有什么提示：</p><p><img src="/images/mamg4.png"></p><p>提示使用<strong>X-FORWARDED-FOR</strong>访问网页</p><p><code>X-Forwarded-For用来获取最初发起请求的IP</code></p><p>综上所述：我们需要使用X-Forwarded-For伪造一个本地IP为最初发起请求访问靶机80端口</p><h2 id="X-Forwarded-FOr"><a href="#X-Forwarded-FOr" class="headerlink" title="X-Forwarded-FOr"></a>X-Forwarded-FOr</h2><p>已知本地IP地址为<strong>127.0.0.1</strong></p><p>使用X-Forwarded-For Header伪造IP</p><p><img src="/images/xfw.png"></p><p>成功登录</p><p><img src="/images/mamg5.png"></p><p>页面有4个选项，分别为 主页、登录、注册、关于。</p><p>先随便注册一个帐号登录</p><p><img src="/images/mamg6.png"></p><h2 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h2><p>登录进去之后对我们最有用的是Profile选项</p><p>这是一个更改密码的选项</p><p>在网址栏上发现了一点端倪</p><p><code>?</code>后面跟随的是参数<code>page=profile&amp;user_id=12</code>，请求了<code>profile</code>页面，用户id为<code>12</code></p><p>尝试修改Id</p><p><img src="/images/mamg7.png"></p><p>可以看到回显出了其他用户的帐号和密码</p><p>如果获得了帐号和密码就可以尝试登录22端口的ssh服务</p><p>那么密码该如何获得</p><p><code>html中设置输入文本隐藏明文的操作为type="password",在审查代码中修改type类型为type="text",可查看用户输入的密码。</code></p><p><img src="/images/mamg8.png"></p><p><img src="/images/mamg9.png"></p><p>得出用户密码。</p><p>遍历所有用户id后锁定Bob女友Alice的账户密码为<code>alice:4lic3</code></p><h2 id="SSH访问"><a href="#SSH访问" class="headerlink" title="SSH访问"></a>SSH访问</h2><p>得到Alice的账户和密码后，使用ssh访问靶机电脑</p><p><code>ssh alice@192.168.158.128</code></p><p><img src="/images/mamg10.png"></p><h2 id="Flag-1"><a href="#Flag-1" class="headerlink" title="Flag 1"></a>Flag 1</h2><p>列出当前文件夹所有文件，包括隐藏文件</p><p><img src="/images/mamg11.png"></p><p>发现文件夹下有一个隐藏文件夹</p><p><img src="/images/mamg12.png"></p><p><img src="/images/mamg13.png"></p><p>进入后发现有<code>flag1.txt</code>文件</p><p>成功获取flag1</p><p><code>Flag 1 : gfriEND{2f5f21b2af1b8c3e227bcf35544f8f09}</code></p><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>尝试<code>sudo su</code>无法提权</p><p>查看Alice当前权限</p><p><img src="/images/mamg14.png"></p><p><code>(root)NOPASSWD:/usr/bin/php</code>发现可以不使用密码打开php文件</p><p><a href="https://gtfobins.github.io/">基础提权</a></p><p>尝试回调php提权</p><pre class="line-numbers language-none"><code class="language-none">CMD="/bin/sh"sudo php -r "system('$CMD');"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><img src="/images/mamg15.png"></p><p>成功回调root</p><h2 id="Flag-2"><a href="#Flag-2" class="headerlink" title="Flag 2"></a>Flag 2</h2><p>查找flag文件</p><p><img src="/images/mamg16.png"></p><p>进入<code>/root</code>文件夹以后，发现<code>flag2.txt</code>文件</p><p><img src="/images/mamg17.png"></p><p>成功拿下flag2</p><p>Flag 2: gfriEND{56fbeef560930e77ff984b644fde66e7}</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Me-And-My-Girlfriend-1&quot;&gt;&lt;a href=&quot;#Me-And-My-Girlfriend-1&quot; class=&quot;headerlink&quot; title=&quot;Me And My Girlfriend:1&quot;&gt;&lt;/a&gt;Me And My Girlfriend</summary>
+      
+    
+    
+    
+    <category term="Web安全" scheme="https://whoiszkuan.github.io/categories/Web%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="Linux" scheme="https://whoiszkuan.github.io/categories/Web%E5%AE%89%E5%85%A8/Linux/"/>
+    
+    
+    <category term="Web" scheme="https://whoiszkuan.github.io/tags/Web/"/>
+    
+    <category term="Security" scheme="https://whoiszkuan.github.io/tags/Security/"/>
+    
+  </entry>
   
   <entry>
     <title>Http协议基础</title>
