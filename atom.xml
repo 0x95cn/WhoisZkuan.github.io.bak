@@ -6,7 +6,7 @@
   <link href="https://whoiszkuan.github.io/atom.xml" rel="self"/>
   
   <link href="https://whoiszkuan.github.io/"/>
-  <updated>2021-10-31T05:58:48.828Z</updated>
+  <updated>2021-10-31T05:58:28.128Z</updated>
   <id>https://whoiszkuan.github.io/</id>
   
   <author>
@@ -15,35 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Upload-labs Pass 01-06</title>
-    <link href="https://whoiszkuan.github.io/2021/10/22/Upload-labs-Pass-01-06/"/>
-    <id>https://whoiszkuan.github.io/2021/10/22/Upload-labs-Pass-01-06/</id>
-    <published>2021-10-22T06:34:39.000Z</published>
-    <updated>2021-10-31T05:58:48.828Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul><li>操作系统：Kali Linux</li><li>靶场环境：docker : c0ny1/upload-labs</li><li>WebShell管理工具：Godzilla</li><li>抓包工具：Burpsuite Community Edition</li><li>本篇学习方向：文件上传漏洞绕过及代码审计</li></ul><p>此笔记上传文件均以<code>god_test.php</code>为标准，此文件为PHP一句话小马</p><p><code>&lt;?php @eval($_POST[value]);?&gt;</code></p><h2 id="Pass-01-前台验证审计"><a href="#Pass-01-前台验证审计" class="headerlink" title="Pass-01 前台验证审计"></a>Pass-01 前台验证审计</h2><p>根据上传文件<code>god_test.php</code>回显的拦截速度判断，上传页面为前台验证文件类型。</p><p>审计网页源代码后确定为前台JS验证：</p><p><img src="https://gitee.com/zku4n/picgo/raw/master/home/zkuan/blog/source/images/up1.png"></p><p>通过<code>onsubmit="return checkFile()"</code>调用了checkFile函数，根据：</p><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">if</span> <span class="token punctuation">(</span>allow_ext<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>ext_name <span class="token operator">+</span> <span class="token string">"|"</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>        <span class="token keyword">var</span> errMsg <span class="token operator">=</span> <span class="token string">"该文件不允许上传，请上传"</span> <span class="token operator">+</span> allow_ext <span class="token operator">+</span> <span class="token string">"类型的文件,当前文件类型为："</span> <span class="token operator">+</span> ext_name<span class="token punctuation">;</span>        <span class="token function">alert</span><span class="token punctuation">(</span>errMsg<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>    <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>判断，如果当前文件类型不为<code>.jpg|.php|.gif</code>时，会弹出<code>errMsg</code>并返回bool值<code>false</code>。</p><p>有了思路以后，通过BurpSuite抓包，将bool返回值修改为true，当<code>onsubmit</code>事件接收结果为true时将文件上传至服务器。</p><p><strong>注意</strong>：前台验证抓不到上传的包，因为已经被前台JS代码拦截了，所以根本没发出去包，开启Burp后开启接受Respone包，刷新页面首先抓取Request包，Forward后得到Respone包，再进行代码修改。</p><p>修改成功可成功上传php马</p><p><img src="/images/up2.png"></p><p>上传成功后出现一个元素，右键审查元素可找到php小马上传的路径，在网址栏输入对应路径，如果页面没有回显然后东西则上传成功，可用Godzilla连接WebShell。</p><p><img src="/images/up3.png"></p><h2 id="Pass-02-Content-Type校验"><a href="#Pass-02-Content-Type校验" class="headerlink" title="Pass-02 Content-Type校验"></a>Pass-02 Content-Type校验</h2><p>根据提示，服务端对数据包的MIME进行检查。</p><p>修改Content-Type类型绕过拦截。Content-Type用来标识上传的文件类型，将类型标识为服务器允许的类型即可绕过。</p><p>将Content-Type修改为<code>image/jpeg</code></p><p><img src="/images/up2.1.png"></p><p>上传成功，得到小马地址，连接WebShell</p><p><img src="/images/up2.2.png"></p><h2 id="Pass-03"><a href="#Pass-03" class="headerlink" title="Pass-03"></a>Pass-03</h2>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;操作系统：Kali Linux&lt;/li&gt;
-&lt;li&gt;靶场环境：docker : c0ny1/upload-labs&lt;/li&gt;
-&lt;l</summary>
-      
-    
-    
-    
-    <category term="Web安全" scheme="https://whoiszkuan.github.io/categories/Web%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="Web" scheme="https://whoiszkuan.github.io/tags/Web/"/>
-    
-    <category term="Security" scheme="https://whoiszkuan.github.io/tags/Security/"/>
-    
-  </entry>
   
   <entry>
     <title>Vulnhub Me And My Girlfriend</title>
