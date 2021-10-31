@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://whoiszkuan.github.io/2021/09/10/Http%20Agreement/</loc>
-    
-    <lastmod>2021-10-31</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://whoiszkuan.github.io/2021/08/14/gTile%20Linux%20split%20screen/</loc>
     
     <lastmod>2021-10-31</lastmod>
@@ -16,7 +9,7 @@
   </url>
   
   <url>
-    <loc>https://whoiszkuan.github.io/2021/08/12/About%20My%20LInux/</loc>
+    <loc>https://whoiszkuan.github.io/2021/09/10/Http%20Agreement/</loc>
     
     <lastmod>2021-10-31</lastmod>
     
@@ -31,6 +24,13 @@
   
   <url>
     <loc>https://whoiszkuan.github.io/2021/10/31/SSRF-Gopher/</loc>
+    
+    <lastmod>2021-10-31</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://whoiszkuan.github.io/2021/08/12/About%20My%20LInux/</loc>
     
     <lastmod>2021-10-31</lastmod>
     
@@ -81,13 +81,6 @@
   </url>
   
   <url>
-    <loc>https://whoiszkuan.github.io/tags/HTTP/</loc>
-    <lastmod>2021-10-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://whoiszkuan.github.io/tags/Web/</loc>
     <lastmod>2021-10-31</lastmod>
     <changefreq>daily</changefreq>
@@ -102,7 +95,7 @@
   </url>
   
   <url>
-    <loc>https://whoiszkuan.github.io/tags/Tools/</loc>
+    <loc>https://whoiszkuan.github.io/tags/Penetration-Testing/</loc>
     <lastmod>2021-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -126,13 +119,6 @@
   
   <url>
     <loc>https://whoiszkuan.github.io/categories/Linux/%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2021-10-31</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://whoiszkuan.github.io/categories/Web%E5%AE%89%E5%85%A8/Linux/</loc>
     <lastmod>2021-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
