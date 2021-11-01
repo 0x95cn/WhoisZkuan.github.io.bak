@@ -349,7 +349,65 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="What-is-Gopher"><a href="#What-is-Gopher" class="headerlink" title="What is Gopher?"></a>What is Gopher?</h1><h2 id="初识Gopher"><a href="#初识Gopher" class="headerlink" title="初识Gopher"></a>初识Gopher</h2><p>​    在WWW出现之前，Gopher是Internet上最主要的信息检索工具，Gopher站点也是最主要的站点，使用<strong>tcp70端口</strong>。</p>
+<p>​    Gopher协议支持发出GET和POST请求：可以先截获GET请求包和POST请求包，再构成符合Gopher协议的请求。Gopher协议是SSRF利用中最强大的协议。</p>
+<p><strong>限制</strong>：</p>
+<table>
+<thead>
+<tr>
+<th align="center">协议</th>
+<th align="center">PHP</th>
+<th align="center">Java</th>
+<th align="center">Curl</th>
+<th align="center">Perl</th>
+<th align="center">ASP.NET</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Gopher</td>
+<td align="center">–wite-curlwrappers且php版本至少为5.3</td>
+<td align="center">小于JDK1.7</td>
+<td align="center">低版本不支持</td>
+<td align="center">支持</td>
+<td align="center">小于版本3</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>–wite-curlwrappers:运用curl工具打开url流</p>
+<p>curl使用curl –version查看版本以及支持的协议</p>
+</blockquote>
+<p>Gopher协议格式</p>
+<p><code>URL:gopher://&lt;host&gt;:&lt;port&gt;/&lt;gopher-path&gt;_后接TCP数据流</code></p>
+<ul>
+<li>Gopher默认端口是70</li>
+<li>如果发起POST请求，回车换行需要使用<code>%0d%0a</code>，如果多个参数，参数之间的&amp;也需要进行URL编码</li>
+</ul>
+<hr>
+<h2 id="Gopher-HTTP"><a href="#Gopher-HTTP" class="headerlink" title="Gopher HTTP"></a>Gopher HTTP</h2><p>Gopher发送HTTP数据步骤：</p>
+<ol>
+<li>构造HTTP数据包</li>
+<li>URL编码、替换回车换行为<code>%0d%0a</code></li>
+<li>发送Gopher协议</li>
+</ol>
+<h3 id="GET型HTTP"><a href="#GET型HTTP" class="headerlink" title="GET型HTTP"></a>GET型HTTP</h3><pre class="line-numbers language-http" data-language="http"><code class="language-http">GET /ssrf/base/get.php?name=zkuan HTTP/1.1
+Host:192.168.1.111<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+
+<p>URL编码后使用curl发送HTTP包：</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher://192.168.1.122/_GET%20/ssrf/base/get.php%3fname=zkuan%20HTTP/1.1%0d%0aHost:192.168.1.111%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="POST型HTTP"><a href="#POST型HTTP" class="headerlink" title="POST型HTTP"></a>POST型HTTP</h3><pre class="line-numbers language-http" data-language="http"><code class="language-http">POST /ssrf/base/post.php HTTP/1.1
+Host:192.168.1.111
+Content-Type:application/x-www-form-urlencoded
+Content-Length:11
+
+name=zkuan<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>URL编码后使用curl发送HTTP包：</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher://192.168.1.122/_POST%20/ssrf/base/post.php%20HTTP/1.1%0d%0aHost:192.168.1.111%0d%0aContent-Type:application/x-www-form-urlencoded%0d%0aContent-Length:11%0d%0a%0d%0aname=zkuan%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
                 
             </div>
             <hr/>
