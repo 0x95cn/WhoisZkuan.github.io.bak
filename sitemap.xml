@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://whoiszkuan.github.io/2021/11/04/N1BOOK-XSS/</loc>
+    
+    <lastmod>2021-11-04</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://whoiszkuan.github.io/2021/10/31/SSRF-Gopher/</loc>
     
     <lastmod>2021-10-31</lastmod>
