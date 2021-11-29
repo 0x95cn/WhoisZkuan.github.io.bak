@@ -221,7 +221,7 @@ pre {
 }
 :root {
   --text-color: #D3D3D5;
-  --text-strong-color: #2f3d4e;
+  --text-strong-color: #fff;
   --text-light-color: #86898E;
   --text-white-color: #fff;
   --divider-color: #e6e8ee;
@@ -232,15 +232,15 @@ pre {
   --info-text-color: #D3D3D5;
   --widget-background-color: #252A34;
   --body-background-color: #252A34;
-  --badge-background-color: #edeff3;
+  --badge-background-color: #3f565e;
   --badge-hover-background-color: #adb7d0;
   --border-color: #e1e4e8;
   --pre-color: #2d2d2d;
   --tbody-background-color: #f4f5f7;
-  --code-color: #50687c;
-  --code-background-color: #e9eaf0;
+  --code-color: #fff;
+  --code-background-color: #86898e;
   --blue-tag-color: #3273dc;
-  --blockquote-color: #f9f8f7;
+  --blockquote-color: #121419;
   --note-primary-border-color: #428bca;
   --note-primary-color: #daf3fc;
   --note-success-border-color: #5cb85c;
@@ -248,7 +248,7 @@ pre {
   --note-info-border-color: #5bc0de;
   --note-info-color: #dffdfb;
   --note-warning-border-color: #f0ad30;
-  --note-warning-color: #fef5d5;
+  --note-warning-color: #0f1014;
   --note-danger-border-color: #d9534f;
   --note-danger-color: #fde8dc;
   --highlight-comment-color: #999;
