@@ -45,7 +45,7 @@
         content="2021-11-04">
       <meta 
         property="og:article:modified_time" 
-        content="2021-11-05">
+        content="2021-11-29">
       <meta 
         property="og:article:author" 
         content="0x95cn_zkuan">
@@ -309,9 +309,18 @@
       <span>2021-11-04</span>
     </time>
     
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/SystemSec/" 
+          class="post-meta-link">
+          SystemSec
+        </a>
+      
+    
     
       <span class="dot"></span>
-      <span>3.3k words</span>
+      <span>3.2k words</span>
     
   </div>
   
@@ -522,8 +531,8 @@
 <p>给所有者全部权限，所属组读写，其他人读权限：<code>chmod u=rwx,g=rw,o=r config</code></p>
 <p>清除各种身份权限：<code>chmod a=- config</code></p>
 <h2 id="账户风险和安全策略"><a href="#账户风险和安全策略" class="headerlink" title="账户风险和安全策略"></a>账户风险和安全策略</h2><h3 id="特权用户排查"><a href="#特权用户排查" class="headerlink" title="特权用户排查"></a>特权用户排查</h3><p><code>awk -F: '$3==0 {print $1}' /etc/passwd</code></p>
-<p>![](<a target="_blank" rel="noopener" href="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-05">https://gitee.com/zku4n/picgo/raw/master/img/2021-11-05</a> 09-37-48 的屏幕截图.png)</p>
-<p>![](<a target="_blank" rel="noopener" href="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-05">https://gitee.com/zku4n/picgo/raw/master/img/2021-11-05</a> 09-41-39 的屏幕截图.png)</p>
+<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-0509-37-48%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="lozad post-image"src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-0509-37-48%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
+<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-0509-41-39%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="lozad post-image"src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-0509-41-39%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
 <ul>
 <li>$3=0:取<code>/etc/passwd</code>中第三位值为0的用户</li>
 <li>print $1:如果第三位值为0，便打印出第一位（用户名称）</li>
@@ -531,7 +540,7 @@
 <p>排查UID为0的用户，一般只有root用户UID为0</p>
 <h3 id="账号密码生命周期"><a href="#账号密码生命周期" class="headerlink" title="账号密码生命周期"></a>账号密码生命周期</h3><p>对于采用静态口令认证的服务器，账户密码生命周期应小于90，且拒绝弱口令以及空口令</p>
 <p>使用<code>more /etc/login.defs</code>检查相关参数</p>
-<p>![](<a target="_blank" rel="noopener" href="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-05">https://gitee.com/zku4n/picgo/raw/master/img/2021-11-05</a> 09-47-43 的屏幕截图.png)</p>
+<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-0509-47-43%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="lozad post-image"src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-0509-47-43%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
 <ul>
 <li><strong>PASS_MIN_LEN</strong>:设置密码最短长度</li>
 </ul>
@@ -545,7 +554,7 @@
 <li>解锁用户<code>faillog -u (username) -r</code></li>
 </ul>
 <h3 id="访问权限控制"><a href="#访问权限控制" class="headerlink" title="访问权限控制"></a>访问权限控制</h3><h4 id="umask安全配置"><a href="#umask安全配置" class="headerlink" title="umask安全配置"></a>umask安全配置</h4><p>/etc/login.defs</p>
-<p>![](<a target="_blank" rel="noopener" href="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-05">https://gitee.com/zku4n/picgo/raw/master/img/2021-11-05</a> 10-38-55 的屏幕截图.png)</p>
+<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-0510-38-55%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" class="lozad post-image"src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-0510-38-55%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png"></p>
 <p><strong>umask的作用：</strong>默认情况下umask值为022（可用umask命令查看）</p>
 <p>此时建立的文件默认权限是644(6-0,6-2,6-2)，建立文件夹默认权限是755(7-0,7-2,7-2)</p>
 <p>022表示默认创建文件夹权限为755</p>
@@ -799,7 +808,7 @@
     alt="author avatar">
 
 <p class="author-name">0x95cn_zkuan</p>
-<p class="author-description">designed by theme-kaze</p>
+<p class="author-description">Kali Linux Lover</p>
 <div class="author-message">
   <a 
     class="author-posts-count" 
@@ -810,7 +819,7 @@
   <a 
     class="author-categories-count" 
     href="/categories">
-    <span>3</span>
+    <span>4</span>
     <span>Categories</span>
   </a>
   <a 
@@ -855,17 +864,24 @@
         </div>
       </a>
     
-      <a href="/categories/Web%E5%AE%89%E5%85%A8/">
+      <a href="/categories/WebSec/">
         <div class="categories-list-item">
-          Web安全
+          WebSec
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/SystemSec/">
+        <div class="categories-list-item">
+          SystemSec
           <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
-      <a href="/categories/Linux/%E9%85%8D%E7%BD%AE/">
+      <a href="/categories/Exploit/">
         <div class="categories-list-item">
-          Linux/配置
-          <span class="categories-list-item-badge">2</span>
+          Exploit
+          <span class="categories-list-item-badge">1</span>
         </div>
       </a>
     
