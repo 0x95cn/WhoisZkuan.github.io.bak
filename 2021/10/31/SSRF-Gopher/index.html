@@ -1,366 +1,258 @@
+
+
 <!DOCTYPE html>
-<html lang="en-US">
-  <head>
+<html lang="en-US" data-default-color-scheme=auto>
+
+
+
+<head>
   <meta charset="UTF-8">
-  <meta 
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta 
-    http-equiv="X-UA-Compatible" 
-    content="ie=edge">
-  <meta 
-    name="theme-color" 
-    content="#fff" 
-    id="theme-color">
-  <meta 
-    name="description" 
-    content="4CH4N ZKUAN">
-  <link 
-    rel="icon" 
-    href="/images/logo.png">
-  <title>SSRF-Gopher</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zkuan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="SSRF Gopher 浅析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SSRF-Gopher">
+<meta property="og:url" content="https://whoiszkuan.github.io/2021/10/31/SSRF-Gopher/index.html">
+<meta property="og:site_name" content="4CH4N ZKUAN">
+<meta property="og:description" content="SSRF Gopher 浅析">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://whoiszkuan.github.io/images/ssrf.jpg">
+<meta property="article:published_time" content="2021-10-31T06:37:46.000Z">
+<meta property="article:modified_time" content="2022-01-24T05:31:55.321Z">
+<meta property="article:author" content="zkuan">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://whoiszkuan.github.io/images/ssrf.jpg">
+  
+  
+  <title>SSRF-Gopher - 4CH4N ZKUAN</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
   
     
-      <meta 
-        property="og:title" 
-        content="SSRF-Gopher">
     
-    
-      <meta 
-        property="og:url" 
-        content="https://whoiszkuan.github.io/2021/10/31/SSRF-Gopher/index.html">
-    
-    
-      <meta 
-        property="og:img" 
-        content="/images/zkuan.png">
-    
-    
-      <meta 
-        property="og:img" 
-        content="SSRF Gopher 浅析">
-    
-    
-      <meta 
-        property="og:type" 
-        content="article">
-      <meta 
-        property="og:article:published_time" 
-        content="2021-10-31">
-      <meta 
-        property="og:article:modified_time" 
-        content="2021-12-02">
-      <meta 
-        property="og:article:author" 
-        content="0x95cn_zkuan">
+      
       
         
-          <meta 
-            property="og:article:tag" 
-            content="Web">
+          
+          
+          
         
-          <meta 
-            property="og:article:tag" 
-            content="Security">
-        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-okaidia.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
       
     
   
-  <script>
-    function loadScript(url, cb) {
-      var script = document.createElement('script');
-      script.src = url;
-      if (cb) script.onload = cb;
-      script.async = true;
-      document.body.appendChild(script);
-    }
-    function loadCSS(href, data, attr) {
-      var sheet = document.createElement('link');
-      sheet.ref = 'stylesheet';
-      sheet.href = href;
-      sheet.dataset[data] = attr;
-      document.head.appendChild(sheet);
-    }
-    function changeCSS(cssFile, data, attr) {
-      var oldlink = document.querySelector(data);
-      var newlink = document.createElement("link");
-      newlink.setAttribute("rel", "stylesheet");
-      newlink.setAttribute("href", cssFile);
-      newlink.dataset.prism = attr;
-      document.head.replaceChild(newlink, oldlink);
-    }
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"whoiszkuan.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
-  
-    
-      
-      
-      
-      
-        
-        
-        
-        <script>
-          function prismThemeChange() {
-            if(document.getElementById('theme-color').dataset.mode === 'dark') {
-              if(document.querySelector('[data-prism]')) {
-                changeCSS('/js/lib/prism/prism-twilight.min.css', '[data-prism]', 'prism-twilight');
-              } else {
-                loadCSS('/js/lib/prism/prism-twilight.min.css', 'prism', 'prism-twilight');
-              }
-            } else {
-              if(document.querySelector('[data-prism]')) {
-                changeCSS('/js/lib/prism/prism-twilight.min.css', '[data-prism]', 'prism-twilight');
-              } else {
-                loadCSS('/js/lib/prism/prism-twilight.min.css', 'prism', 'prism-twilight');
-              }
-            }
-          }
-          prismThemeChange()
-        </script>
-      
-      
-        
-        <link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
-      
-    
-  
-  <script>
-    // control reverse button
-    var reverseDarkList = {
-      dark: 'light',
-      light: 'dark'
-    };
-    var themeColor = {
-      dark: '#1c1c1e',
-      light: '#fff'
-    }
-    // get the data of css prefers-color-scheme
-    var getCssMediaQuery = function() {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
-    // reverse current darkmode setting function
-    var reverseDarkModeSetting = function() {
-      var setting = localStorage.getItem('user-color-scheme');
-      if(reverseDarkList[setting]) {
-        setting = reverseDarkList[setting];
-      } else if(setting === null) {
-        setting = reverseDarkList[getCssMediaQuery()];
-      } else {
-        return;
-      }
-      localStorage.setItem('user-color-scheme', setting);
-      return setting;
-    };
-    // apply current darkmode setting
-  </script>
-  
-    <script>
-      var setDarkmode = function(mode) {
-      var setting = mode || localStorage.getItem('user-color-scheme');
-      if(setting === getCssMediaQuery()) {
-        document.documentElement.removeAttribute('data-user-color-scheme');
-        localStorage.removeItem('user-color-scheme');
-        document.getElementById('theme-color').content = themeColor[setting];
-        document.getElementById('theme-color').dataset.mode = setting;
-        prismThemeChange();
-      } else if(reverseDarkList[setting]) {
-        document.documentElement.setAttribute('data-user-color-scheme', setting);
-        document.getElementById('theme-color').content = themeColor[setting];
-        document.getElementById('theme-color').dataset.mode = setting;
-        prismThemeChange();
-      } else {
-        document.documentElement.removeAttribute('data-user-color-scheme');
-        localStorage.removeItem('user-color-scheme');
-        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
-        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
-        prismThemeChange();
-      }
-    };
-    setDarkmode();
-    </script>
-  
-  
-  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
-  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
-  
-  
-    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
-    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
-  
-  
-    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
-  
-  
-  
-  
-  
-  
-  
-  <link rel="stylesheet" href="/css/main.css">
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
-  
-    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
-  
-<meta name="generator" content="Hexo 5.4.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
 </head>
 
-  <body>
-    <div class="wrapper">
-       
-      <nav class="navbar">
-  <div class="navbar-logo">
-    <span class="navbar-logo-main">
-      
-        <img 
-          class="navbar-logo-img"
-          width="32"
-          height="32"
-          src="/images/logo.png" 
-          alt="blog logo">
-      
-      <span class="navbar-logo-dsc">0x95cn</span>
-    </span>
-  </div>
-  <div class="navbar-menu">
-    
-      <a 
-        href="/" 
-        class="navbar-menu-item">
-        
-          Home
-        
-      </a>
-    
-      <a 
-        href="/archives" 
-        class="navbar-menu-item">
-        
-          Archive
-        
-      </a>
-    
-      <a 
-        href="/tags" 
-        class="navbar-menu-item">
-        
-          Tags
-        
-      </a>
-    
-      <a 
-        href="/categories" 
-        class="navbar-menu-item">
-        
-          Categories
-        
-      </a>
-    
-      <a 
-        href="/about" 
-        class="navbar-menu-item">
-        
-          About
-        
-      </a>
-    
-    <a 
-      class="navbar-menu-item darknavbar" 
-      id="dark">
-      <i class="iconfont icon-weather"></i>
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0x95cn</strong>
     </a>
-    <a 
-      class="navbar-menu-item searchnavbar" 
-      id="search">
-      <i 
-        class="iconfont icon-search" 
-        style="font-size: 1.2rem; font-weight: 400;">
-      </i>
-    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Startseite
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archiv
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Kategorie
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Etiketten
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                Über mich
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
   </div>
-</nav> 
-      
-      <div 
-        id="local-search" 
-        style="display: none">
-        <input
-          class="navbar-menu-item"
-          id="search-input"
-          placeholder="请输入搜索内容..." />
-        <div id="search-content"></div>
-      </div>
-      
-      <div class="section-wrap">
-        <div class="container">
-          <div class="columns">
-            <main class="main-column">
-<article class="card card-content">
-  <header>
-    <h1 class="post-title">
-      SSRF-Gopher
-    </h1>
-  </header>
-  <div class="post-meta post-show-meta">
-    <time datetime="2021-10-31T06:37:46.000Z">
-      <i 
-        class="iconfont icon-calendar" 
-        style="margin-right: 2px;">
-      </i>
-      <span>2021-10-31</span>
-    </time>
-    
-      <span class="dot"></span>
-      
-        <a 
-          href="/categories/WebSec/" 
-          class="post-meta-link">
-          WebSec
-        </a>
-      
-    
-    
-      <span class="dot"></span>
-      <span>372 words</span>
-    
-  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/banner1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="SSRF-Gopher">
+              
+            </span>
+
+            
+              <div class="mt-3">
   
-    <div 
-      class="post-meta post-show-meta" 
-      style="margin-top: -10px;">
-      <div style="display: flex; align-items: center;">
-        <i 
-          class="iconfont icon-biaoqian" 
-          style="margin-right: 2px; font-size: 1.15rem;">
-        </i>
-        
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-31 14:37" pubdate>
+        October 31, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
           
-          <a 
-            href="/tags/Web/" 
-            class="post-meta-link">
-            Web
-          </a>
-        
-          
-            <span class="dot"></span>
-          
-          <a 
-            href="/tags/Security/" 
-            class="post-meta-link">
-            Security
-          </a>
-        
+        </div>
       </div>
     </div>
-  
   </header>
-  <div 
-    id="section" 
-    class="post-content">
-    <h1 id="What-is-Gopher"><a href="#What-is-Gopher" class="headerlink" title="What is Gopher?"></a>What is Gopher?</h1><h2 id="初识Gopher"><a href="#初识Gopher" class="headerlink" title="初识Gopher"></a>初识Gopher</h2><p>​    在WWW出现之前，Gopher是Internet上最主要的信息检索工具，Gopher站点也是最主要的站点，使用<strong>tcp70端口</strong>。</p>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">SSRF-Gopher</h1>
+            
+            <div class="markdown-body">
+              <h1 id="What-is-Gopher"><a href="#What-is-Gopher" class="headerlink" title="What is Gopher?"></a>What is Gopher?</h1><h2 id="初识Gopher"><a href="#初识Gopher" class="headerlink" title="初识Gopher"></a>初识Gopher</h2><p>​    在WWW出现之前，Gopher是Internet上最主要的信息检索工具，Gopher站点也是最主要的站点，使用<strong>tcp70端口</strong>。</p>
 <p>​    Gopher协议支持发出GET和POST请求：可以先截获GET请求包和POST请求包，再构成符合Gopher协议的请求。Gopher协议是SSRF利用中最强大的协议。</p>
 <p><strong>限制</strong>：</p>
 <table>
@@ -400,436 +292,258 @@
 <li>URL编码、替换回车换行为<code>%0d%0a</code></li>
 <li>发送Gopher协议</li>
 </ol>
-<h3 id="GET型HTTP"><a href="#GET型HTTP" class="headerlink" title="GET型HTTP"></a>GET型HTTP</h3><pre class="line-numbers language-http" data-language="http"><code class="language-http">GET /ssrf/base/get.php?name=zkuan HTTP/1.1
-Host:192.168.1.111<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="GET型HTTP"><a href="#GET型HTTP" class="headerlink" title="GET型HTTP"></a>GET型HTTP</h3><div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">GET &#x2F;ssrf&#x2F;base&#x2F;get.php?name&#x3D;zkuan HTTP&#x2F;1.1
+Host:192.168.1.111<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
 
 
 <p>URL编码后使用curl发送HTTP包：</p>
-<pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher://192.168.1.122/_GET%20/ssrf/base/get.php%3fname=zkuan%20HTTP/1.1%0d%0aHost:192.168.1.111%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher:&#x2F;&#x2F;192.168.1.122&#x2F;_GET%20&#x2F;ssrf&#x2F;base&#x2F;get.php%3fname&#x3D;zkuan%20HTTP&#x2F;1.1%0d%0aHost:192.168.1.111%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<h3 id="POST型HTTP"><a href="#POST型HTTP" class="headerlink" title="POST型HTTP"></a>POST型HTTP</h3><pre class="line-numbers language-http" data-language="http"><code class="language-http">POST /ssrf/base/post.php HTTP/1.1
+<h3 id="POST型HTTP"><a href="#POST型HTTP" class="headerlink" title="POST型HTTP"></a>POST型HTTP</h3><div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">POST &#x2F;ssrf&#x2F;base&#x2F;post.php HTTP&#x2F;1.1
 Host:192.168.1.111
-Content-Type:application/x-www-form-urlencoded
+Content-Type:application&#x2F;x-www-form-urlencoded
 Content-Length:11
 
-name=zkuan<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+name&#x3D;zkuan<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>URL编码后使用curl发送HTTP包：</p>
-<pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher://192.168.1.122/_POST%20/ssrf/base/post.php%20HTTP/1.1%0d%0aHost:192.168.1.111%0d%0aContent-Type:application/x-www-form-urlencoded%0d%0aContent-Length:11%0d%0a%0d%0aname=zkuan%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher:&#x2F;&#x2F;192.168.1.122&#x2F;_POST%20&#x2F;ssrf&#x2F;base&#x2F;post.php%20HTTP&#x2F;1.1%0d%0aHost:192.168.1.111%0d%0aContent-Type:application&#x2F;x-www-form-urlencoded%0d%0aContent-Length:11%0d%0a%0d%0aname&#x3D;zkuan%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 
-  </div>
-  <div>
-    
-      <div 
-        class="post-note note-warning copyright" 
-        style="margin-top: 42px">
-        <p>
-          <span style="font-weight: bold;">作者：</span><a 
-            target="_blank" 
-            rel="nofollow noopener noreferrer" 
-            href="/about">
-            0x95cn_zkuan
-          </a>
-        </p>
-        <p>
-          <span style="font-weight: bold;">文章链接：</span><a 
-            target="_blank" 
-            rel="nofollow noopener noreferrer" 
-            href="https://whoiszkuan.github.io/2021/10/31/SSRF-Gopher/">
-            https://whoiszkuan.github.io/2021/10/31/SSRF-Gopher/
-          </a>
-        </p>
-        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
-      </div>
-    
-  </div>
-</article>
-<div class="nav">
-  
-    <div class="nav-item-prev">
-      <a 
-        href="/2021/11/04/N1BOOK-XSS/" 
-        class="nav-link">
-        <i class="iconfont icon-left nav-prev-icon"></i>
-        <div>
-          <div class="nav-label">Prev</div>
-          
-            <div class="nav-title">N1BOOK-XSS </div>
-          
-        </div>
-      </a>
-    </div>
-  
-  
-    <div class="nav-item-next">
-      <a 
-        href="/2021/10/01/Vulnhub-Me-And-My-Girlfriend/" 
-        class="nav-link">
-        <div>
-          <div class="nav-label">Next</div>
-          
-            <div class="nav-title">Vulnhub Me And My Girlfriend </div>
-          
-        </div>
-        <i class="iconfont icon-right nav-next-icon"></i>
-      </a>
-    </div>
-  
-</div>
-
-<div 
-  class="card card-content toc-card" 
-  id="mobiletoc">
-  <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#What-is-Gopher"><span class="toc-text">What is Gopher?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E8%AF%86Gopher"><span class="toc-text">初识Gopher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gopher-HTTP"><span class="toc-text">Gopher HTTP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET%E5%9E%8BHTTP"><span class="toc-text">GET型HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST%E5%9E%8BHTTP"><span class="toc-text">POST型HTTP</span></a></li></ol></li></ol></li></ol>
-</div></main>
-            <aside class="left-column">
-              
-              <div class="card card-author">
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-  <img 
-    src="/images/zkuan.png" 
-    class="author-img"
-    width="88"
-    height="88"
-    alt="author avatar">
-
-<p class="author-name">0x95cn_zkuan</p>
-<p class="author-description">Kali Linux Lover</p>
-<div class="author-message">
-  <a 
-    class="author-posts-count" 
-    href="/archives">
-    <span>9</span>
-    <span>Posts</span>
-  </a>
-  <a 
-    class="author-categories-count" 
-    href="/categories">
-    <span>4</span>
-    <span>Categories</span>
-  </a>
-  <a 
-    class="author-tags-count" 
-    href="/tags">
-    <span>5</span>
-    <span>Tags</span>
-  </a>
-</div>
-
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WebSec/">WebSec</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
+                    
+                  </div>
+                
               </div>
-               <div class="sticky-tablet">
-  
-  
-    <article class="display-when-two-columns spacer">
-      <div class="card card-content toc-card">
-        <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#What-is-Gopher"><span class="toc-text">What is Gopher?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E8%AF%86Gopher"><span class="toc-text">初识Gopher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gopher-HTTP"><span class="toc-text">Gopher HTTP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET%E5%9E%8BHTTP"><span class="toc-text">GET型HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST%E5%9E%8BHTTP"><span class="toc-text">POST型HTTP</span></a></li></ol></li></ol></li></ol>
-      </div>
-    </article>
-  
-  
-  <article class="card card-content categories-widget">
-    <div class="categories-card">
-  <div class="categories-header">
-    <i 
-      class="iconfont icon-fenlei" 
-      style="padding-right: 2px;">
-    </i>Categories
-  </div>
-  <div class="categories-list">
-    
-      <a href="/categories/Linux/">
-        <div class="categories-list-item">
-          Linux
-          <span class="categories-list-item-badge">2</span>
-        </div>
-      </a>
-    
-      <a href="/categories/WebSec/">
-        <div class="categories-list-item">
-          WebSec
-          <span class="categories-list-item-badge">5</span>
-        </div>
-      </a>
-    
-      <a href="/categories/SystemSec/">
-        <div class="categories-list-item">
-          SystemSec
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Exploit/">
-        <div class="categories-list-item">
-          Exploit
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
-  <article class="card card-content tags-widget">
-    <div class="tags-card">
-  <div class="tags-header">
-    <i 
-      class="iconfont icon-biaoqian" 
-      style="padding-right: 2px;">
-    </i>hot tags
-  </div>
-  <div class="tags-list">
-    
-      <a 
-        href="/tags/Security/" 
-        title="Security">
-        <div class="tags-list-item">Security</div>
-      </a>
-    
-      <a 
-        href="/tags/Web/" 
-        title="Web">
-        <div class="tags-list-item">Web</div>
-      </a>
-    
-      <a 
-        href="/tags/Linux/" 
-        title="Linux">
-        <div class="tags-list-item">Linux</div>
-      </a>
-    
-      <a 
-        href="/tags/PHP/" 
-        title="PHP">
-        <div class="tags-list-item">PHP</div>
-      </a>
-    
-      <a 
-        href="/tags/Penetration-Testing/" 
-        title="Penetration Testing">
-        <div class="tags-list-item">Penetration Testing</div>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
-  
-</div>
-            </aside>
-            <aside class="right-column">
-              <div class="sticky-widescreen">
-  
-  
-    <article class="card card-content toc-card">
-      <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#What-is-Gopher"><span class="toc-text">What is Gopher?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E8%AF%86Gopher"><span class="toc-text">初识Gopher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gopher-HTTP"><span class="toc-text">Gopher HTTP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET%E5%9E%8BHTTP"><span class="toc-text">GET型HTTP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST%E5%9E%8BHTTP"><span class="toc-text">POST型HTTP</span></a></li></ol></li></ol></li></ol>
-    </article>
-  
-  
-  <article class="card card-content">
-    <div class="recent-posts-card">
-  <div class="recent-posts-header">
-    <i 
-      class="iconfont icon-wenzhang_huaban" 
-      style="padding-right: 2px;">
-    </i>Recent Posts
-  </div>
-  <div class="recent-posts-list">
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-12-09</div>
-        <a href="/2021/12/09/Directory-Traversal/"><div class="recent-posts-item-content">Directory Traversal</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-12-02</div>
-        <a href="/2021/12/02/PHP-Security-Features/"><div class="recent-posts-item-content">PHP Security Features</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-11-04</div>
-        <a href="/2021/11/04/Linux-Security/"><div class="recent-posts-item-content">Linux-Security</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-11-04</div>
-        <a href="/2021/11/04/N1BOOK-XSS/"><div class="recent-posts-item-content">N1BOOK-XSS</div></a>
-      </div>
-    
-  </div>
-</div>
-  </article>
-  
-  
-</div>
-            </aside>
-          </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/11/04/N1BOOK-XSS/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">N1BOOK-XSS</span>
+                        <span class="visible-mobile">Vorheriger</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/01/Vulnhub-Me-And-My-Girlfriend/">
+                        <span class="hidden-mobile">Vulnhub Me And My Girlfriend</span>
+                        <span class="visible-mobile">Nächster</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
     </div>
-     
-    <footer class="footer">
-  <div class="footer-container">
-    <div>
-      <div class="footer-dsc">
-        <span>
-          Copyright ©
-          
-            2020 -
-          
-          2021
-        </span>
-        &nbsp;
-        <a 
-          href="/" 
-          class="footer-link">
-          0x95cn
-        </a>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
+  </div>
+</div>
+    
 
     
-      <div class="footer-dsc">
-        
-          Powered by
-          <a 
-            href="https://hexo.io/" 
-            class="footer-link" 
-            target="_blank" 
-            rel="nofollow noopener noreferrer">
-            &nbsp;Hexo
-          </a>
-        
-        
-          <span>&nbsp;|&nbsp;</span>
-        
-        
-          Theme -
-          <a 
-            href="https://github.com/theme-kaze" 
-            class="footer-link" 
-            target="_blank"
-            rel="nofollow noopener noreferrer">
-            &nbsp;Kaze
-          </a>
-        
-      </div>
-    
-    
-    
-    
-</footer> 
-    
-  <a 
-    role="button" 
-    id="scrollbutton" 
-    class="basebutton" 
-    aria-label="回到顶部">
-    <i class="iconfont icon-arrowleft button-icon"></i>
-  </a>
+  </main>
 
-<a 
-  role="button" 
-  id="menubutton"
-  aria-label="menu button"
-  class="basebutton">
-  <i class="iconfont icon-menu button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="popbutton" 
-  class="basebutton" 
-  aria-label="控制中心">
-  <i class="iconfont icon-expand button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="darkbutton" 
-  class="basebutton darkwidget" 
-  aria-label="夜色模式">
-  <i class="iconfont icon-weather button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="searchbutton" 
-  class="basebutton searchwidget" 
-  aria-label="搜索">
-  <i class="iconfont icon-search button-icon"></i>
-</a> 
-     
-     
-     
-      <script>
-  var addImgLayout = function () {
-    var img = document.querySelectorAll('.post-content img')
-    var i
-    for (i = 0; i < img.length; i++) {
-      var wrapper = document.createElement('a')
-      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
-      wrapper.setAttribute('aria-label', 'illustration')
-      wrapper.style.cssText =
-        'width: 100%; display: flex; justify-content: center;'
-      if (img[i].alt) wrapper.dataset.caption = img[i].alt
-      wrapper.dataset.nolink = true
-      img[i].before(wrapper)
-      wrapper.append(img[i])
-      var divWrap = document.createElement('div')
-      divWrap.classList.add('gallery')
-      wrapper.before(divWrap)
-      divWrap.append(wrapper)
-    }
-    baguetteBox.run('.gallery')
-  }
-</script>
-<script>
-  loadScript(
-    "/js/lib/lightbox/baguetteBox.min.js",
-    addImgLayout
-  )
-</script>
- 
-     
-     
-    <script src="/js/main.js"></script> 
-     
-    
-      <script>
-        var addLazyload = function () {
-          var observer = lozad('.lozad', {
-            load: function (el) {
-              el.srcset = el.getAttribute('data-src')
-            },
-            loaded: function (el) {
-              el.classList.add('loaded')
-            },
-          })
-          observer.observe()
-        }
-      </script>
-      <script>
-        loadScript('/js/lib/lozad.min.js', addLazyload)
-      </script>
-     
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
     
     
-  </body>
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
 </html>

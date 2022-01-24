@@ -1,366 +1,258 @@
+
+
 <!DOCTYPE html>
-<html lang="en-US">
-  <head>
+<html lang="en-US" data-default-color-scheme=auto>
+
+
+
+<head>
   <meta charset="UTF-8">
-  <meta 
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta 
-    http-equiv="X-UA-Compatible" 
-    content="ie=edge">
-  <meta 
-    name="theme-color" 
-    content="#fff" 
-    id="theme-color">
-  <meta 
-    name="description" 
-    content="4CH4N ZKUAN">
-  <link 
-    rel="icon" 
-    href="/images/logo.png">
-  <title>Vulnhub Me And My Girlfriend</title>
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zkuan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="渗透测试初探，简单渗透测试流程学习及思路。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vulnhub Me And My Girlfriend">
+<meta property="og:url" content="https://whoiszkuan.github.io/2021/10/01/Vulnhub-Me-And-My-Girlfriend/index.html">
+<meta property="og:site_name" content="4CH4N ZKUAN">
+<meta property="og:description" content="渗透测试初探，简单渗透测试流程学习及思路。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://whoiszkuan.github.io/images/kali.png">
+<meta property="article:published_time" content="2021-10-01T06:07:54.000Z">
+<meta property="article:modified_time" content="2022-01-24T05:31:51.213Z">
+<meta property="article:author" content="zkuan">
+<meta property="article:tag" content="Security">
+<meta property="article:tag" content="Penetration Testing">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://whoiszkuan.github.io/images/kali.png">
+  
+  
+  <title>Vulnhub Me And My Girlfriend - 4CH4N ZKUAN</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
   
     
-      <meta 
-        property="og:title" 
-        content="Vulnhub Me And My Girlfriend">
     
-    
-      <meta 
-        property="og:url" 
-        content="https://whoiszkuan.github.io/2021/10/01/Vulnhub-Me-And-My-Girlfriend/index.html">
-    
-    
-      <meta 
-        property="og:img" 
-        content="/images/zkuan.png">
-    
-    
-      <meta 
-        property="og:img" 
-        content="渗透测试初探，简单渗透测试流程学习及思路。">
-    
-    
-      <meta 
-        property="og:type" 
-        content="article">
-      <meta 
-        property="og:article:published_time" 
-        content="2021-10-01">
-      <meta 
-        property="og:article:modified_time" 
-        content="2021-12-02">
-      <meta 
-        property="og:article:author" 
-        content="0x95cn_zkuan">
+      
       
         
-          <meta 
-            property="og:article:tag" 
-            content="Security">
+          
+          
+          
         
-          <meta 
-            property="og:article:tag" 
-            content="Penetration Testing">
-        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-okaidia.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
       
     
   
-  <script>
-    function loadScript(url, cb) {
-      var script = document.createElement('script');
-      script.src = url;
-      if (cb) script.onload = cb;
-      script.async = true;
-      document.body.appendChild(script);
-    }
-    function loadCSS(href, data, attr) {
-      var sheet = document.createElement('link');
-      sheet.ref = 'stylesheet';
-      sheet.href = href;
-      sheet.dataset[data] = attr;
-      document.head.appendChild(sheet);
-    }
-    function changeCSS(cssFile, data, attr) {
-      var oldlink = document.querySelector(data);
-      var newlink = document.createElement("link");
-      newlink.setAttribute("rel", "stylesheet");
-      newlink.setAttribute("href", cssFile);
-      newlink.dataset.prism = attr;
-      document.head.replaceChild(newlink, oldlink);
-    }
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"whoiszkuan.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
-  
-    
-      
-      
-      
-      
-        
-        
-        
-        <script>
-          function prismThemeChange() {
-            if(document.getElementById('theme-color').dataset.mode === 'dark') {
-              if(document.querySelector('[data-prism]')) {
-                changeCSS('/js/lib/prism/prism-twilight.min.css', '[data-prism]', 'prism-twilight');
-              } else {
-                loadCSS('/js/lib/prism/prism-twilight.min.css', 'prism', 'prism-twilight');
-              }
-            } else {
-              if(document.querySelector('[data-prism]')) {
-                changeCSS('/js/lib/prism/prism-twilight.min.css', '[data-prism]', 'prism-twilight');
-              } else {
-                loadCSS('/js/lib/prism/prism-twilight.min.css', 'prism', 'prism-twilight');
-              }
-            }
-          }
-          prismThemeChange()
-        </script>
-      
-      
-        
-        <link rel="stylesheet" href="/js/lib/prism/prism-line-numbers.min.css">
-      
-    
-  
-  <script>
-    // control reverse button
-    var reverseDarkList = {
-      dark: 'light',
-      light: 'dark'
-    };
-    var themeColor = {
-      dark: '#1c1c1e',
-      light: '#fff'
-    }
-    // get the data of css prefers-color-scheme
-    var getCssMediaQuery = function() {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
-    // reverse current darkmode setting function
-    var reverseDarkModeSetting = function() {
-      var setting = localStorage.getItem('user-color-scheme');
-      if(reverseDarkList[setting]) {
-        setting = reverseDarkList[setting];
-      } else if(setting === null) {
-        setting = reverseDarkList[getCssMediaQuery()];
-      } else {
-        return;
-      }
-      localStorage.setItem('user-color-scheme', setting);
-      return setting;
-    };
-    // apply current darkmode setting
-  </script>
-  
-    <script>
-      var setDarkmode = function(mode) {
-      var setting = mode || localStorage.getItem('user-color-scheme');
-      if(setting === getCssMediaQuery()) {
-        document.documentElement.removeAttribute('data-user-color-scheme');
-        localStorage.removeItem('user-color-scheme');
-        document.getElementById('theme-color').content = themeColor[setting];
-        document.getElementById('theme-color').dataset.mode = setting;
-        prismThemeChange();
-      } else if(reverseDarkList[setting]) {
-        document.documentElement.setAttribute('data-user-color-scheme', setting);
-        document.getElementById('theme-color').content = themeColor[setting];
-        document.getElementById('theme-color').dataset.mode = setting;
-        prismThemeChange();
-      } else {
-        document.documentElement.removeAttribute('data-user-color-scheme');
-        localStorage.removeItem('user-color-scheme');
-        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
-        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
-        prismThemeChange();
-      }
-    };
-    setDarkmode();
-    </script>
-  
-  
-  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
-  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
-  
-  
-    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
-    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
-  
-  
-    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
-  
-  
-  
-  
-  
-  
-  
-  <link rel="stylesheet" href="/css/main.css">
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
-  
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
-  
-    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
-  
-<meta name="generator" content="Hexo 5.4.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="4CH4N ZKUAN" type="application/atom+xml">
 </head>
 
-  <body>
-    <div class="wrapper">
-       
-      <nav class="navbar">
-  <div class="navbar-logo">
-    <span class="navbar-logo-main">
-      
-        <img 
-          class="navbar-logo-img"
-          width="32"
-          height="32"
-          src="/images/logo.png" 
-          alt="blog logo">
-      
-      <span class="navbar-logo-dsc">0x95cn</span>
-    </span>
-  </div>
-  <div class="navbar-menu">
-    
-      <a 
-        href="/" 
-        class="navbar-menu-item">
-        
-          Home
-        
-      </a>
-    
-      <a 
-        href="/archives" 
-        class="navbar-menu-item">
-        
-          Archive
-        
-      </a>
-    
-      <a 
-        href="/tags" 
-        class="navbar-menu-item">
-        
-          Tags
-        
-      </a>
-    
-      <a 
-        href="/categories" 
-        class="navbar-menu-item">
-        
-          Categories
-        
-      </a>
-    
-      <a 
-        href="/about" 
-        class="navbar-menu-item">
-        
-          About
-        
-      </a>
-    
-    <a 
-      class="navbar-menu-item darknavbar" 
-      id="dark">
-      <i class="iconfont icon-weather"></i>
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0x95cn</strong>
     </a>
-    <a 
-      class="navbar-menu-item searchnavbar" 
-      id="search">
-      <i 
-        class="iconfont icon-search" 
-        style="font-size: 1.2rem; font-weight: 400;">
-      </i>
-    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Startseite
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archiv
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Kategorie
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Etiketten
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                Über mich
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
   </div>
-</nav> 
-      
-      <div 
-        id="local-search" 
-        style="display: none">
-        <input
-          class="navbar-menu-item"
-          id="search-input"
-          placeholder="请输入搜索内容..." />
-        <div id="search-content"></div>
-      </div>
-      
-      <div class="section-wrap">
-        <div class="container">
-          <div class="columns">
-            <main class="main-column">
-<article class="card card-content">
-  <header>
-    <h1 class="post-title">
-      Vulnhub Me And My Girlfriend
-    </h1>
-  </header>
-  <div class="post-meta post-show-meta">
-    <time datetime="2021-10-01T06:07:54.000Z">
-      <i 
-        class="iconfont icon-calendar" 
-        style="margin-right: 2px;">
-      </i>
-      <span>2021-10-01</span>
-    </time>
-    
-      <span class="dot"></span>
-      
-        <a 
-          href="/categories/Exploit/" 
-          class="post-meta-link">
-          Exploit
-        </a>
-      
-    
-    
-      <span class="dot"></span>
-      <span>753 words</span>
-    
-  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/banner1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vulnhub Me And My Girlfriend">
+              
+            </span>
+
+            
+              <div class="mt-3">
   
-    <div 
-      class="post-meta post-show-meta" 
-      style="margin-top: -10px;">
-      <div style="display: flex; align-items: center;">
-        <i 
-          class="iconfont icon-biaoqian" 
-          style="margin-right: 2px; font-size: 1.15rem;">
-        </i>
-        
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-01 14:07" pubdate>
+        October 1, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
           
-          <a 
-            href="/tags/Security/" 
-            class="post-meta-link">
-            Security
-          </a>
-        
-          
-            <span class="dot"></span>
-          
-          <a 
-            href="/tags/Penetration-Testing/" 
-            class="post-meta-link">
-            Penetration Testing
-          </a>
-        
+        </div>
       </div>
     </div>
-  
   </header>
-  <div 
-    id="section" 
-    class="post-content">
-    <h1 id="Me-And-My-Girlfriend-1"><a href="#Me-And-My-Girlfriend-1" class="headerlink" title="Me And My Girlfriend:1"></a>Me And My Girlfriend:1</h1><p>渗透准备：</p>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vulnhub Me And My Girlfriend</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Me-And-My-Girlfriend-1"><a href="#Me-And-My-Girlfriend-1" class="headerlink" title="Me And My Girlfriend:1"></a>Me And My Girlfriend:1</h1><p>渗透准备：</p>
 <ol>
 <li>主机：Kali 2021.2</li>
 <li>靶机：Vmware </li>
@@ -374,483 +266,305 @@
 <p>大致意思就是男主Bob怀疑女主Alice出轨了，让我们潜入Alice公司内部查看Alice的电脑线索。</p>
 <h2 id="开启靶机，扫描目标主机IP段"><a href="#开启靶机，扫描目标主机IP段" class="headerlink" title="开启靶机，扫描目标主机IP段"></a>开启靶机，扫描目标主机IP段</h2><p><code>nmap -sP 192.168.158.0/24</code></p>
 <p>检测出靶机IP为<code>192.168.158.128</code></p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg1.png" class="lozad post-image"src="/images/mamg1.png"></p>
+<p><img src="/images/mamg1.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="扫描靶机信息"><a href="#扫描靶机信息" class="headerlink" title="扫描靶机信息"></a>扫描靶机信息</h2><p>nmap基础用法：<code>-A 版本检测 -O 检测OS版本 -sV 服务探测/版本信息</code></p>
 <p><code>nmap -A -O -sV 192.168.158.128</code></p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg2.png" class="lozad post-image"src="/images/mamg2.png"></p>
+<p><img src="/images/mamg2.png" srcset="/img/loading.gif" lazyload></p>
 <p>得出靶机开放了<code>ssh:22</code>和<code>http:80</code>服务</p>
 <h2 id="访问80端口"><a href="#访问80端口" class="headerlink" title="访问80端口"></a>访问80端口</h2><p>访问80端口发现无法正常进入网页</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg3.png" class="lozad post-image"src="/images/mamg3.png"></p>
+<p><img src="/images/mamg3.png" srcset="/img/loading.gif" lazyload></p>
 <p>翻译过来意思是：只能通过本地IP访问</p>
 <p>打开网页源代码看看有没有什么提示：</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg4.png" class="lozad post-image"src="/images/mamg4.png"></p>
+<p><img src="/images/mamg4.png" srcset="/img/loading.gif" lazyload></p>
 <p>提示使用<strong>X-FORWARDED-FOR</strong>访问网页</p>
 <p><code>X-Forwarded-For用来获取最初发起请求的IP</code></p>
 <p>综上所述：我们需要使用X-Forwarded-For伪造一个本地IP为最初发起请求访问靶机80端口</p>
 <h2 id="X-Forwarded-FOR"><a href="#X-Forwarded-FOR" class="headerlink" title="X-Forwarded-FOR"></a>X-Forwarded-FOR</h2><p>已知本地IP地址为<strong>127.0.0.1</strong></p>
 <p>使用X-Forwarded-For Header伪造IP</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/xfw.png" class="lozad post-image"src="/images/xfw.png"></p>
+<p><img src="/images/xfw.png" srcset="/img/loading.gif" lazyload></p>
 <p>成功登录</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg5.png" class="lozad post-image"src="/images/mamg5.png"></p>
+<p><img src="/images/mamg5.png" srcset="/img/loading.gif" lazyload></p>
 <p>页面有4个选项，分别为 主页、登录、注册、关于。</p>
 <p>先随便注册一个帐号登录</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg6.png" class="lozad post-image"src="/images/mamg6.png"></p>
+<p><img src="/images/mamg6.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="Login"><a href="#Login" class="headerlink" title="Login"></a>Login</h2><p>登录进去之后对我们最有用的是Profile选项</p>
 <p>这是一个更改密码的选项</p>
 <p>在网址栏上发现了一点端倪</p>
 <p><code>?</code>后面跟随的是参数<code>page=profile&amp;user_id=12</code>，请求了<code>profile</code>页面，用户id为<code>12</code></p>
 <p>尝试修改Id</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg7.png" class="lozad post-image"src="/images/mamg7.png"></p>
+<p><img src="/images/mamg7.png" srcset="/img/loading.gif" lazyload></p>
 <p>可以看到回显出了其他用户的帐号和密码</p>
 <p>如果获得了帐号和密码就可以尝试登录22端口的ssh服务</p>
 <p>那么密码该如何获得</p>
-<p><code>html中设置输入文本隐藏明文的操作为type="password",在审查代码中修改type类型为type="text",可查看用户输入的密码。</code></p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg8.png" class="lozad post-image"src="/images/mamg8.png"></p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg9.png" class="lozad post-image"src="/images/mamg9.png"></p>
+<p><code>html中设置输入文本隐藏明文的操作为type=&quot;password&quot;,在审查代码中修改type类型为type=&quot;text&quot;,可查看用户输入的密码。</code></p>
+<p><img src="/images/mamg8.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/mamg9.png" srcset="/img/loading.gif" lazyload></p>
 <p>得出用户密码。</p>
 <p>遍历所有用户id后锁定Bob女友Alice的账户密码为<code>alice:4lic3</code></p>
 <h2 id="SSH访问"><a href="#SSH访问" class="headerlink" title="SSH访问"></a>SSH访问</h2><p>得到Alice的账户和密码后，使用ssh访问靶机电脑</p>
 <p><code>ssh alice@192.168.158.128</code></p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg10.png" class="lozad post-image"src="/images/mamg10.png"></p>
+<p><img src="/images/mamg10.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="Flag-1"><a href="#Flag-1" class="headerlink" title="Flag 1"></a>Flag 1</h2><p>列出当前文件夹所有文件，包括隐藏文件</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg11.png" class="lozad post-image"src="/images/mamg11.png"></p>
+<p><img src="/images/mamg11.png" srcset="/img/loading.gif" lazyload></p>
 <p>发现文件夹下有一个隐藏文件夹</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg12.png" class="lozad post-image"src="/images/mamg12.png"></p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg13.png" class="lozad post-image"src="/images/mamg13.png"></p>
+<p><img src="/images/mamg12.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/mamg13.png" srcset="/img/loading.gif" lazyload></p>
 <p>进入后发现有<code>flag1.txt</code>文件</p>
 <p>成功获取flag1</p>
-<p><code>Flag 1 : gfriEND{2f5f21b2af1b8c3e227bcf35544f8f09}</code></p>
+<p><code>Flag 1 : gfriEND&#123;2f5f21b2af1b8c3e227bcf35544f8f09&#125;</code></p>
 <h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>尝试<code>sudo su</code>无法提权</p>
 <p>查看Alice当前权限</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg14.png" class="lozad post-image"src="/images/mamg14.png"></p>
+<p><img src="/images/mamg14.png" srcset="/img/loading.gif" lazyload></p>
 <p><code>(root)NOPASSWD:/usr/bin/php</code>发现可以不使用密码打开php文件</p>
 <p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/">基础提权</a></p>
 <p>尝试回调php提权</p>
-<pre class="line-numbers language-none"><code class="language-none">CMD="/bin/sh"
-sudo php -r "system('$CMD');"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">CMD&#x3D;&quot;&#x2F;bin&#x2F;sh&quot;
+sudo php -r &quot;system(&#39;$CMD&#39;);&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg15.png" class="lozad post-image"src="/images/mamg15.png"></p>
+<p><img src="/images/mamg15.png" srcset="/img/loading.gif" lazyload></p>
 <p>成功回调root</p>
 <h2 id="Flag-2"><a href="#Flag-2" class="headerlink" title="Flag 2"></a>Flag 2</h2><p>查找flag文件</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg16.png" class="lozad post-image"src="/images/mamg16.png"></p>
+<p><img src="/images/mamg16.png" srcset="/img/loading.gif" lazyload></p>
 <p>进入<code>/root</code>文件夹以后，发现<code>flag2.txt</code>文件</p>
-<p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/images/mamg17.png" class="lozad post-image"src="/images/mamg17.png"></p>
+<p><img src="/images/mamg17.png" srcset="/img/loading.gif" lazyload></p>
 <p>成功拿下flag2</p>
 <blockquote>
 <p> Flag 2: gfriEND{56fbeef560930e77ff984b644fde66e7}</p>
 </blockquote>
 
-  </div>
-  <div>
-    
-      <div 
-        class="post-note note-warning copyright" 
-        style="margin-top: 42px">
-        <p>
-          <span style="font-weight: bold;">作者：</span><a 
-            target="_blank" 
-            rel="nofollow noopener noreferrer" 
-            href="/about">
-            0x95cn_zkuan
-          </a>
-        </p>
-        <p>
-          <span style="font-weight: bold;">文章链接：</span><a 
-            target="_blank" 
-            rel="nofollow noopener noreferrer" 
-            href="https://whoiszkuan.github.io/2021/10/01/Vulnhub-Me-And-My-Girlfriend/">
-            https://whoiszkuan.github.io/2021/10/01/Vulnhub-Me-And-My-Girlfriend/
-          </a>
-        </p>
-        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
-      </div>
-    
-  </div>
-</article>
-<div class="nav">
-  
-    <div class="nav-item-prev">
-      <a 
-        href="/2021/10/31/SSRF-Gopher/" 
-        class="nav-link">
-        <i class="iconfont icon-left nav-prev-icon"></i>
-        <div>
-          <div class="nav-label">Prev</div>
-          
-            <div class="nav-title">SSRF-Gopher </div>
-          
-        </div>
-      </a>
-    </div>
-  
-  
-    <div class="nav-item-next">
-      <a 
-        href="/2021/09/10/Http%20Agreement/" 
-        class="nav-link">
-        <div>
-          <div class="nav-label">Next</div>
-          
-            <div class="nav-title">Http Agreement </div>
-          
-        </div>
-        <i class="iconfont icon-right nav-next-icon"></i>
-      </a>
-    </div>
-  
-</div>
-
-<div 
-  class="card card-content toc-card" 
-  id="mobiletoc">
-  <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Me-And-My-Girlfriend-1"><span class="toc-text">Me And My Girlfriend:1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%B6%E6%9C%BA%E8%83%8C%E6%99%AF"><span class="toc-text">靶机背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E9%9D%B6%E6%9C%BA%EF%BC%8C%E6%89%AB%E6%8F%8F%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BAIP%E6%AE%B5"><span class="toc-text">开启靶机，扫描目标主机IP段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E9%9D%B6%E6%9C%BA%E4%BF%A1%E6%81%AF"><span class="toc-text">扫描靶机信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE80%E7%AB%AF%E5%8F%A3"><span class="toc-text">访问80端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#X-Forwarded-FOR"><span class="toc-text">X-Forwarded-FOR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Login"><span class="toc-text">Login</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH%E8%AE%BF%E9%97%AE"><span class="toc-text">SSH访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flag-1"><span class="toc-text">Flag 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-text">提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flag-2"><span class="toc-text">Flag 2</span></a></li></ol></li></ol>
-</div></main>
-            <aside class="left-column">
-              
-              <div class="card card-author">
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-  <img 
-    src="/images/zkuan.png" 
-    class="author-img"
-    width="88"
-    height="88"
-    alt="author avatar">
-
-<p class="author-name">0x95cn_zkuan</p>
-<p class="author-description">Kali Linux Lover</p>
-<div class="author-message">
-  <a 
-    class="author-posts-count" 
-    href="/archives">
-    <span>9</span>
-    <span>Posts</span>
-  </a>
-  <a 
-    class="author-categories-count" 
-    href="/categories">
-    <span>4</span>
-    <span>Categories</span>
-  </a>
-  <a 
-    class="author-tags-count" 
-    href="/tags">
-    <span>5</span>
-    <span>Tags</span>
-  </a>
-</div>
-
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Exploit/">Exploit</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Penetration-Testing/">Penetration Testing</a>
+                    
+                  </div>
+                
               </div>
-               <div class="sticky-tablet">
-  
-  
-    <article class="display-when-two-columns spacer">
-      <div class="card card-content toc-card">
-        <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Me-And-My-Girlfriend-1"><span class="toc-text">Me And My Girlfriend:1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%B6%E6%9C%BA%E8%83%8C%E6%99%AF"><span class="toc-text">靶机背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E9%9D%B6%E6%9C%BA%EF%BC%8C%E6%89%AB%E6%8F%8F%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BAIP%E6%AE%B5"><span class="toc-text">开启靶机，扫描目标主机IP段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E9%9D%B6%E6%9C%BA%E4%BF%A1%E6%81%AF"><span class="toc-text">扫描靶机信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE80%E7%AB%AF%E5%8F%A3"><span class="toc-text">访问80端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#X-Forwarded-FOR"><span class="toc-text">X-Forwarded-FOR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Login"><span class="toc-text">Login</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH%E8%AE%BF%E9%97%AE"><span class="toc-text">SSH访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flag-1"><span class="toc-text">Flag 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-text">提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flag-2"><span class="toc-text">Flag 2</span></a></li></ol></li></ol>
-      </div>
-    </article>
-  
-  
-  <article class="card card-content categories-widget">
-    <div class="categories-card">
-  <div class="categories-header">
-    <i 
-      class="iconfont icon-fenlei" 
-      style="padding-right: 2px;">
-    </i>Categories
-  </div>
-  <div class="categories-list">
-    
-      <a href="/categories/Linux/">
-        <div class="categories-list-item">
-          Linux
-          <span class="categories-list-item-badge">2</span>
-        </div>
-      </a>
-    
-      <a href="/categories/WebSec/">
-        <div class="categories-list-item">
-          WebSec
-          <span class="categories-list-item-badge">5</span>
-        </div>
-      </a>
-    
-      <a href="/categories/SystemSec/">
-        <div class="categories-list-item">
-          SystemSec
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
-      <a href="/categories/Exploit/">
-        <div class="categories-list-item">
-          Exploit
-          <span class="categories-list-item-badge">1</span>
-        </div>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
-  <article class="card card-content tags-widget">
-    <div class="tags-card">
-  <div class="tags-header">
-    <i 
-      class="iconfont icon-biaoqian" 
-      style="padding-right: 2px;">
-    </i>hot tags
-  </div>
-  <div class="tags-list">
-    
-      <a 
-        href="/tags/Security/" 
-        title="Security">
-        <div class="tags-list-item">Security</div>
-      </a>
-    
-      <a 
-        href="/tags/Web/" 
-        title="Web">
-        <div class="tags-list-item">Web</div>
-      </a>
-    
-      <a 
-        href="/tags/Linux/" 
-        title="Linux">
-        <div class="tags-list-item">Linux</div>
-      </a>
-    
-      <a 
-        href="/tags/PHP/" 
-        title="PHP">
-        <div class="tags-list-item">PHP</div>
-      </a>
-    
-      <a 
-        href="/tags/Penetration-Testing/" 
-        title="Penetration Testing">
-        <div class="tags-list-item">Penetration Testing</div>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
-  
-</div>
-            </aside>
-            <aside class="right-column">
-              <div class="sticky-widescreen">
-  
-  
-    <article class="card card-content toc-card">
-      <div class="toc-header">
-  <i 
-    class="iconfont icon-menu" 
-    style="padding-right: 2px;">
-  </i>TOC
-</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Me-And-My-Girlfriend-1"><span class="toc-text">Me And My Girlfriend:1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%B6%E6%9C%BA%E8%83%8C%E6%99%AF"><span class="toc-text">靶机背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E9%9D%B6%E6%9C%BA%EF%BC%8C%E6%89%AB%E6%8F%8F%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BAIP%E6%AE%B5"><span class="toc-text">开启靶机，扫描目标主机IP段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E9%9D%B6%E6%9C%BA%E4%BF%A1%E6%81%AF"><span class="toc-text">扫描靶机信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE80%E7%AB%AF%E5%8F%A3"><span class="toc-text">访问80端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#X-Forwarded-FOR"><span class="toc-text">X-Forwarded-FOR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Login"><span class="toc-text">Login</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH%E8%AE%BF%E9%97%AE"><span class="toc-text">SSH访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flag-1"><span class="toc-text">Flag 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-text">提权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Flag-2"><span class="toc-text">Flag 2</span></a></li></ol></li></ol>
-    </article>
-  
-  
-  <article class="card card-content">
-    <div class="recent-posts-card">
-  <div class="recent-posts-header">
-    <i 
-      class="iconfont icon-wenzhang_huaban" 
-      style="padding-right: 2px;">
-    </i>Recent Posts
-  </div>
-  <div class="recent-posts-list">
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-12-09</div>
-        <a href="/2021/12/09/Directory-Traversal/"><div class="recent-posts-item-content">Directory Traversal</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-12-02</div>
-        <a href="/2021/12/02/PHP-Security-Features/"><div class="recent-posts-item-content">PHP Security Features</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-11-04</div>
-        <a href="/2021/11/04/Linux-Security/"><div class="recent-posts-item-content">Linux-Security</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-11-04</div>
-        <a href="/2021/11/04/N1BOOK-XSS/"><div class="recent-posts-item-content">N1BOOK-XSS</div></a>
-      </div>
-    
-  </div>
-</div>
-  </article>
-  
-  
-</div>
-            </aside>
-          </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/31/SSRF-Gopher/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SSRF-Gopher</span>
+                        <span class="visible-mobile">Vorheriger</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/10/Http%20Agreement/">
+                        <span class="hidden-mobile">Http Agreement</span>
+                        <span class="visible-mobile">Nächster</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
     </div>
-     
-    <footer class="footer">
-  <div class="footer-container">
-    <div>
-      <div class="footer-dsc">
-        <span>
-          Copyright ©
-          
-            2020 -
-          
-          2021
-        </span>
-        &nbsp;
-        <a 
-          href="/" 
-          class="footer-link">
-          0x95cn
-        </a>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">Stichwort</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
+  </div>
+</div>
+    
 
     
-      <div class="footer-dsc">
-        
-          Powered by
-          <a 
-            href="https://hexo.io/" 
-            class="footer-link" 
-            target="_blank" 
-            rel="nofollow noopener noreferrer">
-            &nbsp;Hexo
-          </a>
-        
-        
-          <span>&nbsp;|&nbsp;</span>
-        
-        
-          Theme -
-          <a 
-            href="https://github.com/theme-kaze" 
-            class="footer-link" 
-            target="_blank"
-            rel="nofollow noopener noreferrer">
-            &nbsp;Kaze
-          </a>
-        
-      </div>
-    
-    
-    
-    
-</footer> 
-    
-  <a 
-    role="button" 
-    id="scrollbutton" 
-    class="basebutton" 
-    aria-label="回到顶部">
-    <i class="iconfont icon-arrowleft button-icon"></i>
-  </a>
+  </main>
 
-<a 
-  role="button" 
-  id="menubutton"
-  aria-label="menu button"
-  class="basebutton">
-  <i class="iconfont icon-menu button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="popbutton" 
-  class="basebutton" 
-  aria-label="控制中心">
-  <i class="iconfont icon-expand button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="darkbutton" 
-  class="basebutton darkwidget" 
-  aria-label="夜色模式">
-  <i class="iconfont icon-weather button-icon"></i>
-</a>
-<a 
-  role="button" 
-  id="searchbutton" 
-  class="basebutton searchwidget" 
-  aria-label="搜索">
-  <i class="iconfont icon-search button-icon"></i>
-</a> 
-     
-     
-     
-      <script>
-  var addImgLayout = function () {
-    var img = document.querySelectorAll('.post-content img')
-    var i
-    for (i = 0; i < img.length; i++) {
-      var wrapper = document.createElement('a')
-      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
-      wrapper.setAttribute('aria-label', 'illustration')
-      wrapper.style.cssText =
-        'width: 100%; display: flex; justify-content: center;'
-      if (img[i].alt) wrapper.dataset.caption = img[i].alt
-      wrapper.dataset.nolink = true
-      img[i].before(wrapper)
-      wrapper.append(img[i])
-      var divWrap = document.createElement('div')
-      divWrap.classList.add('gallery')
-      wrapper.before(divWrap)
-      divWrap.append(wrapper)
-    }
-    baguetteBox.run('.gallery')
-  }
-</script>
-<script>
-  loadScript(
-    "/js/lib/lightbox/baguetteBox.min.js",
-    addImgLayout
-  )
-</script>
- 
-     
-     
-    <script src="/js/main.js"></script> 
-     
-    
-      <script>
-        var addLazyload = function () {
-          var observer = lozad('.lozad', {
-            load: function (el) {
-              el.srcset = el.getAttribute('data-src')
-            },
-            loaded: function (el) {
-              el.classList.add('loaded')
-            },
-          })
-          observer.observe()
-        }
-      </script>
-      <script>
-        loadScript('/js/lib/lozad.min.js', addLazyload)
-      </script>
-     
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
     
     
-  </body>
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
 </html>
