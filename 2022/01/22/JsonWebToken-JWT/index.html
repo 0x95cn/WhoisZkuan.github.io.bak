@@ -32,8 +32,8 @@
 <meta property="article:published_time" content="2022-01-22T13:22:22.000Z">
 <meta property="article:modified_time" content="2022-01-22T13:23:49.366Z">
 <meta property="article:author" content="zkuan">
-<meta property="article:tag" content="Security">
 <meta property="article:tag" content="Web">
+<meta property="article:tag" content="Security">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://gitee.com/zku4n/picgo/raw/master/img/jwt_token.png">
   
@@ -116,7 +116,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                Startseite
+                ホーム
               </a>
             </li>
           
@@ -128,7 +128,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                Archiv
+                アーカイブ
               </a>
             </li>
           
@@ -140,7 +140,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                Kategorie
+                カテゴリー
               </a>
             </li>
           
@@ -152,7 +152,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                Etiketten
+                タグ
               </a>
             </li>
           
@@ -164,7 +164,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                Über mich
+                本ブログ情報　
               </a>
             </li>
           
@@ -401,9 +401,9 @@ router.post(&#39;&#x2F;&#39;,function(req,res,next)&#123;
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
-                    
                       <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
                     
                   </div>
                 
@@ -426,7 +426,7 @@ router.post(&#39;&#x2F;&#39;,function(req,res,next)&#123;
                     
                       <a href="/2022/01/10/File-Include/">
                         <span class="hidden-mobile">File Include</span>
-                        <span class="visible-mobile">Nächster</span>
+                        <span class="visible-mobile">次の記事</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -443,7 +443,7 @@ router.post(&#39;&#x2F;&#39;,function(req,res,next)&#123;
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;ディレクトリ</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -469,7 +469,7 @@ router.post(&#39;&#x2F;&#39;,function(req,res,next)&#123;
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Suchen</h4>
+        <h4 class="modal-title w-100 font-weight-bold">検索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -478,7 +478,7 @@ router.post(&#39;&#x2F;&#39;,function(req,res,next)&#123;
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">Stichwort</label>
+                 for="local-search-input">キーワード</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
