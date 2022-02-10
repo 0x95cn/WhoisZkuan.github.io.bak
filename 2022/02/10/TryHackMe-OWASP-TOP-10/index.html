@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zkuan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="TOP 10 复盘">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TryHackMe-OWASP-TOP-10">
+<meta property="og:url" content="https://whoiszkuan.github.io/2022/02/10/TryHackMe-OWASP-TOP-10/index.html">
+<meta property="og:site_name" content="0x95cn">
+<meta property="og:description" content="TOP 10 复盘">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://gitee.com/zku4n/picgo/raw/master/img/71d5e1f6e2a9fe31ea0cb9adb2d9f6c4.jpg">
+<meta property="article:published_time" content="2022-02-10T10:33:37.000Z">
+<meta property="article:modified_time" content="2022-02-10T10:38:56.267Z">
+<meta property="article:author" content="zkuan">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="Security">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/zku4n/picgo/raw/master/img/71d5e1f6e2a9fe31ea0cb9adb2d9f6c4.jpg">
+  
+  
+  <title>TryHackMe-OWASP-TOP-10 - 0x95cn</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"whoiszkuan.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="0x95cn" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>0x95cn</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/images/banner1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="TryHackMe-OWASP-TOP-10">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-10 18:33" pubdate>
+        February 10, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">TryHackMe-OWASP-TOP-10</h1>
+            
+            <div class="markdown-body">
+              <h1 id="OWASP-TOP-10"><a href="#OWASP-TOP-10" class="headerlink" title="OWASP TOP 10"></a>OWASP TOP 10</h1><ul>
+<li>Injection(注入)</li>
+<li>Broken Authentication(身份验证失效)</li>
+<li>Senstive Data Exposure(敏感数据泄露)</li>
+<li>XML External Entity(外部实体注入)</li>
+<li>Broken Access Control(访问控制失效)</li>
+<li>Security Misconfiguration(安全配置错误)</li>
+<li>Cross-site Scripting(跨站脚本攻击)</li>
+<li>Insecure Deserialization(不安全设计)</li>
+<li>Components with Know Vulnerabilities(已知组件漏洞)</li>
+<li>Insufficent Logging &amp; Monitoring(日志记录和监控不足)</li>
+</ul>
+<h2 id="Injection"><a href="#Injection" class="headerlink" title="Injection"></a>Injection</h2><p>常见的注入有：</p>
+<ul>
+<li>SQL注入：发生在用户控制输入的参数传递给SQL查询时。攻击者可以通过构造SQL查询语句达到SQL注入。</li>
+<li>命令注入：发生在用户控制输入的参数传递给系统命令。攻击者能够在应用服务器上执行任意系统命令。</li>
+</ul>
+<h3 id="OS-Command-Injection"><a href="#OS-Command-Injection" class="headerlink" title="OS Command Injection"></a>OS Command Injection</h3><p>当输入的参数在web应用中的服务器端代码(如PHP)对托管机器进行系统调用时，命令注入就发生了。命令注入可以使攻击者任意浏览服务器端的文件，还可以生成一个reverse shell，使攻击者连接进入服务器内网。</p>
+<h4 id="Practical"><a href="#Practical" class="headerlink" title="Practical"></a>Practical</h4><div class="code-wrapper"><pre class="line-numbers language-php" data-language="php"><code class="language-php">&lt;?php
+	if (isset($_GET[&quot;commandString&quot;])) &#123;
+		$commandString &#x3D; $_GET[&quot;commandString&quot;];
+		try &#123;
+			passthru($commandString);
+		&#125; catch (Error $error) &#123;
+			echo(&quot;&lt;p class&#x3D;mt-3&gt;&lt;b&gt;error&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;&quot;);
+		&#125;
+	&#125;
+?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>常用命令：</p>
+<p><strong>Linux</strong></p>
+<ul>
+<li>whoami</li>
+<li>id</li>
+<li>ifconfig/ip addr</li>
+<li>uname -a</li>
+<li>ps -ef</li>
+</ul>
+<p><strong>Windows</strong></p>
+<ul>
+<li>whoami</li>
+<li>ver</li>
+<li>ipconfig</li>
+<li>tasklist</li>
+<li>netstat -an</li>
+</ul>
+<p>1.查看目录下的敏感文件</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207124522554.png" srcset="/img/loading.gif" lazyload alt="image-20220207124522554"></p>
+<p>2.查看non-root/non-service/non-daemon用户</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207124850789.png" srcset="/img/loading.gif" lazyload alt="image-20220207124850789"></p>
+<p>3.查看当前用户</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207124949403.png" srcset="/img/loading.gif" lazyload alt="image-20220207124949403"></p>
+<p>4.查看当前用户使用的shell</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207125149039.png" srcset="/img/loading.gif" lazyload alt="image-20220207125149039"></p>
+<p>5.查看当前Ubuntu的版本</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207125329907.png" srcset="/img/loading.gif" lazyload alt="image-20220207125329907"></p>
+<h2 id="Broken-Authentication"><a href="#Broken-Authentication" class="headerlink" title="Broken Authentication"></a>Broken Authentication</h2><p>身份验证和会话管理是现代web应用程序的核心组件。身份验证允许用户通过验证自己的身份来访问web应用程序。最常见的身份验证形式是使用用户名和密码机制。用户将输入这些凭证，服务器将验证它们。如果他们是正确的，服务器就会向用户的浏览器提供一个会话cookie。</p>
+<p>常见身份验证失效漏洞：</p>
+<ul>
+<li>暴力破解，如果只通过用户名和密码验证，攻击者可以通过枚举的方式进行用户名和密码验证。</li>
+<li>弱口令，如<code>password</code> <code>admin</code>等简单的默认账号密码。</li>
+<li>cookie脆弱性：如果cookie包含可预测的cookie值，攻击者可以构造一个用户cookie登录。</li>
+</ul>
+<h3 id="Practical-1"><a href="#Practical-1" class="headerlink" title="Practical"></a>Practical</h3><p>假设有一个名为admin的现有用户，现在我们想要访问他们的帐户，所以我们可以做的是尝试重新注册该用户名，但稍加修改。 我们将输入“admin”(注意开头的空格)。 现在，当你在用户名字段中输入这些信息，并输入其他必要的信息，如电子邮件id或密码，然后提交这些数据。 它将实际注册一个新用户，但该用户将拥有与普通管理员相同的权利。 新用户还将能够看到在用户admin下显示的所有内容。</p>
+<p>现在要访问一个用户的账户：<code>darren</code>，从用户的后台获得flag，但是不知道密码，构造一个带有空格的相同用户名<code>darren </code>，绕过验证查看用户后台。</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207155015252.png" srcset="/img/loading.gif" lazyload alt="image-20220207155015252"></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207155050800.png" srcset="/img/loading.gif" lazyload alt="image-20220207155050800"></p>
+<p>成功登录<code>darren</code>用户后台</p>
+<h2 id="Sensitive-Data-Exposure"><a href="#Sensitive-Data-Exposure" class="headerlink" title="Sensitive Data Exposure"></a>Sensitive Data Exposure</h2><p>敏感数据暴露是一个非常常见的漏洞，表现为开发人员配置错误。这些包括:配置不良的web目录权限，带有敏感信息的注释，开放的子域，等等。</p>
+<h3 id="Practical-2"><a href="#Practical-2" class="headerlink" title="Practical"></a>Practical</h3><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207173539244.png" srcset="/img/loading.gif" lazyload alt="image-20220207173539244"></p>
+<p>页面源代码中存在信息泄露</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207173824283.png" srcset="/img/loading.gif" lazyload alt="image-20220207173824283"></p>
+<p>数据库泄露</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207174021222.png" srcset="/img/loading.gif" lazyload alt="image-20220207174021222"></p>
+<p>下载下来后使用kali进行访问(sqlite3 kali自带)</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207174207450.png" srcset="/img/loading.gif" lazyload alt="image-20220207174207450"></p>
+<p>获得admin哈希值</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207174243493.png" srcset="/img/loading.gif" lazyload alt="image-20220207174243493"></p>
+<p>得到密码</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207174317562.png" srcset="/img/loading.gif" lazyload alt="image-20220207174317562"></p>
+<h2 id="XML-External-Entity"><a href="#XML-External-Entity" class="headerlink" title="XML External Entity"></a>XML External Entity</h2><p>XML外部实体(XXE)攻击是一种利用XML解析器/数据特性的漏洞。它通常允许攻击者与应用程序本身可以访问的任何后端或外部系统交互，并允许攻击者读取该系统上的文件。它们还可能导致拒绝服务(DoS)攻击，或使用XXE执行服务器端请求伪造(SSRF)，诱导web应用程序向其他应用程序发出请求。XXE甚至可能启用端口扫描并导致远程代码执行。</p>
+<p>XXE攻击有两种类型：in-band 和 out-of-band (OOB-XXE)</p>
+<ul>
+<li>内部XXE攻击中，攻击者可以收到XXE有效载荷的即时响应。</li>
+<li>外部XXE攻击中，web程序不会立即响应。</li>
+</ul>
+<h3 id="What-is-XML"><a href="#What-is-XML" class="headerlink" title="What is XML?"></a>What is XML?</h3><p>XML(eXtensible Markup Language)是一种可扩展标记语言，他定义了一组规则，用于以人和机器都可读的格式对文档进行编码。是一种用于存储和传输的标记语言。</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/XXE_600x315.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>每个XML文档大多以<strong>XML Prolog</strong>开始</p>
+<p><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</code></p>
+<p>每个XML必须包含一个根元素：</p>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mail</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>to</span><span class="token punctuation">></span></span>falcon<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>to</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>from</span><span class="token punctuation">></span></span>feast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>from</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>subject</span><span class="token punctuation">></span></span>About XXE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>subject</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>text</span><span class="token punctuation">></span></span>Teach about XXE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>text</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mail</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><code>&lt;mail&gt;</code>是该文档的根元素，<code>&lt;to&gt;</code>、<code>&lt;from&gt;</code>、<code>&lt;subject&gt;</code>、<code>&lt;text&gt;</code>是子元素。如果XML文档没有任何根元素，那么它将被认为是错误的或无效的XML文档。XML是大小写敏感的语言。</p>
+<h3 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h3><p>DTD代表文档类型定义，DTD定义了结构、合法的元素和属性。用来验证XML的规范。</p>
+<p>例：以下为<code>note.dtd</code>内的内容</p>
+<div class="code-wrapper"><pre class="line-numbers language-xml-dtd" data-language="xml-dtd"><code class="language-xml-dtd">&lt;!DOCTYPE note [&lt;!ELEMENT note (to,from,heading,body)&gt; &lt;!ELEMENT to (#PCDATA)&gt; &lt;!ELEMENT from (#PCDATA)&gt; &lt;!ELEMENT heading (#PCDATA)&gt; &lt;!ELEMENT body (#PCDATA)&gt;]&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>我们可以使用这个DTD来验证某些XML文档的信息，并确保XML文件符合该DTD的规则。</p>
+<div class="code-wrapper"><pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">note</span> <span class="token name">SYSTEM</span> <span class="token string">"note.dtd"</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>note</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>to</span><span class="token punctuation">></span></span>falcon<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>to</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>from</span><span class="token punctuation">></span></span>feast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>from</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>heading</span><span class="token punctuation">></span></span>hacking<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>heading</span><span class="token punctuation">></span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>XXE attack<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>note</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<ul>
+<li>!DOCTYPE note：定义了一个名为<code>note</code>的文档根元素</li>
+<li>!ELEMENT note：定义了<code>note</code>元素必须包含以下元素-&gt;”to, from, heading, body”</li>
+<li>!ELEMENT to：定义了<code>to</code>元素的类型为<code>&quot;PCDATA&quot;</code></li>
+<li>!ELEMENT from：定义了<code>from</code>元素的类型为<code>&quot;PCDATA&quot;</code></li>
+<li>!ELEMENT heading：定义了<code>heading</code>元素的类型为<code>&quot;PCDATA&quot;</code></li>
+<li>!ELEMENT body：定义了<code>body</code>元素的类型为<code>&quot;PCDATA&quot;</code></li>
+</ul>
+<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h3><ol>
+<li><p>```xml</p>
+<!DOCTYPE replace [<!ENTITY name "feast"><p> ]&gt;</p>
+ <userInfo>
+  <firstName>falcon</firstName>
+  <lastName>&name;</lastName>
+ </userInfo>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">
+   定义了一个名为&#96;name&#96;的实体，并分配了一个名为&#96;feast&#96;的值给&#96;name&#96;
+
+2) &#96;&#96;&#96;xml
+   &lt;?xml version&#x3D;&quot;1.0&quot;?&gt;
+   &lt;!DOCTYPE root [&lt;!ENTITY read SYSTEM &#39;file:&#x2F;&#x2F;&#x2F;etc&#x2F;passwd&#39;&gt;]&gt;
+   &lt;root&gt;&amp;read&lt;&#x2F;root&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>定义了一个名为<code>read</code>的实体，不同的是，将它的值设置为了<code>SYSTEM</code>和文件路径。如果使用这个payload攻击具有XXE漏洞的网站，那么将会读取并显示服务器内的<code>/etc/passwd</code>文件。</p>
+</li>
+</ol>
+<h3 id="Exploiting"><a href="#Exploiting" class="headerlink" title="Exploiting"></a>Exploiting</h3><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207224039104.png" srcset="/img/loading.gif" lazyload alt="image-20220207224039104"></p>
+<p>获取用户<code>.ssh</code>密钥，因为用户密钥一般存放在<code>/home/username/.ssh/id_rsa</code>里面：</p>
+<p>The <code>.ssh</code> directory will contains (in the home directory of any user) :</p>
+<ul>
+<li><code>authorized_keys</code> : list of public keys allowed to be used to connect to this server</li>
+<li><code>config</code> : optional file with configuration parameters for the SSH client</li>
+<li>the public and private keys you’ve generated on this host for this user.</li>
+<li><code>known_hosts</code> : maintain a list of hosts to which you already connected together with a hash to detect if the host key has changed since the last time.</li>
+</ul>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220207225330570.png" srcset="/img/loading.gif" lazyload alt="image-20220207225330570"></p>
+<h2 id="Broken-Access-Control"><a href="#Broken-Access-Control" class="headerlink" title="Broken Access Control"></a>Broken Access Control</h2><p>网站有一些页面是受保护的，不受普通访问者的访问，例如，只有网站的管理员用户才能访问一个页面来管理其他用户。如果网站访问者能够访问受保护的页面/他们没有被授权查看的页面，则访问控制被破坏。</p>
+<p><img src="https://i.imgur.com/v7GuE3d.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="IDOR-Challenge"><a href="#IDOR-Challenge" class="headerlink" title="IDOR Challenge"></a>IDOR Challenge</h3><p>IDOR ( Insecure Direct Object Reference 不安全的直接对象引用 )，利用用户输入处理的方式中的错误配置来访问通常无法访问的资源。IDOR是一种访问控制漏洞</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220208142608926.png" srcset="/img/loading.gif" lazyload alt="image-20220208142608926"></p>
+<p><img src="C:/Users/zkuan/AppData/Roaming/Typora/typora-user-images/image-20220208142618718.png" srcset="/img/loading.gif" lazyload alt="image-20220208142618718"></p>
+<p>通过修改<code>note</code>参数，访问其他用户页面。</p>
+<h2 id="Security-Misconfiguraion"><a href="#Security-Misconfiguraion" class="headerlink" title="Security Misconfiguraion"></a>Security Misconfiguraion</h2><p>安全配置错误与其他漏洞不同，因为他们发生在可被正确配置但没有正确配置的情况下。</p>
+<p>安全配置错误主要包括：</p>
+<ul>
+<li>云服务器上的权限配置不佳。</li>
+<li>启用不必要的功能，如服务、页面、账户或特权</li>
+<li>密码未修改的默认用户。</li>
+<li>过于详细的报错信息，是攻击者发现更多关于系统的信息。</li>
+<li>不使用HTTPS报头，或在HTTP中透露太多细节。</li>
+</ul>
+<h3 id="Default-Password"><a href="#Default-Password" class="headerlink" title="Default Password"></a>Default Password</h3><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220208144435214.png" srcset="/img/loading.gif" lazyload alt="image-20220208144435214"></p>
+<p>一个网站登录后台，利用弱口令登录，已知为<code>Pensive Notes</code>的后台，Google搜索以下<code>Pensive Notes Default User Password</code>，在Github中获得默认密码</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220208144619142.png" srcset="/img/loading.gif" lazyload alt="image-20220208144619142"></p>
+<h2 id="Cross-SIte-Scripting"><a href="#Cross-SIte-Scripting" class="headerlink" title="Cross-SIte Scripting"></a>Cross-SIte Scripting</h2><p>跨站点脚本，也称为XSS，是web应用程序中常见的一种安全漏洞。它是一种注入类型，允许攻击者执行恶意脚本，并在受害者的机器上执行。XSS可能存在Javascript，VBScript，Flash和CSS中。有三个主要类型的XSS：</p>
+<ol>
+<li>Stored XSS-存储型XSS：最严重的XSS类型，存储在数据库中，长期存在。</li>
+<li>Reflected XSS-反射型XSS：网站将此payload作为用户的响应，需要欺骗用户点击攻击者的payload。</li>
+<li>DOM-Based XSS-DOM型XSS：DOM代表文档对象模型，是HTML和XML文档的编程接口。它表示页面，以便程序可以更改文档的结构、样式和内容。网页是一个文档，这个文档可以在浏览器窗口中显示，也可以作为HTML源文件。</li>
+</ol>
+<h2 id="Insecure-Deserialization"><a href="#Insecure-Deserialization" class="headerlink" title="Insecure Deserialization"></a>Insecure Deserialization</h2><p><img src="https://gitee.com/zku4n/picgo/raw/master/img/deserialization-infographic.jpg" srcset="/img/loading.gif" lazyload alt="Insecure deserialization infographic"></p>
+<p>不安全的反序列化就是用恶意代码替换应用程序处理的数据，允许攻击者进行DDoS甚至RCE。这种恶意payload利用了web应用程序使用的合法序列化和反序列化过程。</p>
+<p>易受攻击点：</p>
+<ul>
+<li>电商平台</li>
+<li>论坛</li>
+<li>应用程序接口(API)</li>
+</ul>
+<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><p>对象是面向对象编程(OOP)的一个重要元素，它由两部分组成：</p>
+<ul>
+<li>状态</li>
+<li>行为</li>
+</ul>
+<h3 id="DeSerialization"><a href="#DeSerialization" class="headerlink" title="DeSerialization"></a>DeSerialization</h3><p>序列化是将编程中使用的对象转换成更简单、兼容的格式，以便在系统或网络之间进行进一步处理或存储的过程。</p>
+<p>反序列化与此相反，将序列化的信息转换为复杂的形式——一个应用可以理解的<strong>对象</strong>。</p>
+<p><img src="https://i.imgur.com/ZB76mLI.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<ul>
+<li>不安全的反序列化发生在来自不受信任方(攻击者)的数据被执行时，因为没有过滤或输入验证，系统认为是可信的，将会执行恶意payload</li>
+</ul>
+<h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p><img src="https://i.imgur.com/QhR7aOX.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>Cookie不是像数据库那样永久存储的解决方案，当浏览器关闭时，一些cookie(如SESSIONID)会被清除，然而其他cookie会持续相当长时间，这是由创建cookie时设置的”过期”计时器决定的。</p>
+<p><em>Some cookies have additional attributes, a small list of these are below:</em></p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Required?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cookie Name</td>
+<td>The Name of the Cookie to be set</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Cookie Value</td>
+<td>Value, this can be anything plaintext or encoded</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Secure Only</td>
+<td>If set, this cookie will only be set over HTTPS connections</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Expiry</td>
+<td>Set a timestamp where the cookie will be removed from the browser</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>The cookie will only be sent if the specified URL is within the request</td>
+<td>No</td>
+</tr>
+</tbody></table>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220209112849629.png" srcset="/img/loading.gif" lazyload alt="image-20220209112849629"></p>
+<p>获取cookie，发现sessionid为base64编码，解码获得flag。</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220209113004094.png" srcset="/img/loading.gif" lazyload alt="image-20220209113004094"></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220209113101060.png" srcset="/img/loading.gif" lazyload alt="image-20220209113101060"></p>
+<p>修改userType为admin，访问admin路径，成功获得admin后台。</p>
+<h3 id="Code-Execution"><a href="#Code-Execution" class="headerlink" title="Code Execution"></a>Code Execution</h3><p>访问<a target="_blank" rel="noopener" href="http://ip/myprofile">http://IP/myprofile</a></p>
+<p>点击”Exhange your vim”</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220209113452483.png" srcset="/img/loading.gif" lazyload alt="image-20220209113452483"></p>
+<p>编写payload</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220210172216672.png" srcset="/img/loading.gif" lazyload alt="image-20220210172216672"></p>
+<p>将编码出来的payload复制到<code>encodePayload</code></p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220210172337154.png" srcset="/img/loading.gif" lazyload alt="image-20220210172337154"></p>
+<p>开启nc监听并访问<code>Provide your</code></p>
+<p>成功getshell</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220210172454178.png" srcset="/img/loading.gif" lazyload alt="image-20220210172454178"></p>
+<h2 id="Components-With-Known-Vulnerabilities"><a href="#Components-With-Known-Vulnerabilities" class="headerlink" title="Components With Known Vulnerabilities"></a>Components With Known Vulnerabilities</h2><p>有的公司的程序可能已经存在一个已知的漏洞，假设一家公司已经有几年没有更新他们的 WordPress 版本了，使用 wpscan 这样的工具，你发现它是4.6版本。快速研究一下就会发现 WordPress 4.6很容易被未经身份验证的远程代码执行(RCE)漏洞攻击，更好的是，你可以找到一个已经在exploit-db 上被利用的漏洞。</p>
+<h3 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h3><p>由于是已知漏洞，因此我们需要分析网站信息，找出web应用程序中的信息及版本，利用相关exp进行渗透。</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220210174523372.png" srcset="/img/loading.gif" lazyload alt="image-20220210174523372"></p>
+<p>当我们访问这样的网站，已知网站使用了名为<code>Bookstore</code>的CMS来搭建的，利用<code>exploit-db</code>搜索相关漏洞</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220210174939896.png" srcset="/img/loading.gif" lazyload alt="image-20220210174939896"></p>
+<p>找到一个RCE漏洞，下载下来并执行</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220210175146406.png" srcset="/img/loading.gif" lazyload alt="image-20220210175146406"></p>
+<p>成功getshell。</p>
+<h2 id="Insufficient-Loggin-and-Monitoring"><a href="#Insufficient-Loggin-and-Monitoring" class="headerlink" title="Insufficient Loggin and Monitoring"></a>Insufficient Loggin and Monitoring</h2><p>当 web 应用程序设置好后，用户执行的每个操作都应该被记录下来。日志记录非常重要，因为在发生事件时，可以跟踪攻击者的操作。一旦他们的行为被追踪，他们的风险和影响就可以被确定。如果没有日志记录，就不可能知道攻击者在获得访问特定 web 应用程序的权限时执行了哪些操作。</p>
+<p>日志中存储的信息包括：</p>
+<ul>
+<li>HTTP状态码</li>
+<li>时间戳</li>
+<li>用户名</li>
+<li>API 端点/页面位置</li>
+<li>IP地址</li>
+</ul>
+<p>攻击行为的常见例子：</p>
+<ul>
+<li>多次未经授权的尝试(通常是尝试验证或访问未经授权的资源，例如管理页面)</li>
+<li>来自异常IP地址或位置的请求:虽然这可能表明有人试图访问特定用户的帐户，但它也可能误报。</li>
+<li>使用自动化工具: 特定的自动化工具可以很容易识别，例如使用 User-Agent 头的值或请求的速度。这可以表明攻击者正在使用自动化工具。</li>
+<li>常见有效载荷: 在 web 应用程序中，攻击者常常使用跨网站脚本/服务器(XSS)有效载荷。检测这些有效载荷的使用可以表明有人正在对应用程序进行未经授权/恶意的测试。</li>
+</ul>
+<h3 id="Practical-3"><a href="#Practical-3" class="headerlink" title="Practical"></a>Practical</h3><p>分析简单日志</p>
+<p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220210181835467.png" srcset="/img/loading.gif" lazyload alt="image-20220210181835467"></p>
+<p>我们发现IP为<code>49.99.13.16</code>的用户尝试多次未授权访问管理员账户，并且通过不断变换的用户名，我们可以猜测攻击者正在枚举用户名和密码进行登录。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WebSec/">WebSec</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Web/">Web</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Security/">Security</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/22/JsonWebToken-JWT/">
+                        <span class="hidden-mobile">JsonWebToken(JWT)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
