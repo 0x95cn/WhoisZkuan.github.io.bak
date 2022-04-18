@@ -208,7 +208,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.1k 字
     </span>
   
 
@@ -217,7 +217,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10 分钟
+      9 分钟
     </span>
   
 
@@ -289,23 +289,23 @@
 <li>URL编码、替换回车换行为<code>%0d%0a</code></li>
 <li>发送Gopher协议</li>
 </ol>
-<h3 id="GET型HTTP"><a href="#GET型HTTP" class="headerlink" title="GET型HTTP"></a>GET型HTTP</h3><div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">GET &#x2F;ssrf&#x2F;base&#x2F;get.php?name&#x3D;zkuan HTTP&#x2F;1.1
-Host:192.168.1.111<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<h3 id="GET型HTTP"><a href="#GET型HTTP" class="headerlink" title="GET型HTTP"></a>GET型HTTP</h3><div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">GET</span> <span class="token request-target url">/ssrf/base/get.php?name=zkuan</span> <span class="token http-version property">HTTP/1.1</span></span>
+<span class="token header-name keyword">Host:</span>192.168.1.111<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
 
 
 <p>URL编码后使用curl发送HTTP包：</p>
-<div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher:&#x2F;&#x2F;192.168.1.122&#x2F;_GET%20&#x2F;ssrf&#x2F;base&#x2F;get.php%3fname&#x3D;zkuan%20HTTP&#x2F;1.1%0d%0aHost:192.168.1.111%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher://192.168.1.122/_GET%20/ssrf/base/get.php%3fname=zkuan%20HTTP/1.1%0d%0aHost:192.168.1.111%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
-<h3 id="POST型HTTP"><a href="#POST型HTTP" class="headerlink" title="POST型HTTP"></a>POST型HTTP</h3><div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">POST &#x2F;ssrf&#x2F;base&#x2F;post.php HTTP&#x2F;1.1
-Host:192.168.1.111
-Content-Type:application&#x2F;x-www-form-urlencoded
-Content-Length:11
+<h3 id="POST型HTTP"><a href="#POST型HTTP" class="headerlink" title="POST型HTTP"></a>POST型HTTP</h3><div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token request-line"><span class="token method property">POST</span> <span class="token request-target url">/ssrf/base/post.php</span> <span class="token http-version property">HTTP/1.1</span></span>
+<span class="token header-name keyword">Host:</span>192.168.1.111
+<span class="token header-name keyword">Content-Type:</span>application/x-www-form-urlencoded
+<span class="token header-name keyword">Content-Length:</span>11
 
-name&#x3D;zkuan<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+name=zkuan<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>URL编码后使用curl发送HTTP包：</p>
-<div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher:&#x2F;&#x2F;192.168.1.122&#x2F;_POST%20&#x2F;ssrf&#x2F;base&#x2F;post.php%20HTTP&#x2F;1.1%0d%0aHost:192.168.1.111%0d%0aContent-Type:application&#x2F;x-www-form-urlencoded%0d%0aContent-Length:11%0d%0a%0d%0aname&#x3D;zkuan%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-http" data-language="http"><code class="language-http">curl gopher://192.168.1.122/_POST%20/ssrf/base/post.php%20HTTP/1.1%0d%0aHost:192.168.1.111%0d%0aContent-Type:application/x-www-form-urlencoded%0d%0aContent-Length:11%0d%0a%0d%0aname=zkuan%0d%0a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 
             </div>

